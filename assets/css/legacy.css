@@ -134,12 +134,95 @@ body {
   box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
-/* Progress Ring (Future implementation hook) */
-.progress-container {
-  background: rgba(0,0,0,0.03);
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 20px;
+/* ==============================
+   Progress Ring (Circular)
+   ============================== */
+.progress-ring-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.5s ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.progress-ring__text {
+  position: absolute;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-ring__percent {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.progress-ring__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* ==============================
+   Hero Section
+   ============================== */
+.phase-hero {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-bottom: -20px; /* Pull card up */
+  z-index: 1;
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.phase-hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+  border-radius: inherit;
+}
+
+/* Adjust phase card to overlap hero if present */
+.phase-card.has-hero {
+  margin-top: -40px;
+  padding-top: 60px;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.85); /* Slightly more opaque */
+}
+
+/* ==============================
+   Confetti Animation
+   ============================== */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #f2d74e;
+  opacity: 0;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
 
 /* Layout Refinements */

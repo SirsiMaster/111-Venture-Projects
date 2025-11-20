@@ -122,7 +122,23 @@ class LegacyApp {
             this.renderGuidedPath();
             this.renderTaskList(); // Update master list too
             
-            // Visual feedback could go here (confetti, toast)
+            // Visual feedback: Confetti
+            this.triggerConfetti();
+        }
+    }
+
+    triggerConfetti() {
+        const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'];
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animation = `confetti-fall ${Math.random() * 2 + 3}s linear`;
+            document.body.appendChild(confetti);
+            
+            // Cleanup
+            setTimeout(() => confetti.remove(), 5000);
         }
     }
 
@@ -164,22 +180,60 @@ class LegacyApp {
         const tasks = this.getPhaseTasks(currentPhase.id);
         const currentStepNum = tasks.indexOf(activeTask) + 1;
         const totalSteps = tasks.length;
+        const progressPercent = this.getPhaseProgress(currentPhase.id);
+        
+        // Phase-specific Hero Gradients
+        const heroGradients = {
+            'p1': 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)', // Sunset
+            'p2': 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', // Morning
+            'p3': 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', // Ethereal
+            'p4': 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', // Gold
+            'p5': 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'  // Deep
+        };
+        const heroBg = heroGradients[currentPhase.id] || heroGradients['p1'];
+
+        // SVG Progress Ring Math
+        const radius = 52;
+        const circumference = 2 * Math.PI * radius;
+        const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
         let content = `
-            <div class="phase-card">
+            <div class="phase-hero" style="background: ${heroBg};">
+                <div class="phase-hero-overlay"></div>
+            </div>
+            <div class="phase-card has-hero" style="text-align:center;">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle
+                            class="progress-ring__circle-bg"
+                            stroke="rgba(0,0,0,0.1)"
+                            stroke-width="8"
+                            fill="transparent"
+                            r="${radius}"
+                            cx="60"
+                            cy="60"
+                        />
+                        <circle
+                            class="progress-ring__circle"
+                            stroke="var(--accent-blue)"
+                            stroke-width="8"
+                            stroke-linecap="round"
+                            fill="transparent"
+                            r="${radius}"
+                            cx="60"
+                            cy="60"
+                            style="stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${strokeDashoffset};"
+                        />
+                    </svg>
+                    <div class="progress-ring__text">
+                        <span class="progress-ring__percent">${progressPercent}%</span>
+                        <span class="progress-ring__label">Complete</span>
+                    </div>
+                </div>
+
                 <span class="phase-badge">Current Phase</span>
                 <h1 class="phase-title">${currentPhase.title}</h1>
                 <p class="phase-desc">${currentPhase.description}</p>
-                
-                <div class="progress-container">
-                    <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--sm-gray-500); font-weight:600;">
-                        <span>${this.getPhaseProgress(currentPhase.id)}% Complete</span>
-                        <span>${tasks.filter(t => t.status === 'completed').length} of ${totalSteps} tasks</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: ${this.getPhaseProgress(currentPhase.id)}%"></div>
-                    </div>
-                </div>
             </div>
         `;
 

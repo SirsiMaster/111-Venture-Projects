@@ -182,7 +182,7 @@ class LegacyApp {
         const totalSteps = tasks.length;
         const progressPercent = this.getPhaseProgress(currentPhase.id);
         
-        // Phase-specific Hero Gradients - Dark/Neon
+        // Phase-specific Hero Gradients
         const heroGradients = {
             'p1': 'linear-gradient(135deg, #2b5876 0%, #4e4376 100%)', // Deep Space
             'p2': 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)', // Deep Teal
@@ -198,110 +198,82 @@ class LegacyApp {
         const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
         let content = `
-            <div class="phase-hero" style="background: ${heroBg};">
-                <div class="phase-hero-overlay"></div>
-            </div>
-            <div class="phase-card has-hero" style="text-align:center;">
-                <div class="progress-ring-container">
-                    <svg class="progress-ring" width="120" height="120">
-                        <circle
-                            class="progress-ring__circle-bg"
-                            stroke="rgba(0,0,0,0.1)"
-                            stroke-width="8"
-                            fill="transparent"
-                            r="${radius}"
-                            cx="60"
-                            cy="60"
-                        />
-                        <circle
-                            class="progress-ring__circle"
-                            stroke="var(--accent-blue)"
-                            stroke-width="8"
-                            stroke-linecap="round"
-                            fill="transparent"
-                            r="${radius}"
-                            cx="60"
-                            cy="60"
-                            style="stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${strokeDashoffset};"
-                        />
+            <div class="guided-hero">
+                <div class="guided-progress-ring">
+                    <svg class="progress-ring" width="180" height="180" viewBox="0 0 120 120">
+                        <circle stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="${radius}" cx="60" cy="60" />
+                        <circle stroke="var(--tint-blue)" stroke-width="8" stroke-linecap="round" fill="transparent" r="${radius}" cx="60" cy="60" 
+                                style="stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${strokeDashoffset}; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.6s ease;" />
                     </svg>
-                    <div class="progress-ring__text">
-                        <span class="progress-ring__percent">${progressPercent}%</span>
-                        <span class="progress-ring__label">Complete</span>
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">
+                        <span style="font-size: 32px; font-weight: 700; color: white;">${progressPercent}%</span>
+                        <span style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase;">${currentPhase.title}</span>
                     </div>
                 </div>
-
-                <span class="phase-badge">Current Phase</span>
-                <h1 class="phase-title">${currentPhase.title}</h1>
-                <p class="phase-desc">${currentPhase.description}</p>
             </div>
         `;
 
         if (activeTask) {
-            // Determine Automation Button
+            // Automation Button Logic
             let automationHtml = '';
             if (activeTask.automation) {
                 automationHtml = `
-                    <button id="btn-auto-${activeTask.id}" 
-                            class="sm-btn sm-btn-primary sm-mb-md" 
-                            style="width:100%; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; font-weight:700; border:none; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);"
-                            onclick="app.simulateAutomation('${activeTask.id}')">
-                        ✨ Legacy Concierge: ${activeTask.automation.label}
-                    </button>
-                    <div style="text-align:center; font-size:12px; color:var(--sm-gray-500); margin-bottom:16px;">
-                        or do it yourself below
+                    <div class="ios-card" style="background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%); border: 1px solid rgba(255,215,0,0.2);">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                            <i class="ph-fill ph-sparkle" style="color: var(--status-warning); font-size: 24px;"></i>
+                            <span style="font-size:17px; font-weight:600; color:white;">Concierge Service Available</span>
+                        </div>
+                        <p class="ios-card-body" style="margin-bottom:16px;">We can handle <strong>${activeTask.automation.label}</strong> for you instantly.</p>
+                        <button id="btn-auto-${activeTask.id}" class="ios-btn" style="background: var(--status-warning); color: black;" onclick="app.simulateAutomation('${activeTask.id}')">
+                            Do it for me
+                        </button>
                     </div>
                 `;
             }
 
             content += `
-                <div class="step-card">
-                    <div class="step-header">
-                        <span class="step-counter">Step ${currentStepNum} of ${totalSteps}</span>
-                        <div class="sm-badge sm-badge-${activeTask.priority === 'Critical' ? 'danger' : 'warning'}">${activeTask.priority} Priority</div>
-                    </div>
-                    
-                    <div class="step-content">
-                        <h2 class="step-title">${activeTask.title}</h2>
-                        
-                        <div class="step-section">
-                            <p class="step-text">${activeTask.description}</p>
-                        </div>
+                ${automationHtml}
 
-                        <!-- Automation Option -->
-                        ${automationHtml}
+                <div class="ios-large-title" style="padding-bottom:0;">
+                    <span style="font-size: 13px; font-weight: 600; color: var(--tint-blue); text-transform: uppercase; letter-spacing: 0.05em;">Step ${currentStepNum} of ${totalSteps}</span>
+                    <h1 style="font-size: 28px; margin-top: 4px;">${activeTask.title}</h1>
+                </div>
 
-                        <div class="step-section">
-                            <div class="step-section-label">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                                Why This Matters
-                            </div>
-                            <p class="step-text" style="color:var(--sm-gray-600); font-size:15px;">${activeTask.whyItMatters}</p>
-                        </div>
+                <div class="ios-card">
+                    <p class="ios-card-body" style="color: var(--text-primary); margin:0;">${activeTask.description}</p>
+                </div>
 
-                        <div class="step-section">
-                            <div class="step-section-label">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                                How To Do It
-                            </div>
-                            <ul style="margin:0; padding-left:20px; line-height:1.6; color:var(--legacy-text-primary);">
-                                ${activeTask.howTo ? activeTask.howTo.map(step => `<li>${step}</li>`).join('') : `<li>${activeTask.whatYouNeed}</li>`}
-                            </ul>
+                <div style="padding: 0 16px 8px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase;">Why This Matters</div>
+                <div class="ios-list-group">
+                    <div class="ios-list-item" style="cursor: default;">
+                        <div class="ios-content">
+                            <div class="ios-body" style="font-size: 15px; line-height: 1.5; color: var(--text-primary);">${activeTask.whyItMatters}</div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="step-actions">
-                        <button class="sm-btn sm-btn-secondary" onclick="alert('Skipped for now')">Do Later</button>
-                        <button class="sm-btn sm-btn-outline" onclick="app.completeTask('${activeTask.id}')">Mark as Done</button>
-                    </div>
+                <div style="padding: 0 16px 8px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase;">Action Items</div>
+                <div class="ios-list-group">
+                    ${(activeTask.howTo || [activeTask.whatYouNeed]).map((step, i) => `
+                        <div class="ios-list-item">
+                            <div style="width: 24px; height: 24px; background: #333; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; margin-right:12px;">${i+1}</div>
+                            <div class="ios-content" style="font-size: 15px;">${step}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div style="padding: 16px;">
+                    <button class="ios-btn" onclick="app.completeTask('${activeTask.id}')">Mark Step as Complete</button>
+                    <button class="ios-btn ios-btn-secondary" style="background: transparent; color: var(--text-secondary);" onclick="alert('Skipped')">Skip for now</button>
                 </div>
             `;
         } else {
             content += `
-                <div class="step-card" style="text-align:center; padding:40px;">
-                    <h2 class="step-title">Phase Complete</h2>
-                    <p class="step-text">You have completed all tasks in the ${currentPhase.title} phase.</p>
-                    <button class="sm-btn sm-btn-success sm-mt-lg" onclick="alert('Moving to next phase...')">Start Next Phase</button>
+                <div class="ios-card" style="text-align:center; padding: 40px;">
+                    <i class="ph-fill ph-check-circle" style="font-size: 48px; color: var(--status-success); margin-bottom: 16px;"></i>
+                    <h2 class="ios-card-title">Phase Complete</h2>
+                    <p class="ios-card-body">You have completed all tasks in ${currentPhase.title}.</p>
+                    <button class="ios-btn" onclick="alert('Next Phase')">Start Next Phase</button>
                 </div>
             `;
         }
@@ -321,30 +293,47 @@ class LegacyApp {
 
     renderTaskList() {
         const container = document.getElementById('tasks-list');
-        // Group tasks by Phase for better reading
         let content = '';
         
         this.state.phases.forEach(phase => {
             const phaseTasks = this.getPhaseTasks(phase.id);
             if (phaseTasks.length > 0) {
-                content += `<h3 style="margin: 24px 0 12px 0; padding-left: 8px; border-left: 4px solid ${phase.color || '#ccc'};">${phase.title}</h3>`;
+                content += `<div style="padding: 24px 16px 8px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: -0.01em;">${phase.title}</div>`;
+                content += `<div class="ios-list-group">`;
                 
                 phaseTasks.forEach(task => {
                     const isDone = task.status === 'completed';
                     content += `
-                        <div class="sm-card sm-mb-sm" style="opacity: ${isDone ? 0.6 : 1}; display:flex; align-items:center; padding:16px;">
-                            <div style="flex:1;">
-                                <div style="font-weight:600; text-decoration: ${isDone ? 'line-through' : 'none'}">${task.title}</div>
-                                <div style="font-size:12px; color:var(--sm-gray-500);">${task.estimatedTime} • ${task.priority}</div>
+                        <div class="ios-list-item" onclick="app.toggleTask('${task.id}')">
+                            <div class="ios-content">
+                                <div class="ios-title" style="${isDone ? 'text-decoration: line-through; color: var(--text-secondary);' : ''}">${task.title}</div>
+                                <div class="ios-subtitle">${task.estimatedTime || '15 mins'}</div>
                             </div>
-                            ${isDone ? '<span class="sm-badge sm-badge-success">Done</span>' : ''}
+                            <div class="ios-checkbox ${isDone ? 'checked' : ''}"></div>
                         </div>
                     `;
                 });
+                
+                content += `</div>`; // End list-group
             }
         });
 
         container.innerHTML = content;
+    }
+
+    toggleTask(taskId) {
+        const task = this.state.tasks.find(t => t.id === taskId);
+        if (task) {
+            if (task.status === 'completed') {
+                task.status = 'pending';
+            } else {
+                task.status = 'completed';
+                this.triggerConfetti();
+            }
+            this.saveState();
+            this.renderTaskList();
+            this.renderGuidedPath();
+        }
     }
 
     // --- PWA Support ---

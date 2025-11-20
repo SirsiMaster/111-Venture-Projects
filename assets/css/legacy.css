@@ -1,47 +1,43 @@
-/* Legacy - "Dark Molten" Design System */
+/* Legacy - iOS 18 "Titanium" Design System */
 
 :root {
   /* Typography - Apple System Stack */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   
-  /* Palette - "Dark Nebula" Theme */
+  /* Palette - "Midnight Titanium" Theme */
   --bg-base: #000000;
-  --text-primary: rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.6);
-  --text-tertiary: rgba(255, 255, 255, 0.4);
+  --bg-secondary: #1C1C1E; /* iOS grouped table view bg */
+  --bg-tertiary: #2C2C2E;
   
-  /* Brand Colors - Bioluminescent */
-  --accent-blue: #2997FF;
-  --accent-cyan: #30D5C8;
-  --accent-gold: #FFD60A;
-  --accent-purple: #BF5AF2;
+  --text-primary: #FFFFFF;
+  --text-secondary: #EBEBF599; /* ~60% white */
+  --text-tertiary: #EBEBF54D;  /* ~30% white */
   
-  /* Status Colors - Glowing */
-  --status-success: #32D74B;
+  /* Apple Tints */
+  --tint-blue: #0A84FF;
+  --tint-cyan: #64D2FF;
+  --tint-indigo: #5E5CE6;
+  --tint-pink: #FF375F;
+  --tint-teal: #30B0C7;
+  
+  /* Status */
+  --status-success: #30D158;
   --status-warning: #FFD60A;
   --status-danger: #FF453A;
-  
-  /* Molten Glass Variables */
-  --glass-bg: rgba(30, 30, 35, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shine: rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  --glass-blur: 40px;
-  
-  /* Glows */
-  --glow-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-  --glow-outer: 0 0 20px rgba(41, 151, 255, 0.15);
 
-  /* Metrics */
-  --radius-card: 28px;
-  --radius-btn: 16px;
-  --radius-full: 999px;
-  --header-height: 60px;
-  --sidebar-width: 280px;
-  --bottom-nav-height: 84px;
+  /* Glass */
+  --glass-bar: rgba(30, 30, 30, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  
+  /* Dimensions */
+  --header-height: 44px; /* Standard iOS Nav Bar */
+  --sidebar-width: 320px; /* Standard iPad split view */
+  --bottom-nav-height: 83px;
+  --radius-default: 12px;
+  --radius-large: 20px;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
   background: var(--bg-base);
@@ -50,561 +46,335 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* App shell handles scroll */
+  overflow: hidden;
   height: 100vh;
   width: 100vw;
 }
 
 /* ==============================
-   The "Dark Nebula" Background
-   ============================== */
-.app-shell::before {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(41, 151, 255, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(191, 90, 242, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(50, 50, 60, 1) 0%, #000000 100%);
-  filter: blur(60px);
-  animation: nebula 30s infinite alternate ease-in-out;
-  z-index: -1;
-  pointer-events: none;
-}
-
-@keyframes nebula {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-
-/* ==============================
-   App Shell Layout (Grid)
+   App Layout (iPadOS Split View)
    ============================== */
 .app-shell {
   display: flex;
   height: 100vh;
   width: 100vw;
-  position: relative;
-  overflow: hidden;
+  background: black;
 }
 
-/* Desktop Sidebar - Dark Glass */
+/* Sidebar */
 .app-nav--desktop {
   width: var(--sidebar-width);
-  background: rgba(20, 20, 25, 0.6);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
-  border-right: 1px solid var(--glass-border);
+  background: #000000;
+  border-right: 0.5px solid #333;
   display: flex;
   flex-direction: column;
-  padding: 40px 24px;
-  z-index: 10;
+  padding: 20px 16px;
+  z-index: 20;
 }
 
 .app-logo {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 700;
   color: white;
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 48px;
-  padding-left: 12px;
+  gap: 10px;
+  padding: 0 12px;
+  margin-bottom: 24px;
   letter-spacing: -0.02em;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .nav-links {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  color: var(--text-secondary);
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text-primary);
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-size: 17px;
+  font-weight: 400;
+  transition: background 0.2s;
   cursor: pointer;
-  border: 1px solid transparent;
 }
 
-.nav-link:hover {
-  background: rgba(255,255,255,0.05);
-  color: white;
-  transform: translateX(4px);
+.nav-link i {
+  font-size: 22px;
+  color: var(--tint-blue);
+  width: 24px;
+  text-align: center;
 }
+
+.nav-link:hover { background: #1C1C1E; }
+.nav-link:active { background: #2C2C2E; opacity: 0.7; }
 
 .nav-link.active {
-  background: rgba(41, 151, 255, 0.15);
-  border: 1px solid rgba(41, 151, 255, 0.3);
-  color: white;
+  background: #1C1C1E;
   font-weight: 600;
-  box-shadow: 0 0 20px rgba(41, 151, 255, 0.1);
 }
 
-/* Main Content Area */
+.nav-divider {
+  height: 24px;
+}
+
+/* Main Content (Secondary View) */
 .app-main {
   flex: 1;
+  background: black; /* Inset Grouped looks best on black */
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
 }
 
-/* Header */
+/* ==============================
+   iOS Navigation Bar
+   ============================== */
 .app-header {
   height: var(--header-height);
-  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 5;
+  padding: 0 16px;
+  /* Glass Effect */
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid rgba(255,255,255,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.header-title {
+.header-title-inline {
   font-size: 17px;
   font-weight: 600;
-  color: var(--text-tertiary);
-  opacity: 0; 
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0; /* Hidden until scroll passes large title */
+  transition: opacity 0.2s ease;
 }
 
-/* View Container */
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--tint-blue);
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon-btn:active { opacity: 0.5; }
+
+/* ==============================
+   View Container & Typography
+   ============================== */
 .view-container {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 40px 40px 40px;
-  scroll-behavior: smooth;
+  padding: 0; /* Full width */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Mobile Handling */
-.app-nav--mobile {
-  display: none;
+.ios-large-title {
+  padding: 16px 16px 8px 16px;
 }
+
+.ios-large-title h1 {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: white;
+}
+
+/* ==============================
+   iOS Inset Grouped Lists
+   ============================== */
+.ios-list-group {
+  margin: 0 16px 24px 16px;
+  border-radius: 10px;
+  background: #1C1C1E;
+  overflow: hidden;
+}
+
+.ios-list-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #1C1C1E;
+  border-bottom: 0.5px solid #38383A;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 44px;
+}
+
+.ios-list-item:last-child { border-bottom: none; }
+.ios-list-item:active { background: #2C2C2E; }
+
+.ios-content { flex: 1; margin-right: 8px; }
+
+.ios-title {
+  font-size: 17px;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.ios-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ios-chevron {
+  color: var(--text-tertiary);
+  font-size: 16px;
+}
+
+/* Task Specific Styles within iOS List */
+.task-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ios-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+}
+
+.ios-checkbox.checked {
+  background: var(--tint-blue);
+  border-color: var(--tint-blue);
+}
+
+.ios-checkbox.checked::after {
+  content: '';
+  position: absolute;
+  top: 5px; left: 4px;
+  width: 10px; height: 5px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+}
+
+/* ==============================
+   Shepherd / Guided Path Cards
+   ============================== */
+.guided-hero {
+  padding: 20px 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.guided-progress-ring {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 20px;
+}
+
+.ios-card {
+  background: #1C1C1E;
+  border-radius: 12px;
+  margin: 0 16px 24px 16px;
+  padding: 20px;
+}
+
+.ios-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ios-card-body {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Buttons */
+.ios-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--tint-blue);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.ios-btn:active { opacity: 0.7; transform: scale(0.98); }
+.ios-btn-secondary { background: #2C2C2E; color: var(--tint-blue); }
+
+/* ==============================
+   Mobile Tab Bar
+   ============================== */
+.app-nav--mobile { display: none; }
 
 @media (max-width: 768px) {
-  .app-shell { flex-direction: column; }
   .app-nav--desktop { display: none; }
-  .app-main { width: 100%; height: 100%; padding-bottom: var(--bottom-nav-height); }
-  .view-container { padding: 20px; }
-  .app-header { padding: 0 20px; height: 50px; }
-
+  .app-main { padding-bottom: var(--bottom-nav-height); }
+  
   .app-nav--mobile {
     display: flex;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: 0; left: 0; right: 0;
     height: var(--bottom-nav-height);
-    background: rgba(20, 20, 25, 0.8);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border-top: 1px solid var(--glass-border);
-    z-index: 100;
+    background: rgba(30,30,30,0.9);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-top: 0.5px solid rgba(255,255,255,0.15);
     justify-content: space-around;
-    align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 20px; /* Safe area */
+    z-index: 1000;
   }
 
   .mobile-tab {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     font-size: 10px;
     font-weight: 500;
-    width: 60px;
-    cursor: pointer;
-    transition: all 0.2s;
+    gap: 4px;
   }
-
-  .mobile-tab svg { width: 24px; height: 24px; stroke-width: 2px; }
-
-  .mobile-tab.active { color: var(--accent-blue); text-shadow: 0 0 10px rgba(41, 151, 255, 0.5); }
+  
+  .mobile-tab i { font-size: 24px; margin-bottom: 2px; }
+  .mobile-tab.active { color: var(--tint-blue); }
 }
 
 /* ==============================
-   View Switching Logic
+   Animations (View Transitions)
    ============================== */
 .app-view {
-  display: none; 
-  max-width: 800px;
-  margin: 0 auto;
-  animation: floatIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  display: none;
+  animation: iosSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .app-view.active { display: block; }
 
-@keyframes floatIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ==============================
-   Molten Glass Cards
-   ============================== */
-.phase-card, .step-card, .domain-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glow-inner);
-  border-radius: var(--radius-card);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-  overflow: hidden;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-/* Glossy Sheen Gradient Overlay */
-.phase-card::after, .step-card::after, .domain-card::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 50%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
-  pointer-events: none;
-}
-
-.phase-card { padding: 40px; }
-.step-card { padding: 40px; }
-
-/* Hover Levitate & Glow */
-.step-card:hover, .domain-card:hover {
-  transform: translateY(-6px) scale(1.005);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 0 20px rgba(255,255,255,0.05);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* ==============================
-   Typography
-   ============================== */
-.phase-title {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: white;
-  margin: 0 0 12px 0;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.phase-desc {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  font-weight: 400;
-  margin: 0;
-  max-width: 600px;
-}
-
-.step-counter {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent-blue);
-  margin-bottom: 12px;
-  display: block;
-  text-shadow: 0 0 10px rgba(41, 151, 255, 0.4);
-}
-
-.step-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.step-title {
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0 0 20px 0;
-  color: white;
-}
-
-.step-text {
-  font-size: 17px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-/* Section Labels */
-.step-section {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.step-section-label {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-tertiary);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ==============================
-   Neon Buttons
-   ============================== */
-.sm-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 28px;
-  border-radius: var(--radius-btn);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  gap: 8px;
-}
-
-.sm-btn:active { transform: scale(0.96); }
-
-.sm-btn-primary {
-  background: var(--accent-blue);
-  color: white;
-  box-shadow: 0 0 20px rgba(41, 151, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.sm-btn-primary:hover {
-  background: #40a0ff;
-  box-shadow: 0 0 30px rgba(41, 151, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
-}
-
-.sm-btn-secondary {
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.sm-btn-secondary:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.1);
-}
-
-.sm-btn-outline {
-  background: transparent;
-  border: 1px solid var(--accent-blue);
-  color: var(--accent-blue);
-  box-shadow: 0 0 10px rgba(41, 151, 255, 0.1);
-}
-
-.sm-btn-outline:hover {
-  background: rgba(41, 151, 255, 0.1);
-  box-shadow: 0 0 15px rgba(41, 151, 255, 0.3);
-}
-
-.sm-btn-success {
-  background: var(--status-success);
-  color: black;
-  box-shadow: 0 0 20px rgba(50, 215, 75, 0.4);
-}
-
-.sm-btn-disabled { opacity: 0.5; pointer-events: none; }
-.step-actions { display: flex; gap: 16px; margin-top: 48px; justify-content: flex-end; }
-
-/* Badges - Glowing */
-.sm-badge {
-  display: inline-flex;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid transparent;
-}
-
-.sm-badge-danger { background: rgba(255, 69, 58, 0.15); color: var(--status-danger); border-color: rgba(255, 69, 58, 0.3); box-shadow: 0 0 10px rgba(255, 69, 58, 0.2); }
-.sm-badge-warning { background: rgba(255, 214, 10, 0.15); color: var(--status-warning); border-color: rgba(255, 214, 10, 0.3); box-shadow: 0 0 10px rgba(255, 214, 10, 0.2); }
-.sm-badge-success { background: rgba(50, 215, 75, 0.15); color: var(--status-success); border-color: rgba(50, 215, 75, 0.3); box-shadow: 0 0 10px rgba(50, 215, 75, 0.2); }
-
-/* ==============================
-   Progress Ring (Glowing)
-   ============================== */
-.progress-ring-container {
-  position: relative;
-  width: 160px;
-  height: 160px;
-  margin: 0 auto 32px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 0 15px rgba(41, 151, 255, 0.3));
-}
-
-.progress-ring__circle {
-  transition: stroke-dashoffset 1s cubic-bezier(0.22, 1, 0.36, 1);
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.progress-ring__circle-bg { stroke: rgba(255,255,255,0.08); }
-
-.progress-ring__text {
-  position: absolute;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.progress-ring__percent {
-  font-size: 42px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
-
-.progress-ring__label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 4px;
-}
-
-/* ==============================
-   Hero Section (Gradient Masks)
-   ============================== */
-.phase-hero {
-  width: 100%;
-  height: 240px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  margin-bottom: -60px;
-  z-index: 1;
-  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-  opacity: 0.8;
-}
-
-.phase-hero-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6));
-}
-
-.phase-card.has-hero {
-  margin-top: 0;
-  padding-top: 60px;
-  position: relative;
-  z-index: 2;
-}
-
-/* ==============================
-   Confetti Animation (Bright)
-   ============================== */
-.confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  z-index: 1000;
-  box-shadow: 0 0 10px currentColor;
-}
-
-@keyframes confetti-fall {
-  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* ==============================
-   Domains Grid & Tasks
-   ============================== */
-.domains-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
-  padding-bottom: 40px;
-}
-
-.domain-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-  margin-bottom: 0;
-  height: 180px;
-  background: rgba(255, 255, 255, 0.03);
-  cursor: pointer;
-}
-
-.domain-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
-}
-
-.domain-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: white;
-}
-
-.task-item {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px;
-  padding: 16px 20px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.2s;
-}
-
-.task-item:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.1);
-  transform: scale(1.01);
-}
-
-.task-item.done .task-title {
-  text-decoration: line-through;
-  color: var(--text-tertiary);
-}
-
-.task-checkbox {
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--text-tertiary);
-  border-radius: 50%;
-  margin-right: 16px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.task-item.done .task-checkbox {
-  background: var(--status-success);
-  border-color: var(--status-success);
-  box-shadow: 0 0 10px var(--status-success);
+@keyframes iosSlideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }

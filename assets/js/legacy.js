@@ -224,11 +224,11 @@ class LegacyApp {
                     <svg class="progress-ring" width="180" height="180" viewBox="0 0 120 120">
                         <circle stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="${radius}" cx="60" cy="60" />
                         <circle stroke="var(--tint-blue)" stroke-width="8" stroke-linecap="round" fill="transparent" r="${radius}" cx="60" cy="60" 
-                                style="stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${strokeDashoffset}; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.6s ease;" />
+                                style="stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${strokeDashoffset}; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.6s ease; filter: drop-shadow(0 0 10px var(--tint-blue));" />
                     </svg>
                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">
-                        <span style="font-size: 32px; font-weight: 700; color: white;">${progressPercent}%</span>
-                        <span style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase;">${currentPhase.title}</span>
+                        <span style="font-size: 40px; font-weight: 800; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">${progressPercent}%</span>
+                        <span style="font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">${currentPhase.title}</span>
                     </div>
                 </div>
             </div>
@@ -256,8 +256,8 @@ class LegacyApp {
                 ${automationHtml}
 
                 <div class="ios-large-title" style="padding-bottom:0;">
-                    <span style="font-size: 13px; font-weight: 600; color: var(--tint-blue); text-transform: uppercase; letter-spacing: 0.05em;">Step ${currentStepNum} of ${totalSteps}</span>
-                    <h1 style="font-size: 28px; margin-top: 4px;">${activeTask.title}</h1>
+                    <span style="font-size: 13px; font-weight: 600; color: var(--tint-blue); text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 0 10px rgba(10, 132, 255, 0.5);">Step ${currentStepNum} of ${totalSteps}</span>
+                    <h1 class="text-gradient" style="font-size: 32px; margin-top: 8px;">${activeTask.title}</h1>
                 </div>
 
                 <div class="ios-card">
@@ -284,17 +284,17 @@ class LegacyApp {
                 </div>
 
                 <div style="padding: 16px;">
-                    <button class="ios-btn" onclick="app.completeTask('${activeTask.id}')">Mark Step as Complete</button>
-                    <button class="ios-btn ios-btn-secondary" style="background: transparent; color: var(--text-secondary);" onclick="alert('Skipped')">Skip for now</button>
+                    <button class="molten-btn" onclick="app.completeTask('${activeTask.id}')">Mark Step as Complete</button>
+                    <button class="molten-btn molten-btn-secondary" onclick="alert('Skipped')">Skip for now</button>
                 </div>
             `;
         } else {
             content += `
                 <div class="ios-card" style="text-align:center; padding: 40px;">
-                    <i class="ph-fill ph-check-circle" style="font-size: 48px; color: var(--status-success); margin-bottom: 16px;"></i>
-                    <h2 class="ios-card-title">Phase Complete</h2>
-                    <p class="ios-card-body">You have completed all tasks in ${currentPhase.title}.</p>
-                    <button class="ios-btn" onclick="alert('Next Phase')">Start Next Phase</button>
+                    <i class="ph-fill ph-check-circle" style="font-size: 64px; color: var(--status-success); margin-bottom: 24px; filter: drop-shadow(0 4px 20px var(--status-success));"></i>
+                    <h2 class="text-gradient" style="font-size: 32px; margin-bottom: 12px;">Phase Complete</h2>
+                    <p class="ios-card-body">You have completed all tasks in <strong>${currentPhase.title}</strong>.</p>
+                    <button class="molten-btn" onclick="alert('Next Phase')">Continue to Next Phase</button>
                 </div>
             `;
         }

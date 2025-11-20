@@ -34,13 +34,13 @@
                 Legacy
             </div>
             <div class="nav-links">
-                <a class="nav-link active" data-view="guided">
+                <a class="nav-link active" data-view="dashboard">
+                    <i class="ph ph-squares-four"></i>
+                    Dashboard
+                </a>
+                <a class="nav-link" data-view="guided">
                     <i class="ph ph-path"></i>
                     The Guided Path
-                </a>
-                <a class="nav-link" data-view="domains">
-                    <i class="ph ph-squares-four"></i>
-                    Topics
                 </a>
                 <a class="nav-link" data-view="tasks">
                     <i class="ph ph-check-circle"></i>
@@ -59,6 +59,10 @@
                     <i class="ph ph-files"></i>
                     Documents
                 </a>
+                <a class="nav-link" data-view="resources">
+                    <i class="ph ph-books"></i>
+                    Resources
+                </a>
                 <div class="nav-divider"></div>
                 <a class="nav-link" href="index.html" style="color: var(--text-secondary);">
                     <i class="ph ph-house"></i>
@@ -74,24 +78,29 @@
                 <div class="header-leading">
                     <!-- Back button could go here -->
                 </div>
-                <div class="header-title-inline" id="header-title-inline">Guided Path</div>
+                <div class="header-title-inline" id="header-title-inline">Dashboard</div>
                 <div class="header-trailing">
-                    <button class="icon-btn"><i class="ph ph-gear"></i></button>
+                    <button class="icon-btn" onclick="app.openModal('modal-profile')"><i class="ph ph-gear"></i></button>
                 </div>
             </header>
 
             <div class="view-container" id="main-scroll">
                 <!-- Dynamic Content Injected Here -->
                 
-                <!-- VIEW: Guided Path -->
-                <div id="view-guided" class="app-view active"></div>
+                <!-- VIEW: Dashboard (Home) -->
+                <div id="view-dashboard" class="app-view active">
+                    <!-- Injected via JS -->
+                </div>
 
-                <!-- VIEW: Domains -->
-                <div id="view-domains" class="app-view">
-                    <div class="ios-large-title">
-                        <h1>Topics</h1>
+                <!-- VIEW: Guided Path -->
+                <div id="view-guided" class="app-view"></div>
+
+                <!-- VIEW: Resources -->
+                <div id="view-resources" class="app-view">
+                    <div class="ios-large-title"><h1>Library</h1></div>
+                    <div class="resource-grid" id="resource-grid">
+                        <!-- Injected via JS -->
                     </div>
-                    <div class="domains-grid" id="domains-grid"></div>
                 </div>
 
                 <!-- VIEW: Tasks -->
@@ -162,24 +171,27 @@
 
         <!-- Mobile Bottom Nav (iOS Tab Bar) -->
         <nav class="app-nav--mobile">
-            <div class="mobile-tab active" data-view="guided">
+            <div class="mobile-tab active" data-view="dashboard">
+                <i class="ph ph-squares-four"></i>
+                <span>Home</span>
+            </div>
+            <div class="mobile-tab" data-view="guided">
                 <i class="ph ph-path"></i>
                 <span>Guide</span>
-            </div>
-            <div class="mobile-tab" data-view="domains">
-                <i class="ph ph-squares-four"></i>
-                <span>Topics</span>
             </div>
             <div class="mobile-tab" data-view="tasks">
                 <i class="ph ph-check-circle"></i>
                 <span>Tasks</span>
             </div>
-            <div class="mobile-tab" data-view="settings">
-                <i class="ph ph-gear"></i>
-                <span>Settings</span>
+            <div class="mobile-tab" data-view="resources">
+                <i class="ph ph-books"></i>
+                <span>Library</span>
             </div>
         </nav>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <!-- MODALS -->
     

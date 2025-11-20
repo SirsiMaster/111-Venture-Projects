@@ -19,18 +19,140 @@ class LegacyApp {
     init() {
         this.loadData();
         this.setupNavigation();
+        this.renderDashboard();
         this.renderGuidedPath();
         this.renderDomains();
         this.renderTaskList();
         this.renderTimeline();
         this.renderContacts();
         this.renderDocuments();
+        this.renderResources();
         this.registerServiceWorker();
     }
 
+    // --- Rendering ---
 
-    // --- Data & State ---
+    renderDashboard() {
+        const container = document.getElementById('view-dashboard');
+        if (!container) return;
 
+        // Calculate progress
+        const allTasks = this.state.tasks;
+        const completedTasks = allTasks.filter(t => t.status === 'completed').length;
+        const progress = Math.round((completedTasks / allTasks.length) * 100);
+        
+        // Upcoming timeline events
+        const upcomingEvents = this.state.timeline
+            .filter(e => new Date(e.date) >= new Date())
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .slice(0, 3);
+
+        const nextStep = this.getNextIncompleteTask(this.state.currentPhaseId);
+
+        container.innerHTML = `
+            <!-- Radial Progress Chart -->
+            <div class="radial-chart-container">
+                <div style="position: relative; width: 200px; height: 200px;">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12" />
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="var(--tint-blue)" stroke-width="12" stroke-linecap="round"
+                                style="stroke-dasharray: 565; stroke-dashoffset: ${565 - (565 * progress) / 100}; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1s ease;" />
+                    </svg>
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-size: 48px; font-weight: 800; color: white;">${progress}%</span>
+                        <span style="font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="dashboard-stats-row">
+                <div class="dashboard-stat-card">
+                    <span class="stat-title">Tasks Left</span>
+                    <span class="stat-value">${allTasks.length - completedTasks}</span>
+                </div>
+                <div class="dashboard-stat-card">
+                    <span class="stat-title">Upcoming</span>
+                    <span class="stat-value">${upcomingEvents.length}</span>
+                </div>
+                <div class="dashboard-stat-card">
+                    <span class="stat-title">Docs Vaulted</span>
+                    <span class="stat-value">${this.state.documents.length}</span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="padding: 0 24px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Quick Actions</div>
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="app.openModal('modal-contact')">
+                    <div class="quick-action-icon"><i class="ph-fill ph-user-plus"></i></div>
+                    <span class="quick-action-label">Add Contact</span>
+                </button>
+                <button class="quick-action-btn" onclick="app.openModal('modal-document')">
+                    <div class="quick-action-icon"><i class="ph-fill ph-upload-simple"></i></div>
+                    <span class="quick-action-label">Upload Doc</span>
+                </button>
+                <button class="quick-action-btn" onclick="app.switchView('tasks')">
+                    <div class="quick-action-icon"><i class="ph-fill ph-check-square-offset"></i></div>
+                    <span class="quick-action-label">Checklist</span>
+                </button>
+                <button class="quick-action-btn" onclick="app.switchView('timeline')">
+                    <div class="quick-action-icon"><i class="ph-fill ph-calendar"></i></div>
+                    <span class="quick-action-label">Timeline</span>
+                </button>
+            </div>
+
+            <!-- Next Up Card -->
+            <div style="padding: 0 24px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Next Priority</div>
+            ${nextStep ? `
+            <div class="ios-card glass-panel" style="margin-bottom: 40px;" onclick="app.switchView('guided')">
+                <div class="ios-card-title" style="font-size: 18px; margin-bottom: 8px;">${nextStep.title}</div>
+                <p class="ios-card-body" style="font-size: 15px; margin-bottom: 16px;">${nextStep.description}</p>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--tint-blue); font-size: 14px; font-weight: 600;">
+                    <span>Continue</span>
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </div>` : `<div class="empty-state">All caught up!</div>`}
+        `;
+    }
+
+    renderResources() {
+        const container = document.getElementById('resource-grid');
+        const resources = [
+            { title: "Executor's Handbook", type: "PDF Guide", icon: "ph-book-bookmark" },
+            { title: "Probate Checklist", type: "Worksheet", icon: "ph-list-checks" },
+            { title: "Grief Support Groups", type: "Directory", icon: "ph-heart" },
+            { title: "Asset Inventory Template", type: "Excel", icon: "ph-table" },
+            { title: "IRS Tax Guide (Form 706)", type: "PDF Guide", icon: "ph-file-pdf" },
+            { title: "Veterans Benefits Guide", type: "PDF Guide", icon: "ph-medal" }
+        ];
+
+        container.innerHTML = resources.map(r => `
+            <div class="resource-card" onclick="app.showToast('Downloaded ${r.title}')">
+                <div class="resource-thumb"><i class="ph-thin ${r.icon}"></i></div>
+                <div class="resource-title">${r.title}</div>
+                <div class="resource-type">${r.type}</div>
+            </div>
+        `).join('');
+    }
+
+    showToast(message, icon = 'ph-check') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `
+            <div class="toast-icon"><i class="ph-bold ${icon}"></i></div>
+            <div class="toast-message">${message}</div>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-20px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    renderTimeline() {
     loadData() {
         // In a real app, this would fetch from an API
         // For PoC, we load from MOCK_DATA and merge with LocalStorage
@@ -241,7 +363,7 @@ class LegacyApp {
         this.renderContacts();
         this.closeModal('modal-contact');
         e.target.reset();
-        this.triggerConfetti();
+        this.showToast('Contact Added');
     }
 
     handleUploadDocument(e) {
@@ -264,7 +386,7 @@ class LegacyApp {
         this.renderDocuments();
         this.closeModal('modal-document');
         e.target.reset();
-        this.triggerConfetti();
+        this.showToast('Document Uploaded');
     }
 
     handleUpdateProfile(e) {
@@ -281,7 +403,7 @@ class LegacyApp {
         this.saveState();
         this.renderTimeline();
         this.closeModal('modal-profile');
-        alert('Timeline updated based on new Date of Death.');
+        this.showToast('Timeline Updated');
     }
 
     recalculateTimeline(startDate) {

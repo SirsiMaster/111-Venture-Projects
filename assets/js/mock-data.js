@@ -62,14 +62,50 @@ const MOCK_DATA = {
         }
     ],
 
+
     domains: [
-        { id: "d1", name: "Legal & Estate", icon: "⚖️", desc: "Wills, probate, and executor authority." },
-        { id: "d2", name: "Funeral & Memorial", icon: "🕊️", desc: "Service planning and burial/cremation." },
-        { id: "d3", name: "Government & Benefits", icon: "🏛️", desc: "Social Security, VA, and Medicare." },
-        { id: "d4", name: "Finances", icon: "💰", desc: "Bank accounts, debts, and investments." },
-        { id: "d5", name: "Housing & Utilities", icon: "🏠", desc: "Lease/Mortgage, utilities, and security." },
-        { id: "d6", name: "Digital & Identity", icon: "🔐", desc: "Online accounts, social media, and fraud prevention." },
-        { id: "d7", name: "Employment & Insurance", icon: "briefcase", desc: "Life insurance and employer benefits." }
+        { 
+            id: "d1", 
+            name: "Legal & Estate", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><path d="M12 3v18"/><path d="M8 21h8"/><path d="M3 7h18"/><path d="M6 7v14"/><path d="M18 7v14"/></svg>', 
+            desc: "Wills, probate, and executor authority." 
+        },
+        { 
+            id: "d2", 
+            name: "Funeral & Memorial", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><path d="M12 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M6 21v-8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"/><path d="M12 11v4"/><path d="M8 15h8"/></svg>', 
+            desc: "Service planning and burial/cremation." 
+        },
+        { 
+            id: "d3", 
+            name: "Government & Benefits", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 10a2 2 0 1 1-4 0v-1a2 2 0 1 1 4 0v1z"/></svg>', 
+            desc: "Social Security, VA, and Medicare." 
+        },
+        { 
+            id: "d4", 
+            name: "Finances", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', 
+            desc: "Bank accounts, debts, and investments." 
+        },
+        { 
+            id: "d5", 
+            name: "Housing & Utilities", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>', 
+            desc: "Lease/Mortgage, utilities, and security." 
+        },
+        { 
+            id: "d6", 
+            name: "Digital & Identity", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>', 
+            desc: "Online accounts, social media, and fraud prevention." 
+        },
+        { 
+            id: "d7", 
+            name: "Employment & Insurance", 
+            icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>', 
+            desc: "Life insurance and employer benefits." 
+        }
     ],
 
     tasks: [

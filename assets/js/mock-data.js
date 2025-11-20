@@ -270,4 +270,27 @@ const MOCK_DATA = {
             status: "locked"
         }
     ]
+    // --- NEW MODULES ---
+    timeline: [
+        { id: "tl1", date: "2025-11-18", title: "Date of Death", type: "milestone", icon: "ph-cross" },
+        { id: "tl2", date: "2025-11-19", title: "Pronouncement of Death", type: "task", icon: "ph-file-text" },
+        { id: "tl3", date: "2025-11-20", title: "Body Transported to Funeral Home", type: "logistics", icon: "ph-car" },
+        { id: "tl4", date: "2025-11-24", title: "Funeral Service (Tentative)", type: "future", icon: "ph-church" },
+        { id: "tl5", date: "2025-12-01", title: "Death Certificates Expected", type: "future", icon: "ph-scroll" },
+        { id: "tl6", date: "2026-01-15", title: "Probate Hearing", type: "future", icon: "ph-gavel" }
+    ],
+
+    contacts: [
+        { id: "c1", name: "Alice Doe", role: "Sister / Beneficiary", phone: "555-0101", email: "alice@example.com", avatar: "AD" },
+        { id: "c2", name: "James Wilson", role: "Estate Attorney", phone: "555-0199", email: "jwilson@lawfirm.com", avatar: "JW", org: "Wilson Law Group" },
+        { id: "c3", name: "Sarah Jenkins", role: "CPA", phone: "555-0145", email: "sarah@cpaservices.com", avatar: "SJ" },
+        { id: "c4", name: "Springfield Funeral Home", role: "Service Provider", phone: "555-0122", email: "info@springfieldfh.com", avatar: "SF", org: "Funeral Director" }
+    ],
+
+    documents: [
+        { id: "doc1", title: "Last Will and Testament", type: "Legal", date: "2020-05-15", size: "2.4 MB", icon: "ph-scroll" },
+        { id: "doc2", title: "Revocable Living Trust", type: "Legal", date: "2021-08-22", size: "4.1 MB", icon: "ph-shield-check" },
+        { id: "doc3", title: "Life Insurance Policy", type: "Financial", date: "2019-03-10", size: "1.2 MB", icon: "ph-files" },
+        { id: "doc4", title: "Property Deed (Main Home)", type: "Asset", date: "2005-06-01", size: "3.5 MB", icon: "ph-house" }
+    ]
 };

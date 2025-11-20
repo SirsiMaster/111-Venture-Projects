@@ -102,18 +102,60 @@
                     <div id="tasks-list"></div>
                 </div>
                 
-                <!-- Placeholders -->
+                <!-- VIEW: Timeline -->
                 <div id="view-timeline" class="app-view">
                     <div class="ios-large-title"><h1>Timeline</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Timeline features coming soon.</div></div>
+                    <div class="timeline-container" id="timeline-list">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
+
+                <!-- VIEW: Contacts -->
                 <div id="view-contacts" class="app-view">
-                    <div class="ios-large-title"><h1>Contacts</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Contact management coming soon.</div></div>
+                    <div class="ios-large-title">
+                        <h1>Contacts</h1>
+                        <button class="icon-btn" style="position: absolute; right: 20px; top: 20px;" onclick="app.openModal('modal-contact')"><i class="ph ph-plus"></i></button>
+                    </div>
+                    <div class="contacts-grid" id="contacts-grid">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
+
+                <!-- VIEW: Documents -->
                 <div id="view-documents" class="app-view">
-                    <div class="ios-large-title"><h1>Documents</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Document vault coming soon.</div></div>
+                    <div class="ios-large-title">
+                        <h1>Documents</h1>
+                        <button class="icon-btn" style="position: absolute; right: 20px; top: 20px;" onclick="app.openModal('modal-document')"><i class="ph ph-upload-simple"></i></button>
+                    </div>
+                    <div class="documents-list" id="documents-list">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+                <!-- VIEW: Settings -->
+                <div id="view-settings" class="app-view">
+                    <div class="ios-large-title"><h1>Settings</h1></div>
+                    <div class="ios-list-group">
+                        <div class="ios-list-item" onclick="app.openModal('modal-profile')">
+                            <div class="ios-content">
+                                <div class="ios-title">Decedent Profile</div>
+                                <div class="ios-subtitle">Edit Name, Dates, and Details</div>
+                            </div>
+                            <i class="ph ph-caret-right" style="color: var(--text-tertiary);"></i>
+                        </div>
+                        <div class="ios-list-item">
+                            <div class="ios-content">
+                                <div class="ios-title">Notifications</div>
+                            </div>
+                            <div class="ios-toggle checked"></div>
+                        </div>
+                    </div>
+                    <div class="ios-list-group">
+                        <div class="ios-list-item" style="color: var(--status-danger);">
+                            <div class="ios-content">
+                                <div class="ios-title">Reset App Data</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -137,6 +179,109 @@
                 <span>Settings</span>
             </div>
         </nav>
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Add Contact Modal -->
+    <div id="modal-contact" class="modal-overlay">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h2>Add Contact</h2>
+                <button class="close-modal" onclick="app.closeModal('modal-contact')"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <form id="form-contact" onsubmit="app.handleAddContact(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="glass-input" required placeholder="e.g. Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <input type="text" name="role" class="glass-input" required placeholder="e.g. Estate Attorney">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="glass-input" placeholder="jane@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" name="phone" class="glass-input" placeholder="(555) 123-4567">
+                </div>
+                <button type="submit" class="molten-btn">Save Contact</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Upload Document Modal -->
+    <div id="modal-document" class="modal-overlay">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h2>Upload Document</h2>
+                <button class="close-modal" onclick="app.closeModal('modal-document')"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <form id="form-document" onsubmit="app.handleUploadDocument(event)">
+                <div class="form-group">
+                    <label class="form-label">Document Title</label>
+                    <input type="text" name="title" class="glass-input" required placeholder="e.g. Death Certificate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="type" class="glass-input">
+                        <option value="Legal">Legal</option>
+                        <option value="Financial">Financial</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Medical">Medical</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">File</label>
+                    <div style="border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('file-input').click()">
+                        <i class="ph-duotone ph-cloud-arrow-up" style="font-size: 32px; color: var(--tint-blue); margin-bottom: 8px;"></i>
+                        <div style="font-size: 14px; color: var(--text-secondary);">Click to select file</div>
+                    </div>
+                    <input type="file" id="file-input" style="display: none;" onchange="alert('File selected: ' + this.files[0].name)">
+                </div>
+                <button type="submit" class="molten-btn">Upload to Vault</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile/Settings Modal -->
+    <div id="modal-profile" class="modal-overlay">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <button class="close-modal" onclick="app.closeModal('modal-profile')"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <form id="form-profile" onsubmit="app.handleUpdateProfile(event)">
+                <div class="form-group">
+                    <label class="form-label">Decedent Name</label>
+                    <input type="text" id="input-decedent-name" class="glass-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date of Death</label>
+                    <input type="date" id="input-dod" class="glass-input">
+                </div>
+                <button type="submit" class="molten-btn">Update Timeline</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Automation Console Modal -->
+    <div id="modal-automation" class="modal-overlay">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h2>Concierge Automation</h2>
+            </div>
+            <div class="console-log" id="automation-console">
+                <!-- Logs injected here -->
+            </div>
+            <div id="automation-progress" style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-bottom: 20px;">
+                <div id="automation-bar" style="height: 100%; width: 0%; background: var(--status-success); transition: width 0.2s;"></div>
+            </div>
+            <p id="automation-status" style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">Initializing...</p>
+            <button id="btn-close-automation" class="molten-btn" style="display: none;" onclick="app.closeModal('modal-automation')">Done</button>
+        </div>
     </div>
 
     <!-- Scripts -->

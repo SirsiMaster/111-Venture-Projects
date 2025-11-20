@@ -22,6 +22,9 @@ class LegacyApp {
         this.renderGuidedPath();
         this.renderDomains();
         this.renderTaskList();
+        this.renderTimeline();
+        this.renderContacts();
+        this.renderDocuments();
         this.registerServiceWorker();
     }
 
@@ -41,6 +44,10 @@ class LegacyApp {
             this.state.phases = MOCK_DATA.phases;
             this.state.domains = MOCK_DATA.domains;
             this.state.tasks = MOCK_DATA.tasks;
+            // New data modules
+            this.state.timeline = MOCK_DATA.timeline || [];
+            this.state.contacts = MOCK_DATA.contacts || [];
+            this.state.documents = MOCK_DATA.documents || [];
             
             // Persist initial state
             this.saveState();
@@ -147,29 +154,243 @@ class LegacyApp {
         const task = this.state.tasks.find(t => t.id === taskId);
         if (!task || !task.automation) return;
 
-        const btn = document.getElementById(`btn-auto-${taskId}`);
-        const originalText = btn.innerHTML;
+        this.openModal('modal-automation');
+        const consoleEl = document.getElementById('automation-console');
+        const bar = document.getElementById('automation-bar');
+        const status = document.getElementById('automation-status');
+        const closeBtn = document.getElementById('btn-close-automation');
         
-        // 1. Show Processing State
-        btn.innerHTML = `<span class="sm-btn-loading"></span> Processing...`;
-        btn.classList.add('sm-btn-disabled'); // Visual disable
-        
-        // 2. Simulate API Delay
-        setTimeout(() => {
-            // 3. Success State
-            btn.innerHTML = `✓ ${task.automation.label.split(' ')[0]} Submitted!`;
-            btn.classList.remove('sm-btn-primary', 'sm-btn-disabled'); // Remove primary
-            btn.classList.add('sm-btn-success'); // Add success
-            
-            // 4. Mark as Done after delay
-            setTimeout(() => {
+        // Reset
+        consoleEl.innerHTML = '';
+        bar.style.width = '0%';
+        status.innerText = 'Initializing secure connection...';
+        closeBtn.style.display = 'none';
+
+        const logs = [
+            "Establishing handshake with " + task.automation.label + "...",
+            "Verifying Identity Token [JD-99283-X]...",
+            "Identity Verified: John Doe (Executor).",
+            "Retrieving Decedent Record: Robert Doe...",
+            "Packaging Form Data (JSON/XML)...",
+            "Encrypting Payload (AES-256)...",
+            "Sending Request to API Endpoint...",
+            "Waiting for server response...",
+            "Response Received: 200 OK.",
+            "Confirmation Number: #SSA-9928-3321",
+            "Task Completed Successfully."
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i >= logs.length) {
+                clearInterval(interval);
+                status.innerText = "Process Complete.";
+                status.style.color = "var(--status-success)";
+                closeBtn.style.display = 'inline-block';
                 this.completeTask(taskId);
-            }, 1500);
+                return;
+            }
             
-        }, 2000);
+            const line = document.createElement('div');
+            line.classList.add('log-line');
+            line.innerText = `> ${logs[i]}`;
+            consoleEl.appendChild(line);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+            
+            // Progress bar
+            const pct = Math.round(((i + 1) / logs.length) * 100);
+            bar.style.width = pct + '%';
+            
+            i++;
+        }, 600); // Speed of simulation
+    }
+
+    // --- Modal & Form Handling ---
+
+    openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('active');
+            // Prefill profile if opening profile modal
+            if (modalId === 'modal-profile') {
+                document.getElementById('input-decedent-name').value = this.state.profile.decedent.name;
+                document.getElementById('input-dod').value = this.state.profile.decedent.dateOfDeath;
+            }
+        }
+    }
+
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove('active');
+    }
+
+    handleAddContact(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const newContact = {
+            id: 'c_' + Date.now(),
+            name: formData.get('name'),
+            role: formData.get('role'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            avatar: formData.get('name').split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()
+        };
+
+        this.state.contacts.push(newContact);
+        this.saveState();
+        this.renderContacts();
+        this.closeModal('modal-contact');
+        e.target.reset();
+        this.triggerConfetti();
+    }
+
+    handleUploadDocument(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const fileInput = document.getElementById('file-input');
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : 'Scanned Document.pdf';
+        
+        const newDoc = {
+            id: 'doc_' + Date.now(),
+            title: formData.get('title'),
+            type: formData.get('type'),
+            date: new Date().toISOString().split('T')[0],
+            size: (Math.random() * 5 + 1).toFixed(1) + ' MB',
+            icon: formData.get('type') === 'Legal' ? 'ph-scroll' : 'ph-files'
+        };
+
+        this.state.documents.push(newDoc);
+        this.saveState();
+        this.renderDocuments();
+        this.closeModal('modal-document');
+        e.target.reset();
+        this.triggerConfetti();
+    }
+
+    handleUpdateProfile(e) {
+        e.preventDefault();
+        const name = document.getElementById('input-decedent-name').value;
+        const dod = document.getElementById('input-dod').value;
+
+        this.state.profile.decedent.name = name;
+        this.state.profile.decedent.dateOfDeath = dod;
+        
+        // Recalculate Timeline
+        this.recalculateTimeline(dod);
+        
+        this.saveState();
+        this.renderTimeline();
+        this.closeModal('modal-profile');
+        alert('Timeline updated based on new Date of Death.');
+    }
+
+    recalculateTimeline(startDate) {
+        const start = new Date(startDate);
+        
+        // Helper to add days
+        const addDays = (date, days) => {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result.toISOString().split('T')[0];
+        };
+
+        this.state.timeline = [
+            { id: "tl1", date: startDate, title: "Date of Death", type: "milestone", icon: "ph-cross" },
+            { id: "tl2", date: addDays(start, 1), title: "Pronouncement of Death", type: "task", icon: "ph-file-text" },
+            { id: "tl3", date: addDays(start, 3), title: "Body Transported", type: "logistics", icon: "ph-car" },
+            { id: "tl4", date: addDays(start, 7), title: "Funeral Service (Est.)", type: "future", icon: "ph-church" },
+            { id: "tl5", date: addDays(start, 14), title: "Death Certificates Arrive", type: "future", icon: "ph-scroll" },
+            { id: "tl6", date: addDays(start, 45), title: "Probate Hearing Deadline", type: "future", icon: "ph-gavel" },
+            { id: "tl7", date: addDays(start, 90), title: "Creditor Claim Period Ends", type: "future", icon: "ph-coins" }
+        ];
     }
 
     // --- Rendering ---
+
+    renderTimeline() {
+        const container = document.getElementById('timeline-list');
+        const events = this.state.timeline.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        if (!events.length) {
+            container.innerHTML = '<div class="empty-state">No timeline events yet.</div>';
+            return;
+        }
+
+        container.innerHTML = events.map((ev, index) => {
+            const isPast = new Date(ev.date) < new Date();
+            const isToday = new Date(ev.date).toDateString() === new Date().toDateString();
+            
+            return `
+            <div class="timeline-item ${isPast ? 'past' : ''} ${isToday ? 'today' : ''}">
+                <div class="timeline-date">
+                    <div class="month">${new Date(ev.date).toLocaleString('default', { month: 'short' })}</div>
+                    <div class="day">${new Date(ev.date).getDate()}</div>
+                </div>
+                <div class="timeline-marker">
+                    <div class="line"></div>
+                    <div class="dot"><i class="ph-fill ${ev.icon}"></i></div>
+                </div>
+                <div class="timeline-content glass-panel">
+                    <div class="time-tag">${ev.type}</div>
+                    <h3>${ev.title}</h3>
+                </div>
+            </div>
+            `;
+        }).join('');
+    }
+
+    renderContacts() {
+        const container = document.getElementById('contacts-grid');
+        const contacts = this.state.contacts;
+
+        if (!contacts.length) {
+            container.innerHTML = '<div class="empty-state">No contacts added.</div>';
+            return;
+        }
+
+        container.innerHTML = contacts.map(c => `
+            <div class="contact-card glass-panel">
+                <div class="contact-header">
+                    <div class="contact-avatar">${c.avatar}</div>
+                    <div class="contact-info">
+                        <h3>${c.name}</h3>
+                        <span class="role">${c.role}</span>
+                        ${c.org ? `<span class="org">${c.org}</span>` : ''}
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <a href="tel:${c.phone}" class="action-btn"><i class="ph-fill ph-phone"></i> Call</a>
+                    <a href="mailto:${c.email}" class="action-btn"><i class="ph-fill ph-envelope"></i> Email</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    renderDocuments() {
+        const container = document.getElementById('documents-list');
+        const docs = this.state.documents;
+
+        if (!docs.length) {
+            container.innerHTML = '<div class="empty-state">No documents stored.</div>';
+            return;
+        }
+
+        // Group by type (optional, but flat list for now for speed)
+        container.innerHTML = docs.map(doc => `
+            <div class="ios-list-item doc-item">
+                <div class="doc-icon">
+                    <i class="ph-duotone ${doc.icon}"></i>
+                </div>
+                <div class="ios-content">
+                    <div class="ios-title">${doc.title}</div>
+                    <div class="ios-subtitle">${doc.type} &bull; ${doc.date} &bull; ${doc.size}</div>
+                </div>
+                <div class="doc-action">
+                    <button class="icon-btn-small"><i class="ph-bold ph-download-simple"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
 
     renderGuidedPath() {
         const container = document.getElementById('view-guided');
@@ -219,7 +440,7 @@ class LegacyApp {
             let automationHtml = '';
             if (activeTask.automation) {
                 automationHtml = `
-                    <div class="ios-card" style="background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%); border: 1px solid rgba(255,215,0,0.2);">
+                    <div class="ios-card glass-panel" style="border: 1px solid rgba(255, 215, 0, 0.3); box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);">
                         <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
                             <i class="ph-fill ph-sparkle" style="color: var(--status-warning); font-size: 24px;"></i>
                             <span style="font-size:17px; font-weight:600; color:white;">Concierge Service Available</span>

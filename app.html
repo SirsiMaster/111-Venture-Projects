@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F2F2F7">
+    <title>Legacy - Guided End-of-Life Management</title>
+    
+    <!-- iOS PWA Meta -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Legacy">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Phosphor Icons (Apple-like) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <!-- Global Ambient Background (Persists across app) -->
+    <div class="ambient-background">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <div class="app-shell">
+        <!-- Desktop Sidebar (iPad Sidebar Style) -->
+        <nav class="app-nav--desktop">
+            <div class="app-logo">
+                <i class="ph-fill ph-star-four" style="color: var(--accent-blue);"></i>
+                Legacy
+            </div>
+            <div class="nav-links">
+                <a class="nav-link active" data-view="guided">
+                    <i class="ph ph-path"></i>
+                    The Guided Path
+                </a>
+                <a class="nav-link" data-view="domains">
+                    <i class="ph ph-squares-four"></i>
+                    Topics
+                </a>
+                <a class="nav-link" data-view="tasks">
+                    <i class="ph ph-check-circle"></i>
+                    Master Checklist
+                </a>
+                <div class="nav-divider"></div>
+                <a class="nav-link" data-view="timeline">
+                    <i class="ph ph-calendar-blank"></i>
+                    Timeline
+                </a>
+                <a class="nav-link" data-view="contacts">
+                    <i class="ph ph-users"></i>
+                    Contacts
+                </a>
+                <a class="nav-link" data-view="documents">
+                    <i class="ph ph-files"></i>
+                    Documents
+                </a>
+                <div class="nav-divider"></div>
+                <a class="nav-link" href="index.html" style="color: var(--text-secondary);">
+                    <i class="ph ph-house"></i>
+                    Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- iOS Navigation Bar -->
+            <header class="app-header">
+                <div class="header-leading">
+                    <!-- Back button could go here -->
+                </div>
+                <div class="header-title-inline" id="header-title-inline">Guided Path</div>
+                <div class="header-trailing">
+                    <button class="icon-btn"><i class="ph ph-gear"></i></button>
+                </div>
+            </header>
+
+            <div class="view-container" id="main-scroll">
+                <!-- Dynamic Content Injected Here -->
+                
+                <!-- VIEW: Guided Path -->
+                <div id="view-guided" class="app-view active"></div>
+
+                <!-- VIEW: Domains -->
+                <div id="view-domains" class="app-view">
+                    <div class="ios-large-title">
+                        <h1>Topics</h1>
+                    </div>
+                    <div class="domains-grid" id="domains-grid"></div>
+                </div>
+
+                <!-- VIEW: Tasks -->
+                <div id="view-tasks" class="app-view">
+                    <div class="ios-large-title">
+                        <h1>All Tasks</h1>
+                    </div>
+                    <div id="tasks-list"></div>
+                </div>
+                
+                <!-- Placeholders -->
+                <div id="view-timeline" class="app-view">
+                    <div class="ios-large-title"><h1>Timeline</h1></div>
+                    <div class="ios-card"><div class="ios-card-body">Timeline features coming soon.</div></div>
+                </div>
+                <div id="view-contacts" class="app-view">
+                    <div class="ios-large-title"><h1>Contacts</h1></div>
+                    <div class="ios-card"><div class="ios-card-body">Contact management coming soon.</div></div>
+                </div>
+                <div id="view-documents" class="app-view">
+                    <div class="ios-large-title"><h1>Documents</h1></div>
+                    <div class="ios-card"><div class="ios-card-body">Document vault coming soon.</div></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav (iOS Tab Bar) -->
+        <nav class="app-nav--mobile">
+            <div class="mobile-tab active" data-view="guided">
+                <i class="ph ph-path"></i>
+                <span>Guide</span>
+            </div>
+            <div class="mobile-tab" data-view="domains">
+                <i class="ph ph-squares-four"></i>
+                <span>Topics</span>
+            </div>
+            <div class="mobile-tab" data-view="tasks">
+                <i class="ph ph-check-circle"></i>
+                <span>Tasks</span>
+            </div>
+            <div class="mobile-tab" data-view="settings">
+                <i class="ph ph-gear"></i>
+                <span>Settings</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/mock-data.js"></script>
+    <script src="assets/js/legacy.js"></script>
+</body>
+</html>

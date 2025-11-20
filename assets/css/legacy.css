@@ -276,140 +276,311 @@ body {
 }
 
 /* ==============================
-   Welcome / Landing View
+   Marketing Landing Page Styles
    ============================== */
-.welcome-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: #000;
-  z-index: 9999;
+.landing-page {
+  overflow-y: auto !important; /* Enable scrolling for landing */
+}
+
+/* Landing Nav */
+.landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 16px 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 40px;
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s;
-  overflow: hidden;
+  justify-content: space-between;
 }
 
-.welcome-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.welcome-content {
-  position: relative;
-  z-index: 10;
-  max-width: 600px;
-  text-align: center;
-}
-
-.welcome-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 32px;
-  color: var(--tint-blue);
-  margin-bottom: 32px;
-  animation: fadeDown 1s ease-out;
-}
-
-.logo-text {
+.nav-logo {
+  font-size: 24px;
   font-weight: 800;
   color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   letter-spacing: -0.02em;
 }
 
-.welcome-headline {
-  font-size: 56px;
-  line-height: 1.1;
+.nav-menu {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-menu a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-menu a:hover {
+  color: white;
+}
+
+.molten-btn-small {
+  background: var(--tint-blue);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+  transition: all 0.2s;
+}
+
+.molten-btn-small:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(10, 132, 255, 0.4);
+}
+
+/* Hero Section */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  padding: 0 24px;
+}
+
+.hero-content {
+  max-width: 800px;
+  animation: fadeUp 1s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.badge-glow {
+  width: 6px; height: 6px;
+  background: var(--status-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--status-success);
+}
+
+.hero-headline {
+  font-size: 72px;
+  line-height: 1.05;
   font-weight: 800;
   color: white;
   margin: 0 0 24px 0;
   letter-spacing: -0.03em;
-  animation: fadeUp 1s ease-out 0.2s both;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #888 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.welcome-sub {
-  font-size: 20px;
+.hero-sub {
+  font-size: 22px;
   line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 auto 48px auto;
-  max-width: 480px;
-  animation: fadeUp 1s ease-out 0.4s both;
+  max-width: 600px;
 }
 
-.molten-btn-large {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 18px 40px;
-  border-radius: 99px;
-  cursor: pointer;
-  display: inline-flex;
+.hero-actions {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.text-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.text-link:hover {
+  color: white;
+}
+
+/* Features Grid */
+.features-section {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-header h2 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.section-header p {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 40px;
+  border-radius: 24px;
+  transition: all 0.3s;
+  opacity: 0; /* For scroll reveal */
+  transform: translateY(20px);
+}
+
+.feature-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 40px;
+  color: var(--tint-blue);
+  margin-bottom: 24px;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 12px 0;
+}
+
+.feature-card p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 120px 24px;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(10, 132, 255, 0.1) 0%, transparent 60%);
+}
+
+.mission-content {
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.mission-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mission-text {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: white;
+  font-style: italic;
+  margin: 40px 0;
+}
+
+.mission-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 0 20px rgba(41, 151, 255, 0.2);
-  animation: fadeUp 1s ease-out 0.6s both;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-.molten-btn-large:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 
-    0 20px 40px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.4),
-    0 0 40px rgba(41, 151, 255, 0.4);
-}
-
-.ambient-orb {
-  position: absolute;
+.author-avatar {
+  width: 40px; height: 40px;
+  background: #333;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  z-index: 1;
 }
 
-.orb-1 {
-  width: 400px; height: 400px;
-  background: var(--tint-blue);
-  top: -100px; left: -100px;
-  animation: floatOrb 10s infinite alternate;
+/* Footer */
+.landing-footer {
+  padding: 60px 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: black;
 }
 
-.orb-2 {
-  width: 500px; height: 500px;
-  background: var(--tint-indigo);
-  bottom: -100px; right: -100px;
-  animation: floatOrb 15s infinite alternate-reverse;
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@keyframes floatOrb {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.footer-links {
+  display: flex;
+  gap: 24px;
 }
 
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-copy {
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+/* Mobile Landing Responsiveness */
+@media (max-width: 768px) {
+  .hero-headline { font-size: 48px; }
+  .nav-menu { display: none; }
+  .hero-actions { flex-direction: column; }
+  .footer-content { flex-direction: column; gap: 32px; text-align: center; }
 }
 
 /* ==============================

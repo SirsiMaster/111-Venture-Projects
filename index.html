@@ -3,171 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#F2F2F7">
-    <title>Legacy - Guided End-of-Life Management</title>
-    
-    <!-- iOS PWA Meta -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Legacy">
-    
-    <!-- Styles -->
+    <meta name="theme-color" content="#000000">
+    <title>Legacy - The Shepherd for Life's Hardest Moments</title>
     <link rel="stylesheet" href="assets/css/legacy.css">
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Phosphor Icons (Apple-like) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body>
-    <!-- Welcome / Landing View (Overlay) -->
-    <div id="view-welcome" class="welcome-overlay">
-        <div class="welcome-content">
-            <div class="welcome-logo">
-                <i class="ph-fill ph-star-four"></i>
-                <span class="logo-text">Legacy</span>
-            </div>
-            <h1 class="welcome-headline">
-                The Shepherd for<br>
-                <span class="text-gradient">Life’s Hardest Moments.</span>
-            </h1>
-            <p class="welcome-sub">
-                Navigate the complexities of loss with clarity, compassion, and automated grace. We are here to walk with you, every step of the way.
-            </p>
-            
-            <div class="welcome-actions">
-                <button class="molten-btn-large" onclick="app.dismissWelcome()">
-                    Begin the Journey
-                    <i class="ph-bold ph-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Ambient Background Elements -->
-        <!-- Moved out of welcome-overlay to be global -->
-    </div>
-
-    <!-- Global Ambient Background (Persists across app) -->
+<body class="landing-page">
+    <!-- Global Ambient Background -->
     <div class="ambient-background">
         <div class="ambient-orb orb-1"></div>
         <div class="ambient-orb orb-2"></div>
         <div class="ambient-orb orb-3"></div>
     </div>
 
-    <div class="app-shell">
-        <!-- Desktop Sidebar (iPad Sidebar Style) -->
-        <nav class="app-nav--desktop">
-            <div class="app-logo">
-                <i class="ph-fill ph-star-four" style="color: var(--accent-blue);"></i>
+    <!-- Sticky Glass Navigation -->
+    <nav class="landing-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="ph-fill ph-star-four"></i>
                 Legacy
             </div>
-            <div class="nav-links">
-                <a class="nav-link active" data-view="guided">
-                    <i class="ph ph-path"></i>
-                    The Guided Path
+            <div class="nav-menu">
+                <a href="#features">Features</a>
+                <a href="#mission">Mission</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <a href="app.html" class="molten-btn-small">Launch App</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-glow"></span>
+                <span>Now in Beta Access</span>
+            </div>
+            <h1 class="hero-headline">
+                The Shepherd for<br>
+                <span class="text-gradient">Life’s Hardest Moments.</span>
+            </h1>
+            <p class="hero-sub">
+                Navigate the complexities of loss with clarity, compassion, and automated grace. 
+                We handle the paperwork so you can focus on what matters most.
+            </p>
+            <div class="hero-actions">
+                <a href="app.html" class="molten-btn-large">
+                    Begin the Journey
+                    <i class="ph-bold ph-arrow-right"></i>
                 </a>
-                <a class="nav-link" data-view="domains">
-                    <i class="ph ph-squares-four"></i>
-                    Topics
-                </a>
-                <a class="nav-link" data-view="tasks">
-                    <i class="ph ph-check-circle"></i>
-                    Master Checklist
-                </a>
-                <div class="nav-divider"></div>
-                <a class="nav-link" data-view="timeline">
-                    <i class="ph ph-calendar-blank"></i>
-                    Timeline
-                </a>
-                <a class="nav-link" data-view="contacts">
-                    <i class="ph ph-users"></i>
-                    Contacts
-                </a>
-                <a class="nav-link" data-view="documents">
-                    <i class="ph ph-files"></i>
-                    Documents
-                </a>
-                <div class="nav-divider"></div>
-                <a class="nav-link" onclick="localStorage.removeItem('legacy_has_seen_welcome'); location.reload();" style="color: var(--status-warning);">
-                    <i class="ph ph-arrow-counter-clockwise"></i>
-                    Reset Demo
+                <a href="#how-it-works" class="text-link">
+                    <i class="ph-fill ph-play-circle"></i>
+                    See how it works
                 </a>
             </div>
-        </nav>
+        </div>
+    </section>
 
-        <!-- Main Content -->
-        <main class="app-main">
-            <!-- iOS Navigation Bar -->
-            <header class="app-header">
-                <div class="header-leading">
-                    <!-- Back button could go here -->
-                </div>
-                <div class="header-title-inline" id="header-title-inline">Guided Path</div>
-                <div class="header-trailing">
-                    <button class="icon-btn"><i class="ph ph-gear"></i></button>
-                </div>
-            </header>
-
-            <div class="view-container" id="main-scroll">
-                <!-- Dynamic Content Injected Here -->
-                
-                <!-- VIEW: Guided Path -->
-                <div id="view-guided" class="app-view active"></div>
-
-                <!-- VIEW: Domains -->
-                <div id="view-domains" class="app-view">
-                    <div class="ios-large-title">
-                        <h1>Topics</h1>
-                    </div>
-                    <div class="domains-grid" id="domains-grid"></div>
-                </div>
-
-                <!-- VIEW: Tasks -->
-                <div id="view-tasks" class="app-view">
-                    <div class="ios-large-title">
-                        <h1>All Tasks</h1>
-                    </div>
-                    <div id="tasks-list"></div>
-                </div>
-                
-                <!-- Placeholders -->
-                <div id="view-timeline" class="app-view">
-                    <div class="ios-large-title"><h1>Timeline</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Timeline features coming soon.</div></div>
-                </div>
-                <div id="view-contacts" class="app-view">
-                    <div class="ios-large-title"><h1>Contacts</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Contact management coming soon.</div></div>
-                </div>
-                <div id="view-documents" class="app-view">
-                    <div class="ios-large-title"><h1>Documents</h1></div>
-                    <div class="ios-card"><div class="ios-card-body">Document vault coming soon.</div></div>
-                </div>
+    <!-- Value Proposition Grid -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2 class="text-gradient">Guidance, not just logic.</h2>
+            <p>Legacy combines emotional intelligence with logistical precision.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph-duotone ph-path"></i></div>
+                <h3>The Guided Path</h3>
+                <p>A step-by-step shepherd that adapts to your specific situation, ensuring you never miss a critical deadline.</p>
             </div>
-        </main>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph-duotone ph-sparkle"></i></div>
+                <h3>Concierge Automation</h3>
+                <p>Don't just read about tasks—let us do them. We automate government notifications, account closures, and more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph-duotone ph-shield-check"></i></div>
+                <h3>Secure Vault</h3>
+                <p>Bank-grade encryption for wills, death certificates, and sensitive family documents. Accessible only by you.</p>
+            </div>
+        </div>
+    </section>
 
-        <!-- Mobile Bottom Nav (iOS Tab Bar) -->
-        <nav class="app-nav--mobile">
-            <div class="mobile-tab active" data-view="guided">
-                <i class="ph ph-path"></i>
-                <span>Guide</span>
+    <!-- Emotional/Mission Section -->
+    <section id="mission" class="mission-section">
+        <div class="mission-content">
+            <h2 class="text-gradient">Built from experience.</h2>
+            <p class="mission-text">
+                "When my father passed, I was drowning in paperwork while trying to grieve. I built Legacy so no one else has to do it alone."
+            </p>
+            <div class="mission-author">
+                <div class="author-avatar"></div>
+                <span>Founder, Legacy</span>
             </div>
-            <div class="mobile-tab" data-view="domains">
-                <i class="ph ph-squares-four"></i>
-                <span>Topics</span>
-            </div>
-            <div class="mobile-tab" data-view="tasks">
-                <i class="ph ph-check-circle"></i>
-                <span>Tasks</span>
-            </div>
-            <div class="mobile-tab" data-view="settings">
-                <i class="ph ph-gear"></i>
-                <span>Settings</span>
-            </div>
-        </nav>
-    </div>
+        </div>
+    </section>
 
-    <!-- Scripts -->
-    <script src="assets/js/mock-data.js"></script>
-    <script src="assets/js/legacy.js"></script>
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="ph-fill ph-star-four"></i>
+                <span>Legacy</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2025 111 Venture Studio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple Scroll Reveal Script -->
+    <script>
+        // Add fade-in classes on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .mission-content').forEach(el => {
+            el.classList.add('fade-in-section');
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>

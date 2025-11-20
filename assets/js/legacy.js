@@ -23,28 +23,8 @@ class LegacyApp {
         this.renderDomains();
         this.renderTaskList();
         this.registerServiceWorker();
-        this.showWelcomeIfNeeded();
     }
 
-    showWelcomeIfNeeded() {
-        // Always show for demo; in production, check localStorage
-        const hasSeenWelcome = localStorage.getItem('legacy_has_seen_welcome');
-        if (!hasSeenWelcome) {
-            // Welcome overlay is visible by default in HTML
-        } else {
-            // Hide immediately if already seen
-            document.getElementById('view-welcome').classList.add('hidden');
-        }
-    }
-
-    dismissWelcome() {
-        const welcomeEl = document.getElementById('view-welcome');
-        welcomeEl.classList.add('hidden');
-        localStorage.setItem('legacy_has_seen_welcome', 'true');
-        
-        // Optional: Analytics tracking
-        // trackEvent('welcome_dismissed');
-    }
 
     // --- Data & State ---
 

@@ -71,13 +71,24 @@ The experience is structured as a chronological **Timeline (Phases)** intersecte
 *   **Flow**: Master list of all tasks with filters (Status, Priority, Phase).
 
 ## 4. Visual & Interaction Design
-*   **Aesthetic**: "Apple-level Polish". Clean, high-contrast, heavy use of whitespace.
-*   **Typography**: San Francisco (System UI). Legible, hierarchical.
+*   **Aesthetic**: "Ethereal Modern". High-end, comforting, and alive.
+    *   **Aurora Backgrounds**: Subtle, animated gradients (Sunset, Morning Sky, Ethereal) that shift slowly to provide a sense of calm and passage of time.
+    *   **Glassmorphism**: Cards and navigation use frosted glass effects (`backdrop-filter`) to sit lightly on the moving background.
+*   **Typography**: San Francisco (System UI). Tight letter-spacing for headers (Apple style), highly legible body text.
+*   **Key Visuals**:
+    *   **Hero Gradients**: Each phase has a unique color identity (e.g., Immediate = Calming Sunset, Admin = Focused Teal).
+    *   **Circular Progress**: A large, fitness-ring style indicator for phase completion, replacing clinical linear bars.
+    *   **Celebration**: Gentle confetti effects upon task completion to provide positive reinforcement in a difficult time.
 *   **Palette**:
-    *   Background: Off-white/Warm Gray (Calm).
-    *   Accent: Muted Teal/Slate Blue (Trust).
-    *   Status: Soft Green (Success), Warm Amber (Caution/Pending).
-    *   No jarring reds.
+    *   Background: Dynamic Aurora Gradients.
+    *   Accent: Electric Blue & Gold (for Premium/Concierge actions).
+    *   Status: Soft Green (Success), Warm Amber (Caution).
+
+## 5. Automation & "Concierge" (PoC Features)
+*   **Goal**: To not just *tell* users what to do, but *do it for them* where possible.
+*   **Implementation**:
+    *   **Premium Buttons**: "✨ Legacy Concierge" buttons appear for automatable tasks (e.g., Ordering Death Certificates, notifying Social Security).
+    *   **Simulation**: In the PoC, these simulate a backend process (API delay) and auto-complete the task, demonstrating the value prop of a paid tier.
 
 ## 5. Technical Strategy (PoC)
 *   **Stack**: Vanilla HTML/CSS/JS (No build steps for rapid iteration/portability).

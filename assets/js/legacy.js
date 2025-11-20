@@ -182,13 +182,13 @@ class LegacyApp {
         const totalSteps = tasks.length;
         const progressPercent = this.getPhaseProgress(currentPhase.id);
         
-        // Phase-specific Hero Gradients
+        // Phase-specific Hero Gradients - Dark/Neon
         const heroGradients = {
-            'p1': 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)', // Sunset
-            'p2': 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', // Morning
-            'p3': 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', // Ethereal
-            'p4': 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', // Gold
-            'p5': 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'  // Deep
+            'p1': 'linear-gradient(135deg, #2b5876 0%, #4e4376 100%)', // Deep Space
+            'p2': 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)', // Deep Teal
+            'p3': 'linear-gradient(135deg, #141e30 0%, #243b55 100%)', // Metallic Blue
+            'p4': 'linear-gradient(135deg, #302b63 0%, #24243e 100%)', // Deep Purple
+            'p5': 'linear-gradient(135deg, #232526 0%, #414345 100%)'  // Obsidian
         };
         const heroBg = heroGradients[currentPhase.id] || heroGradients['p1'];
 

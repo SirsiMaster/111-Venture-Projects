@@ -199,100 +199,195 @@ body {
 }
 
 /* ==============================
-   iOS Inset Grouped Lists
+   Welcome / Landing View
+   ============================== */
+.welcome-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s;
+  overflow: hidden;
+}
+
+.welcome-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  text-align: center;
+}
+
+.welcome-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 32px;
+  color: var(--tint-blue);
+  margin-bottom: 32px;
+  animation: fadeDown 1s ease-out;
+}
+
+.logo-text {
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.welcome-headline {
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.03em;
+  animation: fadeUp 1s ease-out 0.2s both;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #fff 0%, #888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-sub {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 auto 48px auto;
+  max-width: 480px;
+  animation: fadeUp 1s ease-out 0.4s both;
+}
+
+.molten-btn-large {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 18px 40px;
+  border-radius: 99px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 0 20px rgba(41, 151, 255, 0.2);
+  animation: fadeUp 1s ease-out 0.6s both;
+}
+
+.molten-btn-large:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 0 40px rgba(41, 151, 255, 0.4);
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.orb-1 {
+  width: 400px; height: 400px;
+  background: var(--tint-blue);
+  top: -100px; left: -100px;
+  animation: floatOrb 10s infinite alternate;
+}
+
+.orb-2 {
+  width: 500px; height: 500px;
+  background: var(--tint-indigo);
+  bottom: -100px; right: -100px;
+  animation: floatOrb 15s infinite alternate-reverse;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================
+   iOS Inset Grouped Lists (Molten Glass)
    ============================== */
 .ios-list-group {
   margin: 0 16px 24px 16px;
-  border-radius: 10px;
-  background: #1C1C1E;
+  border-radius: 16px;
+  /* Molten Glass Background */
+  background: rgba(30, 30, 35, 0.4);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  /* Molten Borders */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.05);
   overflow: hidden;
 }
 
 .ios-list-item {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
-  background: #1C1C1E;
-  border-bottom: 0.5px solid #38383A;
+  padding: 16px;
+  background: transparent; /* Let glass show through */
+  /* Molten Divider */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: background 0.2s;
   min-height: 44px;
 }
 
-.ios-list-item:last-child { border-bottom: none; }
-.ios-list-item:active { background: #2C2C2E; }
-
-.ios-content { flex: 1; margin-right: 8px; }
-
-.ios-title {
-  font-size: 17px;
-  font-weight: 400;
-  color: white;
-  margin-bottom: 2px;
+.ios-list-item:last-child { 
+  border-bottom: none; 
+  box-shadow: none;
 }
 
-.ios-subtitle {
-  font-size: 13px;
-  color: var(--text-secondary);
+.ios-list-item:active { 
+  background: rgba(255, 255, 255, 0.05); 
 }
 
-.ios-chevron {
-  color: var(--text-tertiary);
-  font-size: 16px;
-}
-
-/* Task Specific Styles within iOS List */
-.task-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.ios-checkbox {
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--text-secondary);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 2px;
-  position: relative;
-}
-
-.ios-checkbox.checked {
-  background: var(--tint-blue);
-  border-color: var(--tint-blue);
-}
-
-.ios-checkbox.checked::after {
-  content: '';
-  position: absolute;
-  top: 5px; left: 4px;
-  width: 10px; height: 5px;
-  border-left: 2px solid white;
-  border-bottom: 2px solid white;
-  transform: rotate(-45deg);
-}
-
-/* ==============================
-   Shepherd / Guided Path Cards
-   ============================== */
-.guided-hero {
-  padding: 20px 16px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.guided-progress-ring {
-  width: 180px;
-  height: 180px;
-  margin: 0 auto 20px;
-}
-
+/* Tasks & Cards - Molten Upgrade */
 .ios-card {
-  background: #1C1C1E;
-  border-radius: 12px;
+  /* Deeper Molten Glass */
+  background: rgba(25, 25, 30, 0.6);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  border-radius: 16px;
   margin: 0 16px 24px 16px;
-  padding: 20px;
+  padding: 24px;
 }
 
 .ios-card-title {

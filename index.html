@@ -19,6 +19,34 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
+    <!-- Welcome / Landing View (Overlay) -->
+    <div id="view-welcome" class="welcome-overlay">
+        <div class="welcome-content">
+            <div class="welcome-logo">
+                <i class="ph-fill ph-star-four"></i>
+                <span class="logo-text">Legacy</span>
+            </div>
+            <h1 class="welcome-headline">
+                The Shepherd for<br>
+                <span class="text-gradient">Life’s Hardest Moments.</span>
+            </h1>
+            <p class="welcome-sub">
+                Navigate the complexities of loss with clarity, compassion, and automated grace. We are here to walk with you, every step of the way.
+            </p>
+            
+            <div class="welcome-actions">
+                <button class="molten-btn-large" onclick="app.dismissWelcome()">
+                    Begin the Journey
+                    <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Ambient Background Elements -->
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+    </div>
+
     <div class="app-shell">
         <!-- Desktop Sidebar (iPad Sidebar Style) -->
         <nav class="app-nav--desktop">

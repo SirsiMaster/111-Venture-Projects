@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
     <title>About Legacy - Our Mission</title>
-    <link rel="stylesheet" href="assets/css/legacy.css?v=4">
+    <link rel="stylesheet" href="assets/css/legacy.css?v=5">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body class="landing-page">
@@ -16,19 +16,19 @@
         <div class="ambient-orb orb-3"></div>
     </div>
 
-    <!-- Nav -->
-    <nav class="landing-nav">
+    <!-- Sticky Glass Navigation -->
+    <nav class="nav-bar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo" style="text-decoration: none;">
+            <a href="index.html" class="nav-logo">
                 <i class="ph-fill ph-star-four"></i>
                 Legacy
             </a>
             <div class="nav-menu">
-                <a href="index.html#features">Features</a>
-                <a href="index.html#pricing">Pricing</a>
-                <a href="about.html" class="active" style="color:white;">About</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link active">About</a>
             </div>
-            <a href="app.html" class="molten-btn-small">Launch App</a>
+            <a href="app.html" class="btn btn-sm btn-primary">Launch App</a>
         </div>
     </nav>
 
@@ -86,20 +86,48 @@
     </section>
 
     <!-- Footer -->
-    <footer class="landing-footer">
+    <footer class="site-footer">
         <div class="footer-content">
-            <div class="footer-brand">
-                <i class="ph-fill ph-star-four"></i>
-                <span>Legacy</span>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <i class="ph-fill ph-star-four"></i>
+                        Legacy
+                    </a>
+                    <p class="footer-tagline">The operating system for life's hardest moments. Built with empathy, security, and precision.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <nav class="footer-links">
+                        <a href="index.html#features">Features</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="app.html">Login</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <nav class="footer-links">
+                        <a href="about.html">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <nav class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Security</a>
+                    </nav>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Support</a>
-            </div>
-            <div class="footer-copy">
-                &copy; 2025 111 Venture Studio. All rights reserved.
+            <div class="footer-bottom">
+                <div class="footer-copyright">&copy; 2025 Legacy Inc. All rights reserved.</div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="social-link"><i class="ph-fill ph-linkedin-logo"></i></a>
+                </div>
             </div>
         </div>
     </footer>

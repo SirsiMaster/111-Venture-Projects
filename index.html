@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
+    <meta name="description" content="Legacy automates the administrative burden of end-of-life management. From closing accounts to transferring assets, we help families focus on healing.">
+    <meta property="og:title" content="Legacy - The Operating System for Life's Final Chapter">
+    <meta property="og:description" content="Automate the 500+ hours of administrative work after a loved one passes. Secure, empathetic, and precise.">
+    <meta property="og:image" content="https://dummyimage.com/1200x630/000/fff.png&text=Legacy+App">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
     <title>Legacy - The Shepherd for Life's Hardest Moments</title>
     <link rel="stylesheet" href="assets/css/legacy.css?v=5">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -27,8 +32,11 @@
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
                 <a href="about.html" class="nav-link">About</a>
+                <!-- Mobile Only CTA in Menu -->
+                <a href="app.html" class="btn btn-primary" style="margin-top: 20px; display: none;" onclick="if(window.innerWidth < 768) this.style.display='flex'">Launch App</a>
             </div>
             <a href="app.html" class="btn btn-sm btn-primary">Launch App</a>
+            <button class="mobile-menu-btn"><i class="ph-bold ph-list"></i></button>
         </div>
     </nav>
 
@@ -259,50 +267,51 @@
         </div>
     </section>
     <!-- Footer -->
-    <footer class=\"site-footer\">
-        <div class=\"footer-content\">
-            <div class=\"footer-top\">
-                <div class=\"footer-brand\">
-                    <a href=\"#\" class=\"footer-logo\">
-                        <i class=\"ph-fill ph-star-four\"></i>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <i class="ph-fill ph-star-four"></i>
                         Legacy
                     </a>
-                    <p class=\"footer-tagline\">The operating system for life's hardest moments. Built with empathy, security, and precision.</p>
+                    <p class="footer-tagline">The operating system for life's hardest moments. Built with empathy, security, and precision.</p>
                 </div>
-                <div class=\"footer-column\">
+                <div class="footer-column">
                     <h4>Platform</h4>
-                    <nav class=\"footer-links\">
-                        <a href=\"#features\">Features</a>
-                        <a href=\"#pricing\">Pricing</a>
-                        <a href=\"app.html\">Login</a>
+                    <nav class="footer-links">
+                        <a href="#features">Features</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="app.html">Login</a>
                     </nav>
                 </div>
-                <div class=\"footer-column\">
+                <div class="footer-column">
                     <h4>Company</h4>
-                    <nav class=\"footer-links\">
-                        <a href=\"about.html\">About Us</a>
-                        <a href=\"#\">Careers</a>
-                        <a href=\"#\">Contact</a>
+                    <nav class="footer-links">
+                        <a href="about.html">About Us</a>
+                        <a href="javascript:void(0)" onclick="alert('Careers page coming soon!')">Careers</a>
+                        <a href="mailto:support@legacy.app">Contact</a>
                     </nav>
                 </div>
-                <div class=\"footer-column\">
+                <div class="footer-column">
                     <h4>Legal</h4>
-                    <nav class=\"footer-links\">
-                        <a href=\"#\">Privacy Policy</a>
-                        <a href=\"#\">Terms of Service</a>
-                        <a href=\"#\">Security</a>
+                    <nav class="footer-links">
+                        <a href="javascript:void(0)">Privacy Policy</a>
+                        <a href="javascript:void(0)">Terms of Service</a>
+                        <a href="javascript:void(0)">Security</a>
                     </nav>
                 </div>
             </div>
-            <div class=\"footer-bottom\">
-                <div class=\"footer-copyright\">&copy; 2025 Legacy Inc. All rights reserved.</div>
-                <div class=\"footer-social\">
-                    <a href=\"#\" class=\"social-link\"><i class=\"ph-fill ph-twitter-logo\"></i></a>
-                    <a href=\"#\" class=\"social-link\"><i class=\"ph-fill ph-instagram-logo\"></i></a>
-                    <a href=\"#\" class=\"social-link\"><i class=\"ph-fill ph-linkedin-logo\"></i></a>
+            <div class="footer-bottom">
+                <div class="footer-copyright">&copy; 2025 Legacy Inc. All rights reserved.</div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="social-link"><i class="ph-fill ph-linkedin-logo"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+    <script src="assets/js/landing.js"></script>
 </body>
 </html>

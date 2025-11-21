@@ -152,24 +152,30 @@ class LegacyApp {
         }, 3000);
     }
 
-    renderTimeline() {
     loadData() {
         // In a real app, this would fetch from an API
         // For PoC, we load from MOCK_DATA and merge with LocalStorage
         const storedState = localStorage.getItem('legacy_state');
         
         if (storedState) {
-            const parsedState = JSON.parse(storedState);
-            // Defensively merge existing state with defaults to prevent crashes from stale data
-            this.state = {
-                ...parsedState,
-                timeline: parsedState.timeline && parsedState.timeline.length > 0 ? parsedState.timeline : MOCK_DATA.timeline,
-                contacts: parsedState.contacts && parsedState.contacts.length > 0 ? parsedState.contacts : MOCK_DATA.contacts,
-                documents: parsedState.documents && parsedState.documents.length > 0 ? parsedState.documents : MOCK_DATA.documents,
-                phases: MOCK_DATA.phases, // Always refresh structure
-                domains: MOCK_DATA.domains,
-                tasks: this.mergeTasks(parsedState.tasks, MOCK_DATA.tasks)
-            };
+            try {
+                const parsedState = JSON.parse(storedState);
+                // Defensively merge existing state with defaults to prevent crashes from stale data
+                this.state = {
+                    ...parsedState,
+                    timeline: parsedState.timeline && parsedState.timeline.length > 0 ? parsedState.timeline : MOCK_DATA.timeline,
+                    contacts: parsedState.contacts && parsedState.contacts.length > 0 ? parsedState.contacts : MOCK_DATA.contacts,
+                    documents: parsedState.documents && parsedState.documents.length > 0 ? parsedState.documents : MOCK_DATA.documents,
+                    phases: MOCK_DATA.phases, // Always refresh structure
+                    domains: MOCK_DATA.domains,
+                    tasks: this.mergeTasks(parsedState.tasks, MOCK_DATA.tasks)
+                };
+            } catch (err) {
+                console.error("State corrupted, resetting", err);
+                localStorage.removeItem('legacy_state');
+                this.loadData(); // Retry with fresh state
+                return;
+            }
         } else {
             // Seed with mock data
             this.state.profile = MOCK_DATA.profile;
@@ -413,6 +419,8 @@ class LegacyApp {
             window.location.reload();
         }
     }
+
+    handleUpdateProfile(e) {
         e.preventDefault();
         const name = document.getElementById('input-decedent-name').value;
         const dod = document.getElementById('input-dod').value;

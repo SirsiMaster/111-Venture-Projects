@@ -269,7 +269,7 @@ const MOCK_DATA = {
             priority: "High",
             status: "locked"
         }
-    ]
+    ],
     // --- NEW MODULES ---
     timeline: [
         { id: "tl1", date: "2025-11-18", title: "Date of Death", type: "milestone", icon: "ph-cross" },

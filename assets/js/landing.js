@@ -1,11 +1,13 @@
 /**
  * Legacy - Landing Page Logic
- * Handles mobile navigation, smooth scrolling, and other landing page interactions.
+ * Handles mobile navigation, smooth scrolling, scroll animations, and metrics counters.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     initSmoothScroll();
+    initScrollAnimations();
+    initMetricCounters();
 });
 
 function initMobileNav() {
@@ -40,7 +42,7 @@ function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            if (targetId === '#' || !targetId) return;
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -51,4 +53,55 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function initMetricCounters() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                animateCounter(entry.target);
+                entry.target.classList.add('counted');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.metric-value').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 2000; // 2 seconds
+    const steps = 50;
+    const stepTime = duration / steps;
+    let current = 0;
+    const increment = target / steps;
+
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            el.innerText = target.toLocaleString();
+            clearInterval(timer);
+        } else {
+            el.innerText = Math.ceil(current).toLocaleString();
+        }
+    }, stepTime);
 }

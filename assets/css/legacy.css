@@ -1151,6 +1151,8 @@ h1, h2, h3 {
   padding: 80px 40px;
   background: radial-gradient(circle at center, rgba(30, 30, 40, 0.8) 0%, rgba(10, 10, 15, 0.8) 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 100px rgba(0,0,0,0.5);
+}
 
 /* ==============================
    Features Grid (About & Details)
@@ -1279,4 +1281,231 @@ td {
   margin: 0 auto;
   text-align: center;
   padding-top: 60px;
+}
+
+/* ==============================
+   Missing Button Sizes
+   ============================== */
+.molten-btn-large {
+  padding: 16px 40px;
+  font-size: 18px;
+}
+
+.molten-btn-small {
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+.molten-btn-secondary {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ==============================
+   Bento Visual Elements
+   ============================== */
+.bento-visual-wide {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.timeline-mock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0;
+}
+
+.mock-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all 0.3s;
+}
+
+.mock-dot.active {
+  background: var(--tint-blue);
+  box-shadow: 0 0 12px var(--tint-blue-glow);
+}
+
+.mock-line {
+  width: 40px; height: 2px;
+  background: rgba(255,255,255,0.1);
+}
+
+.bento-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+
+.bento-list li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+
+.bento-list li i {
+  color: var(--status-success);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ==============================
+   iOS Large Title & Missing App Styles
+   ============================== */
+.ios-large-title {
+  padding: 0 24px 24px;
+  position: relative;
+}
+
+.ios-large-title h1 {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ios-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.ios-card-body {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.ios-content {
+  flex: 1;
+}
+
+.ios-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.ios-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ios-body {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.ios-checkbox {
+  width: 24px; height: 24px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.ios-checkbox.checked {
+  border-color: var(--tint-blue);
+  background: var(--tint-blue);
+  position: relative;
+}
+
+.ios-checkbox.checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==============================
+   App Utility Classes
+   ============================== */
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.app-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 8px 0;
+}
+
+.view-container {
+  position: relative;
+}
+
+.empty-state {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 17px;
+}
+
+.icon-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--text-secondary);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 20px;
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.header-title-inline {
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Status Colors */
+:root {
+  --status-success: #30D158;
+  --status-warning: #FFD60A;
+  --status-danger: #FF453A;
+}
+
+.confetti {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: red;
+  z-index: 5000;
+  pointer-events: none;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
 }

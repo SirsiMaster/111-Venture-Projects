@@ -159,21 +159,39 @@ class LegacyApp {
         const storedState = localStorage.getItem('legacy_state');
         
         if (storedState) {
-            this.state = JSON.parse(storedState);
+            const parsedState = JSON.parse(storedState);
+            // Defensively merge existing state with defaults to prevent crashes from stale data
+            this.state = {
+                ...parsedState,
+                timeline: parsedState.timeline && parsedState.timeline.length > 0 ? parsedState.timeline : MOCK_DATA.timeline,
+                contacts: parsedState.contacts && parsedState.contacts.length > 0 ? parsedState.contacts : MOCK_DATA.contacts,
+                documents: parsedState.documents && parsedState.documents.length > 0 ? parsedState.documents : MOCK_DATA.documents,
+                phases: MOCK_DATA.phases, // Always refresh structure
+                domains: MOCK_DATA.domains,
+                tasks: this.mergeTasks(parsedState.tasks, MOCK_DATA.tasks)
+            };
         } else {
             // Seed with mock data
             this.state.profile = MOCK_DATA.profile;
             this.state.phases = MOCK_DATA.phases;
             this.state.domains = MOCK_DATA.domains;
             this.state.tasks = MOCK_DATA.tasks;
-            // New data modules
-            this.state.timeline = MOCK_DATA.timeline || [];
-            this.state.contacts = MOCK_DATA.contacts || [];
-            this.state.documents = MOCK_DATA.documents || [];
+            this.state.timeline = MOCK_DATA.timeline;
+            this.state.contacts = MOCK_DATA.contacts;
+            this.state.documents = MOCK_DATA.documents;
             
             // Persist initial state
             this.saveState();
         }
+    }
+
+    mergeTasks(storedTasks, mockTasks) {
+        // Keep status of stored tasks, but update titles/descriptions from mock
+        if (!storedTasks) return mockTasks;
+        return mockTasks.map(mTask => {
+            const sTask = storedTasks.find(t => t.id === mTask.id);
+            return sTask ? { ...mTask, status: sTask.status } : mTask;
+        });
     }
 
     saveState() {
@@ -389,7 +407,12 @@ class LegacyApp {
         this.showToast('Document Uploaded');
     }
 
-    handleUpdateProfile(e) {
+    handleResetData() {
+        if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+            localStorage.removeItem('legacy_state');
+            window.location.reload();
+        }
+    }
         e.preventDefault();
         const name = document.getElementById('input-decedent-name').value;
         const dod = document.getElementById('input-dod').value;

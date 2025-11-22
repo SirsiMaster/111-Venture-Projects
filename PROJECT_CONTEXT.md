@@ -9,12 +9,13 @@
 ## Current Status (as of Nov 22, 2025)
 We have completed a major UI/UX overhaul to match a high-end, dark-mode "Sirsi" aesthetic.
 - **Fixed:** Desktop navigation layout (Flexbox), mobile menu toggle visibility, button class compatibility, and pricing grid responsiveness.
-- **Pending:** Final verification of mobile menu animations, testing of the "Guided Path" flow on mobile devices, and deeper testing of the "Automation Console" simulation.
+- **Polished:** Mobile responsiveness for "Guided Path" and "Automation Console" simulation realism.
+- **Verified:** PWA manifest and service worker configuration.
 
 ## Recent Updates
-- **CSS System:** Added `legacy.css` v6 with Flexbox navigation fixes and backward-compatible button classes (`.btn`, `.btn-primary`, etc.).
-- **Layout:** Fixed pricing grid to avoid single-column stretching on desktop (`minmax(300px, 1fr)`).
-- **Cache Busting:** Updated all HTML files to reference `legacy.css?v=6`.
+- **JS Logic:** Updated `simulateAutomation` in `legacy.js` to use random variable delays for a more organic, "thinking" server feel.
+- **CSS System:** Added `.guided-hero`, `.guided-progress-ring`, and `.console-log` styles to `legacy.css` to ensure proper mobile rendering.
+- **PWA:** Updated `manifest.json` theme colors to `#050507` (Dark Mode) and fixed `service-worker.js` asset list.
 
 ## Critical File Contents
 
@@ -50,6 +51,6 @@ The project follows a strict file structure:
 ```
 
 ## Next Steps for Development
-1. **Mobile Testing:** Verify the "Guided Path" progress ring and task list on small screens.
-2. **Automation Console:** Enhance the simulated console logs in `legacy.js` to feel more realistic (random delays).
-3. **PWA Features:** Verify offline capability and manifest installation.
+1. **Document Management:** Implement a drag-and-drop zone for the "Documents" view in `app.html` to make it feel more interactive (even if just a simulation).
+2. **Contact Validation:** Add basic form validation to the "Add Contact" modal (e.g., check email format).
+3. **Settings View:** Expand the "Settings" view to include a mock "Notification Preferences" toggle list.

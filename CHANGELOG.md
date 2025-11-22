@@ -2,7 +2,13 @@
 
 All notable changes to the "Legacy" project will be documented in this file.
 
-## [Unreleased] - 2025-11-22
+## [v1.6.0] - 2025-11-22
+### Polished
+- **Automation Console:** Updated `legacy.js` to simulate variable network latency (300ms-1200ms) for a realistic "concierge" experience.
+- **Mobile UI:** Added `.guided-hero` and responsive progress ring styles to `legacy.css` to prevent overflow on small screens.
+- **PWA:** Updated `manifest.json` theme to `#050507` and cleaned up `service-worker.js` cache list.
+
+## [v1.5.1] - 2025-11-22
 ### Fixed
 - **Navigation Layout:** Added `display: flex` to `.nav-container` and `.nav-menu` in `legacy.css` to fix vertical stacking issues on desktop.
 - **Mobile Menu Button:** Explicitly hid `.mobile-menu-btn` on desktop viewports to prevent double controls.

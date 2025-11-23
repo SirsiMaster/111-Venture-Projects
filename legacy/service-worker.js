@@ -1,14 +1,14 @@
-const CACHE_NAME = 'legacy-poc-v3';
+const CACHE_NAME = 'legacy-poc-v4';
 const ASSETS = [
   './',
   './index.html',
   './app.html',
   './about.html',
   './pricing.html',
-  'assets/css/swiss-legacy.css',
-  'assets/js/legacy.js',
-  'assets/js/landing.js',
-  'assets/js/mock-data.js',
+  './assets/css/swiss-legacy.css',
+  './assets/js/legacy.js',
+  './assets/js/landing.js',
+  './assets/js/mock-data.js',
   './manifest.json'
 ];
 

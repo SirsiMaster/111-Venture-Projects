@@ -88,7 +88,12 @@ function initMetricCounters() {
 }
 
 function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-target'));
+    const targetAttr = el.getAttribute('data-target');
+    if (!targetAttr) return; // Skip if no target
+
+    const target = parseInt(targetAttr);
+    if (isNaN(target)) return; // Safety check
+
     const duration = 2000; // 2 seconds
     const steps = 50;
     const stepTime = duration / steps;
@@ -98,7 +103,7 @@ function animateCounter(el) {
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
-            el.innerText = target.toLocaleString();
+            el.innerText = target.toLocaleString() + "+"; // Add plus sign back
             clearInterval(timer);
         } else {
             el.innerText = Math.ceil(current).toLocaleString();

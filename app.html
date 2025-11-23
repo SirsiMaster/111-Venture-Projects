@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="Legacy">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/legacy.css?v=6">
+    <link rel="stylesheet" href="assets/css/swiss-legacy.css?v=1">
     <link rel="manifest" href="manifest.json">
     
     <!-- Phosphor Icons (Apple-like) -->
@@ -299,5 +299,16 @@
     <!-- Scripts -->
     <script src="assets/js/mock-data.js?v=3"></script>
     <script src="assets/js/legacy.js?v=3"></script>
+    <script>
+        // Fallback script to ensure MOCK_DATA is available
+        window.addEventListener('load', () => {
+            if (typeof MOCK_DATA === 'undefined') {
+                console.warn('MOCK_DATA missing on load, reloading script...');
+                const script = document.createElement('script');
+                script.src = 'assets/js/mock-data.js?v=' + Date.now();
+                document.body.appendChild(script);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -2,456 +2,272 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="Legacy automates the administrative burden of end-of-life management. From closing accounts to transferring assets, we help families focus on healing.">
-    <meta property="og:title" content="Legacy - The Operating System for Life's Final Chapter">
-    <meta property="og:description" content="Automate the 500+ hours of administrative work after a loved one passes. Secure, empathetic, and precise.">
-    <meta property="og:image" content="https://dummyimage.com/1200x630/000/fff.png&text=Legacy+App">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
-    <title>Legacy - The Shepherd for Life's Hardest Moments</title>
-    <link rel="stylesheet" href="assets/css/legacy.css?v=6">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy - The Operating System for Life's Final Chapter</title>
+    
+    <!-- Swiss Design System -->
+    <link rel="stylesheet" href="assets/css/swiss-legacy.css?v=3">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="landing-page">
-    <!-- Global Ambient Background -->
-    <div class="ambient-background">
-        <div class="ambient-orb orb-1"></div>
-        <div class="ambient-orb orb-2"></div>
-        <div class="ambient-orb orb-3"></div>
-    </div>
+<body>
+    <!-- Ambient Orbs -->
+    <div class="ambient-orb orb-blue"></div>
+    <div class="ambient-orb orb-gold"></div>
 
-    <!-- Sticky Glass Navigation -->
+    <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <i class="ph-fill ph-star-four"></i>
+                <i class="ph-fill ph-squares-four" style="color: var(--brand-primary);"></i>
                 Legacy
             </a>
             <div class="nav-menu">
-                <a href="#features" class="nav-link">Features</a>
+                <a href="#problem" class="nav-link">The Problem</a>
+                <a href="#solution" class="nav-link">Solution</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="about.html" class="nav-link">About</a>
-                <!-- Mobile Only CTA in Menu -->
-                <a href="app.html" class="btn btn-primary" style="margin-top: 20px; display: none;" onclick="if(window.innerWidth < 768) this.style.display='flex'">Launch App</a>
+                <a href="app.html" class="btn btn-sm btn-secondary">Log In</a>
+                <a href="app.html" class="btn btn-sm btn-primary">Start Free Trial</a>
             </div>
-            <a href="app.html" class="btn btn-sm btn-primary">Launch App</a>
             <button class="mobile-menu-btn"><i class="ph-bold ph-list"></i></button>
         </div>
     </nav>
 
-    <!-- Hero Section (High Density) -->
+    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-container">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                <span>Public Beta &bull; v1.0</span>
-            </div>
-            <h1 class="hero-headline">
-                The Operating System for<br>
-                <span class="text-gradient">Life’s Final Chapter.</span>
-            </h1>
-            <p class="hero-sub">
-                When a loved one passes, the world doesn't stop. Legacy automates the 500+ hours of administrative burden—from government filings to asset security—so you can focus on what matters.
-            </p>
-            <div class="hero-actions">
-                <a href="app.html" class="btn btn-lg btn-primary">
-                    <i class="ph-bold ph-rocket-launch"></i>
-                    Start Free Trial
-                </a>
-                <a href="#demo" class="btn btn-lg btn-secondary">
-                    <i class="ph-fill ph-play-circle"></i>
-                    Watch The Film
-                </a>
+            <div class="hero-content">
+                <h1>The operating system for life’s final chapter.</h1>
+                <p style="font-size: 20px;">
+                    When a loved one passes, the world doesn't stop. Legacy automates the 500+ hours of administrative burden—from government filings to asset security—so you can focus on what matters.
+                </p>
+                <div style="margin-top: 32px; margin-bottom: 48px;">
+                    <a href="app.html" class="btn btn-lg btn-primary">Start Free Trial</a>
+                    <a href="#demo" class="btn btn-lg btn-secondary" style="margin-left: 16px;">Watch the Film</a>
+                </div>
+                
+                <!-- Metrics Restored -->
+                <div class="metrics-strip">
+                    <div>
+                        <span class="metric-value">500+</span>
+                        <span class="metric-label">Hours Saved</span>
+                    </div>
+                    <div>
+                        <span class="metric-value">12k+</span>
+                        <span class="metric-label">Forms Auto-Filled</span>
+                    </div>
+                    <div>
+                        <span class="metric-value">$250M</span>
+                        <span class="metric-label">Assets Secured</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Live Metrics Strip -->
-            <div class="metrics-strip glass-panel">
-                <div class="metric-item">
-                    <span class="metric-value" data-target="500">0</span><span>+</span>
-                    <span class="metric-label">Hours Saved / Family</span>
-                </div>
-                <div class="metric-divider"></div>
-                <div class="metric-item">
-                    <span class="metric-value" data-target="12000">0</span><span>+</span>
-                    <span class="metric-label">Forms Auto-Filled</span>
-                </div>
-                <div class="metric-divider"></div>
-                <div class="metric-item">
-                    <span class="metric-value" data-target="250">0</span><span>M+</span>
-                    <span class="metric-label">Assets Secured</span>
-                </div>
+            <!-- Human Element -->
+            <div class="hero-visual">
+                <!-- Unsplash Image: Family hands (Legacy) -->
+                <img src="https://images.unsplash.com/photo-1616628132291-79bd72282057?q=80&w=1000&auto=format&fit=crop" alt="Close up of hands holding, representing family connection">
             </div>
+        </div>
+    </section>
 
-            <div class="hero-footer">
-                <span>TRUSTED BY FAMILIES COORDINATING WITH</span>
-                <div class="logo-marquee">
-                    <span><i class="ph-fill ph-bank"></i> Chase</span>
-                    <span><i class="ph-fill ph-buildings"></i> Wells Fargo</span>
-                    <span><i class="ph-fill ph-shield-check"></i> SSA</span>
-                    <span><i class="ph-fill ph-heartbeat"></i> VitalChek</span>
-                    <span><i class="ph-fill ph-umbrella"></i> MetLife</span>
+    <!-- Problem Section (Restored Content) -->
+    <section id="problem" class="section bg-subtle">
+        <div class="container">
+            <div class="section-header">
+                <h2>The 500-Hour Problem.</h2>
+                <p>The average estate takes 18 months to settle. It's a second full-time job you didn't ask for.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon-box"><i class="ph-bold ph-files"></i></div>
+                    <h3>Paperwork Mountain</h3>
+                    <p>Death certificates, probate forms, tax returns (1040 & 706), and SSA-721 notifications. One mistake restarts the clock.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="ph-bold ph-warning-circle"></i></div>
+                    <h3>Asset Risk</h3>
+                    <p>Unclaimed accounts, forgotten crypto wallets, and subscription drains. $70B in assets go unclaimed every year.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="ph-bold ph-users-three"></i></div>
+                    <h3>Family Conflict</h3>
+                    <p>Lack of transparency leads to disputes. "Who has the will?" "What did the lawyer say?" Legacy keeps everyone aligned.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- The Burden (Problem Agitation) -->
-    <section class="problem-section">
-        <div class="section-header">
-            <h2 class="text-gradient">The 500-Hour Problem.</h2>
-            <p>The average estate takes 18 months to settle. It's a second full-time job you didn't ask for.</p>
-        </div>
-        <div class="problem-grid">
-            <div class="problem-card glass-panel scroll-animate">
-                <div class="problem-icon"><i class="ph-duotone ph-files"></i></div>
-                <h3>Paperwork Mountain</h3>
-                <p>Death certificates, probate forms, tax returns (1040 & 706), and SSA-721 notifications. One mistake restarts the clock.</p>
+    <!-- Solution / Journey (Restored Content) -->
+    <section id="solution" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>From Chaos to Closure.</h2>
+                <p>We replace the fragmented legal system with a linear, automated path.</p>
             </div>
-            <div class="problem-card glass-panel scroll-animate" style="transition-delay: 0.1s;">
-                <div class="problem-icon"><i class="ph-duotone ph-warning-circle"></i></div>
-                <h3>Asset Risk</h3>
-                <p>Unclaimed accounts, forgotten crypto wallets, and subscription drains. $70B in assets go unclaimed every year.</p>
-            </div>
-            <div class="problem-card glass-panel scroll-animate" style="transition-delay: 0.2s;">
-                <div class="problem-icon"><i class="ph-duotone ph-users-three"></i></div>
-                <h3>Family Conflict</h3>
-                <p>Lack of transparency leads to disputes. "Who has the will?" "What did the lawyer say?" Legacy keeps everyone aligned.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works (Visual Journey) -->
-    <section class="journey-section">
-        <div class="section-header">
-            <h2 class="text-gradient">From Chaos to Closure.</h2>
-            <p>We replace the fragmented legal system with a linear, automated path.</p>
-        </div>
-        <div class="journey-container">
-            <div class="journey-line"></div>
             
-            <div class="journey-step scroll-animate">
-                <div class="step-marker">1</div>
-                <div class="step-content glass-panel">
-                    <div class="step-header">
-                        <h3>Intake & Discovery</h3>
-                        <i class="ph-fill ph-magnifying-glass"></i>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
+                <div class="journey-steps">
+                    <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--brand-primary);">
+                        <h3>1. Intake & Discovery</h3>
+                        <p>Upload a death certificate. Our AI scans it and instantly generates your state-specific probate checklist.</p>
                     </div>
-                    <p>Upload a death certificate. Our AI scans it and instantly generates your state-specific probate checklist.</p>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3>2. Auto-Notification</h3>
+                        <p>We automatically notify the Social Security Administration, credit bureaus, and DMV to prevent fraud.</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3>3. Asset Hunting</h3>
+                        <p>Connect bank accounts and emails. We hunt for recurring charges and hidden assets to ensure nothing is lost.</p>
+                    </div>
+                    <div class="card">
+                        <h3>4. Distribution & Close</h3>
+                        <p>Generate the final accounting report for beneficiaries. Close the estate with confidence.</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="journey-step reverse scroll-animate">
-                <div class="step-marker">2</div>
-                <div class="step-content glass-panel">
-                    <div class="step-header">
-                        <h3>Auto-Notification</h3>
-                        <i class="ph-fill ph-paper-plane-tilt"></i>
-                    </div>
-                    <p>We automatically notify the Social Security Administration, credit bureaus, and DMV to prevent fraud.</p>
-                </div>
-            </div>
-
-            <div class="journey-step scroll-animate">
-                <div class="step-marker">3</div>
-                <div class="step-content glass-panel">
-                    <div class="step-header">
-                        <h3>Asset Hunting</h3>
-                        <i class="ph-fill ph-treasure-chest"></i>
-                    </div>
-                    <p>Connect bank accounts and emails. We hunt for recurring charges and hidden assets to ensure nothing is lost.</p>
-                </div>
-            </div>
-
-            <div class="journey-step reverse scroll-animate">
-                <div class="step-marker">4</div>
-                <div class="step-content glass-panel">
-                    <div class="step-header">
-                        <h3>Distribution & Close</h3>
-                        <i class="ph-fill ph-check-fat"></i>
-                    </div>
-                    <p>Generate the final accounting report for beneficiaries. Close the estate with confidence and legal precision.</p>
+                <!-- Human Element: Application Context -->
+                <div class="journey-visual">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop" alt="Person using laptop for estate management" style="width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Security Deep Dive -->
-    <section class="security-section">
-        <div class="security-content">
-            <div class="security-visual scroll-animate">
-                <div class="shield-container">
-                    <i class="ph-fill ph-shield-check shield-icon"></i>
-                    <div class="shield-ring"></div>
-                    <div class="shield-ring delay-1"></div>
-                </div>
-            </div>
-            <div class="security-text scroll-animate">
-                <div class="badge-security"><i class="ph-fill ph-lock-key"></i> SOC2 TYPE II COMPLIANT</div>
-                <h2 class="text-gradient">Fort Knox for your Family Data.</h2>
-                <p>We deal with the most sensitive documents in your life. We treat them accordingly.</p>
-                <ul class="security-list">
-                    <li>
-                        <i class="ph-bold ph-check-circle"></i>
-                        <div>
-                            <strong>AES-256 Encryption</strong>
-                            <span>Data is encrypted at rest and in transit. Even we can't see your documents without your key.</span>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="ph-bold ph-check-circle"></i>
-                        <div>
-                            <strong>Role-Based Access</strong>
-                            <span>Share the funeral plans with your sister, but keep the bank details private. Granular permissions control.</span>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="ph-bold ph-check-circle"></i>
-                        <div>
-                            <strong>Biometric Auth</strong>
-                            <span>FaceID and TouchID support for instant, secure access on mobile.</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bento Grid Features -->
-    <section id="features" class="bento-section">
-        <div class="section-header">
-            <h2 class="text-gradient">Everything you need to close the books.</h2>
-            <p>A complete suite of professional-grade tools for Executors, Trustees, and grieving families.</p>
-        </div>
-        
-        <div class="bento-grid">
-            <!-- Large Featured Card -->
-            <div class="bento-card span-2">
-                <div class="bento-content">
-                    <div class="bento-icon"><i class="ph-duotone ph-brain"></i></div>
-                    <h3>The Shepherd Engine™</h3>
-                    <p>An intelligent algorithmic timeline that adapts to your specific state laws, asset types, and family dynamics. It tells you exactly what to do, and when to do it.</p>
-                    <div class="bento-visual-wide">
-                        <!-- Visual representation of a timeline -->
-                        <div class="timeline-mock">
-                            <div class="mock-dot active"></div>
-                            <div class="mock-line"></div>
-                            <div class="mock-dot active"></div>
-                            <div class="mock-line"></div>
-                            <div class="mock-dot"></div>
-                            <div class="mock-line"></div>
-                            <div class="mock-dot"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tall Card -->
-            <div class="bento-card span-1 row-2">
-                <div class="bento-content">
-                    <div class="bento-icon"><i class="ph-duotone ph-magic-wand"></i></div>
-                    <h3>Concierge Automation</h3>
-                    <p>Don't spend hours on hold. We auto-fill and mail critical government and financial forms.</p>
-                    <ul class="bento-list">
-                        <li><i class="ph-bold ph-check-circle"></i> SSA-721 Death Report</li>
-                        <li><i class="ph-bold ph-check-circle"></i> IRS Form 56</li>
-                        <li><i class="ph-bold ph-check-circle"></i> VA Benefits Claims</li>
-                        <li><i class="ph-bold ph-check-circle"></i> Credit Bureau Freezes</li>
-                        <li><i class="ph-bold ph-check-circle"></i> DMV Title Transfers</li>
-                        <li><i class="ph-bold ph-check-circle"></i> Unclaimed Property Search</li>
+    <!-- Security Deep Dive (Restored) -->
+    <section class="section bg-subtle">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+                <div>
+                    <h2>Fort Knox for your Family Data.</h2>
+                    <p>We deal with the most sensitive documents in your life. We treat them accordingly.</p>
+                    <ul style="list-style: none; padding: 0; margin-top: 32px;">
+                        <li style="display: flex; gap: 16px; margin-bottom: 24px;">
+                            <i class="ph-fill ph-check-circle" style="color: var(--brand-primary); font-size: 24px;"></i>
+                            <div>
+                                <strong>AES-256 Encryption</strong><br>
+                                <span style="color: var(--text-secondary);">Data is encrypted at rest and in transit. Even we can't see your documents.</span>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 16px; margin-bottom: 24px;">
+                            <i class="ph-fill ph-check-circle" style="color: var(--brand-primary); font-size: 24px;"></i>
+                            <div>
+                                <strong>Role-Based Access</strong><br>
+                                <span style="color: var(--text-secondary);">Share funeral plans with your sister, but keep bank details private.</span>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 16px;">
+                            <i class="ph-fill ph-check-circle" style="color: var(--brand-primary); font-size: 24px;"></i>
+                            <div>
+                                <strong>SOC2 Type II Compliant</strong><br>
+                                <span style="color: var(--text-secondary);">Audited security controls and processes.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-            </div>
-
-            <!-- Small Card -->
-            <div class="bento-card span-1">
-                <div class="bento-content">
-                    <div class="bento-icon"><i class="ph-duotone ph-lock-key"></i></div>
-                    <h3>The Vault</h3>
-                    <p>Bank-grade 256-bit AES encrypted storage for Wills, Trusts, and Death Certificates.</p>
-                </div>
-            </div>
-
-            <!-- Small Card -->
-            <div class="bento-card span-1">
-                <div class="bento-content">
-                    <div class="bento-icon"><i class="ph-duotone ph-users-three"></i></div>
-                    <h3>Family Collaboration</h3>
-                    <p>Invite siblings, attorneys, and CPAs to collaborate with role-based permissions.</p>
+                <div style="background: white; padding: 40px; border-radius: 12px; border: 1px solid var(--border-light); text-align: center;">
+                    <i class="ph-duotone ph-shield-check" style="font-size: 120px; color: var(--brand-primary);"></i>
+                    <p style="margin-top: 24px;"><strong>Bank-Grade Security</strong><br>Verified & Monitored 24/7</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission / Emotional Anchor -->
-    <section class="mission-section">
-        <div class="mission-content">
-            <div class="bento-icon" style="margin: 0 auto;"><i class="ph-fill ph-quotes"></i></div>
-            <div class="mission-text">
-                "The logistical nightmare of death often prevents families from actually grieving. We built Legacy to handle the paperwork, so you can handle the healing."
+    <!-- Pricing Section (Restored) -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <h2>Simple, transparent pricing.</h2>
+                <p>Most estate attorneys cost $350/hr. Legacy costs less than one hour.</p>
             </div>
-            <div class="mission-author">
-                <div class="author-avatar" style="background: linear-gradient(135deg, #333, #555);"></div>
-                <div>
-                    <div>Jameson K.</div>
-                    <div style="font-size: 12px; opacity: 0.6;">Founder of Legacy</div>
+            
+            <div class="grid-3">
+                <!-- Starter -->
+                <div class="card" style="text-align: center;">
+                    <h3>Self-Guided</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin: 16px 0;">$0</div>
+                    <p>Forever free</p>
+                    <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 24px 0;">
+                    <ul style="text-align: left; list-style: none; margin-bottom: 32px;">
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> State-specific checklists</li>
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> Basic asset tracking</li>
+                        <li><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> 1GB Storage</li>
+                    </ul>
+                    <a href="app.html" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="card" style="text-align: center; border-color: var(--brand-primary); border-width: 2px;">
+                    <div style="color: var(--brand-primary); font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">Most Popular</div>
+                    <h3>Executor Plus</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin: 16px 0;">$199</div>
+                    <p>One-time payment</p>
+                    <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 24px 0;">
+                    <ul style="text-align: left; list-style: none; margin-bottom: 32px;">
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> <strong>Automated Form Filling</strong></li>
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> <strong>Unlimited Collaborators</strong></li>
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> Fraud Protection</li>
+                        <li><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> 1TB Encrypted Vault</li>
+                    </ul>
+                    <a href="app.html" class="btn btn-primary" style="width: 100%;">Start Premium</a>
+                </div>
+
+                <!-- Concierge -->
+                <div class="card" style="text-align: center;">
+                    <h3>White Glove</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin: 16px 0;">$999</div>
+                    <p>One-time payment</p>
+                    <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 24px 0;">
+                    <ul style="text-align: left; list-style: none; margin-bottom: 32px;">
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> <strong>Dedicated Human Agent</strong></li>
+                        <li style="margin-bottom: 12px;"><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> Weekly Status Calls</li>
+                        <li><i class="ph-bold ph-check" style="color: var(--brand-primary); margin-right: 8px;"></i> Full Account Closure Service</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%;">Contact Sales</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing-section">
-        <div class="section-header" style="text-align: center; margin-bottom: 80px;">
-            <h2 class="text-gradient">Simple, transparent pricing.</h2>
-            <p>Most estate attorneys cost $350/hr. Legacy costs less than one hour.</p>
-        </div>
-
-        <div class="pricing-grid">
-            <!-- Starter -->
-            <div class="pricing-card">
-                <h3 class="ios-card-title">Self-Guided</h3>
-                <div class="price-amount">$0</div>
-                <div class="price-period">Forever free</div>
-                <p class="hero-sub" style="font-size: 15px; margin: 0;">Essential checklists and basic guidance for simple estates.</p>
-                
-                <ul class="price-features">
-                    <li><i class="ph-fill ph-check-circle"></i> State-specific checklists</li>
-                    <li><i class="ph-fill ph-check-circle"></i> Basic asset tracking</li>
-                    <li><i class="ph-fill ph-check-circle"></i> 1GB Document Storage</li>
-                </ul>
-                <a href="app.html" class="glass-btn" style="width: 100%; justify-content: center;">Get Started</a>
-            </div>
-
-            <!-- Premium -->
-            <div class="pricing-card popular">
-                <div class="popular-badge">Most Popular</div>
-                <h3 class="ios-card-title">Executor Plus</h3>
-                <div class="price-amount">$199</div>
-                <div class="price-period">One-time payment</div>
-                <p class="hero-sub" style="font-size: 15px; margin: 0;">Full automation and concierge support for complex estates.</p>
-                
-                <ul class="price-features">
-                    <li><i class="ph-fill ph-check-circle"></i> <strong>Automated Form Filling</strong></li>
-                    <li><i class="ph-fill ph-check-circle"></i> <strong>Unlimited Collaborators</strong></li>
-                    <li><i class="ph-fill ph-check-circle"></i> Fraud Protection</li>
-                    <li><i class="ph-fill ph-check-circle"></i> Priority Support</li>
-                    <li><i class="ph-fill ph-check-circle"></i> 1TB Encrypted Vault</li>
-                </ul>
-                <a href="app.html" class="molten-btn">Start Premium</a>
-            </div>
-
-            <!-- Concierge -->
-            <div class="pricing-card">
-                <h3 class="ios-card-title">White Glove</h3>
-                <div class="price-amount">$999</div>
-                <div class="price-period">One-time payment</div>
-                <p class="hero-sub" style="font-size: 15px; margin: 0;">We do it all for you. A dedicated case manager handles everything.</p>
-                
-                <ul class="price-features">
-                    <li><i class="ph-fill ph-check-circle"></i> <strong>Dedicated Human Agent</strong></li>
-                    <li><i class="ph-fill ph-check-circle"></i> Weekly Status Calls</li>
-                    <li><i class="ph-fill ph-check-circle"></i> Account Closures & Transfers</li>
-                    <li><i class="ph-fill ph-check-circle"></i> Probate Coordination</li>
-                </ul>
-                <a href="#" class="glass-btn" style="width: 100%; justify-content: center;">Contact Sales</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="section-header" style="text-align: center; margin-bottom: 60px;">
-            <h2>Frequently Asked Questions</h2>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <span>Is my data secure?</span>
-                <i class="ph-bold ph-plus accordion-icon"></i>
-            </button>
-            <div class="accordion-content">
-                Yes. We use bank-grade 256-bit AES encryption for all stored data. Your documents are encrypted at rest and in transit. We are SOC2 Type II compliant and never sell your data to advertisers.
-            </div>
-        </div>
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <span>Do I still need an attorney?</span>
-                <i class="ph-bold ph-plus accordion-icon"></i>
-            </button>
-            <div class="accordion-content">
-                Legacy handles the administrative logistics (canceling subscriptions, notifying the SSA, organizing assets). For complex probate legal filings or contesting a will, we recommend an attorney. We can refer you to our partner network if needed.
-            </div>
-        </div>
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <span>Can I invite my siblings?</span>
-                <i class="ph-bold ph-plus accordion-icon"></i>
-            </button>
-            <div class="accordion-content">
-                Absolutely. The Executor Plus plan allows for unlimited family collaborators. You can assign specific tasks to specific family members to share the workload.
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="cta-box glass-panel">
-            <h2 style="font-size: 48px; margin-bottom: 24px;">Ready to find peace of mind?</h2>
-            <p style="font-size: 20px; color: var(--text-secondary); margin-bottom: 40px;">
-                Join thousands of families using Legacy to navigate the hardest days of their lives.
-            </p>
-            <a href="app.html" class="molten-btn-large" style="max-width: 300px; margin: 0 auto;">
-                Create Free Account
-            </a>
-        </div>
-    </section>
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#" class="footer-logo">
-                        <i class="ph-fill ph-star-four"></i>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="nav-logo" style="margin-bottom: 16px;">
+                        <i class="ph-fill ph-squares-four" style="color: var(--brand-primary);"></i>
                         Legacy
                     </a>
-                    <p class="footer-tagline">The operating system for life's hardest moments. Built with empathy, security, and precision.</p>
+                    <p style="font-size: 14px;">The operating system for life's hardest moments. Built with precision and empathy.</p>
                 </div>
-                <div class="footer-column">
+                <div class="footer-col">
                     <h4>Platform</h4>
-                    <nav class="footer-links">
-                        <a href="#features">Features</a>
-                        <a href="#pricing">Pricing</a>
-                        <a href="app.html">Login</a>
-                    </nav>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="app.html">Login</a>
                 </div>
-                <div class="footer-column">
+                <div class="footer-col">
                     <h4>Company</h4>
-                    <nav class="footer-links">
-                        <a href="about.html">About Us</a>
-                        <a href="javascript:void(0)" onclick="alert('Careers page coming soon!')">Careers</a>
-                        <a href="mailto:support@legacy.app">Contact</a>
-                    </nav>
+                    <a href="about.html">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
                 </div>
-                <div class="footer-column">
+                <div class="footer-col">
                     <h4>Legal</h4>
-                    <nav class="footer-links">
-                        <a href="javascript:void(0)">Privacy Policy</a>
-                        <a href="javascript:void(0)">Terms of Service</a>
-                        <a href="javascript:void(0)">Security</a>
-                    </nav>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div class="footer-copyright">&copy; 2025 Legacy Inc. All rights reserved.</div>
-                <div class="footer-social">
-                    <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-                    <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
-                    <a href="#" class="social-link"><i class="ph-fill ph-linkedin-logo"></i></a>
-                </div>
+            <div style="border-top: 1px solid var(--border-light); padding-top: 32px; color: var(--text-tertiary); font-size: 13px;">
+                &copy; 2025 Legacy Inc. All rights reserved.
             </div>
         </div>
     </footer>
+
     <script src="assets/js/landing.js"></script>
+</body>
+</html>
 </body>
 </html>

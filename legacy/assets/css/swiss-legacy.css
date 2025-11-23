@@ -94,9 +94,38 @@ body {
   line-height: 1.5;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
-  position: relative; /* Ensure z-index stacking works for orbs */
+  position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
 }
+
+/* Orbs must be behind content but visible */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  z-index: 0; /* Changed from -1 to 0 */
+  pointer-events: none;
+}
+
+/* Ensure all main content sits ABOVE the orbs */
+.nav-bar, 
+.hero-section, 
+.section, 
+.site-footer {
+  position: relative;
+  z-index: 1;
+  background: transparent; /* Allow orbs to show through gaps */
+}
+
+/* Cards need their own background to be legible */
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 2;
+  /* ... rest of card styles ... */
 
 h1, h2, h3, h4, h5 {
   font-weight: 700;
@@ -284,13 +313,9 @@ a:hover {
    AMBIENT DEPTH (Rack Focus)
    ================================================================================ */
 
-.ambient-orb {
-  position: fixed; /* Changed from absolute to fixed to stay on screen */
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.6; /* Increased opacity */
-  z-index: -1;
-  pointer-events: none;
+/* Fix duplicate/conflicting orb styles later in file */
+.ambient-orb-old-delete-me {
+  display: none;
 }
 
 .orb-blue {

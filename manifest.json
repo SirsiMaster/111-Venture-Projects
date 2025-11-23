@@ -3,8 +3,8 @@
   "short_name": "Legacy",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
+  "background_color": "#050507",
+  "theme_color": "#050507",
   "description": "Guided End-of-Life Management",
   "icons": [
     {

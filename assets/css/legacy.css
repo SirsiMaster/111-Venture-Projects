@@ -89,26 +89,29 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 0 20px rgba(41, 151, 255, 0.3)); /* Glowing text */
+  display: inline-block; /* Fix for gradient text cutoff */
 }
 
 /* Massive Typography */
 h1, .text-display {
-  font-size: clamp(56px, 8vw, 110px); /* Huge Hero Text */
+  font-size: clamp(48px, 6vw, 96px); /* Adjusted for better fit */
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.1;
   margin-bottom: var(--space-lg);
+  color: var(--text-primary);
 }
 
 h2, .text-h1 {
-  font-size: clamp(40px, 5vw, 64px); /* Large Section Headers */
+  font-size: clamp(36px, 4vw, 56px);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: var(--space-lg);
+  color: var(--text-primary);
 }
 
 h3 {
-  font-size: 28px; /* Clear subheads */
+  font-size: 28px;
   font-weight: 600;
   margin-bottom: var(--space-md);
   color: white;
@@ -116,9 +119,10 @@ h3 {
 
 p {
   color: var(--text-secondary);
-  font-size: 20px; /* Readable body text */
+  font-size: 20px;
   line-height: 1.7;
-  max-width: 720px; /* Optimal reading width */
+  max-width: 720px;
+  margin-bottom: var(--space-md); /* Ensure paragraphs have spacing */
 }
 
 /* Film grain texture overlay */
@@ -135,16 +139,21 @@ body::before {
   opacity: 0.5;
 }
 
+/* Reset h1-h6 to standard */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
   color: var(--text-primary);
+  margin-top: 0;
 }
 
+/* Ensure paragraphs don't overflow */
 p {
   color: var(--text-secondary);
   line-height: 1.6;
+  max-width: 100%; /* Prevent overflow */
+  overflow-wrap: break-word;
 }
 
 /* ================================================================================
@@ -323,24 +332,125 @@ p {
 .hero-section {
   padding: 180px var(--space-lg) 120px; /* Massive top padding */
   min-height: 100vh;
-  justify-content: flex-start; /* Align topish */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  position: relative;
+  z-index: 2;
 }
 
 .hero-headline {
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .hero-sub {
   font-size: 24px; /* Larger hero subtext */
   max-width: 800px;
-  margin-bottom: 56px;
+  margin: 0 auto 56px auto;
   color: #D4D4D8;
+  text-align: center;
 }
 
 .hero-actions {
+  display: flex;
+  justify-content: center;
   gap: 24px;
+  margin-bottom: var(--space-3xl);
+}
+
+/* Badge Style */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  margin-left: auto;
+  margin-right: auto;
+  display: table; /* Centering hack for inline-flex */
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+/* Metrics Strip */
+.metrics-strip {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px;
+  margin-top: var(--space-2xl);
+  background: rgba(20, 20, 25, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+}
+
+.metric-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  background: linear-gradient(180deg, #fff 0%, #ccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.metric-divider {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-footer {
+  margin-top: var(--space-3xl);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.hero-footer > span {
+  display: block;
+  margin-bottom: var(--space-lg);
+  opacity: 0.6;
 }
 
 /* Button Aliases for HTML Compatibility */
@@ -620,107 +730,98 @@ p {
   color: var(--accent-blue);
 }
 
-/* ================================================================================
-   MISSING SECTIONS (Mission, Features, etc.)
-   ================================================================================ */
-
-.mission-section {
-  padding: var(--space-4xl) var(--space-xl);
+/* Container Utility for all sections */
+.container {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  position: relative;
+  padding: 0 var(--space-lg);
 }
 
-.mission-content {
-  max-width: 800px;
+/* Update Sections to use constraint */
+.problem-section,
+.journey-section,
+.security-section,
+.faq-section,
+.cta-section {
+  padding: var(--space-4xl) 0;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  text-align: center;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
 }
 
-.mission-text {
-  font-size: clamp(20px, 4vw, 28px);
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--text-primary);
-  margin: var(--space-lg) 0;
+/* Problem Grid Fix */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
 }
 
-.mission-author {
-  display: flex;
+/* Journey Section Fix */
+.journey-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-2xl) 0;
+}
+
+/* Security Section Fix */
+.security-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
   align-items: center;
-  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.security-list li {
+  display: flex;
   gap: var(--space-md);
-  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+/* FAQ Fix */
+.accordion-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
   text-align: left;
 }
 
-.author-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #333;
-}
-
-.features-section {
-  padding: var(--space-4xl) var(--space-xl);
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
-  margin-top: var(--space-2xl);
-}
-
-.feature-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.feature-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  background: rgba(10, 132, 255, 0.1);
-  color: var(--accent-blue);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-bottom: var(--space-lg);
-}
-
-.feature-card h3 {
-  font-size: 20px;
-  margin-bottom: var(--space-sm);
-  color: white;
-}
-
-.feature-card p {
-  font-size: 16px;
+.accordion-content {
+  padding: 0 24px 24px;
   color: var(--text-secondary);
   line-height: 1.6;
+  display: none; /* JS toggle needed later, or pure CSS check */
 }
 
-.feature-desc {
-  font-size: 18px;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
+/* CTA Fix */
+.cta-box {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 40px;
 }
 
 /* ================================================================================
@@ -1045,6 +1146,8 @@ p {
 .app-shell {
   display: flex;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .app-nav--desktop {
@@ -1134,11 +1237,14 @@ p {
   overflow-y: auto;
   padding: 24px;
   position: relative;
+  display: block; /* Ensure block formatting context */
+  width: 100%;
 }
 
 .app-view {
   display: none;
   animation: fadeIn 0.3s ease;
+  width: 100%;
 }
 
 .app-view.active {
@@ -1402,6 +1508,52 @@ p {
 }
 
 /* ================================================================================
+   GUIDED PATH & APP SPECIFIC
+   ================================================================================ */
+
+.guided-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) 0;
+  position: relative;
+}
+
+.guided-progress-ring {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  /* transform handled in JS/SVG attributes */
+}
+
+.console-log {
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px;
+  height: 200px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--accent-green);
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-line {
+  opacity: 0;
+  animation: fadeIn 0.2s forwards;
+}
+
+/* ================================================================================
    RESPONSIVE (Clean)
    ================================================================================ */
 
@@ -1414,6 +1566,15 @@ p {
   
   .footer-top {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobile Width Constraint */
+@media (min-width: 769px) {
+  .app-shell {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5); /* Nice shadow for desktop app view */
   }
 }
 

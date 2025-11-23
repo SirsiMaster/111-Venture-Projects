@@ -36,18 +36,25 @@ class LegacyApp {
         const container = document.getElementById('view-dashboard');
         if (!container) return;
 
+        // Safety check for task data
+        if (!this.state.tasks || !Array.isArray(this.state.tasks)) {
+            console.error("State tasks are missing or invalid", this.state.tasks);
+            this.state.tasks = []; // Recovery
+        }
+
         // Calculate progress
         const allTasks = this.state.tasks;
         const completedTasks = allTasks.filter(t => t.status === 'completed').length;
-        const progress = Math.round((completedTasks / allTasks.length) * 100);
+        const progress = allTasks.length > 0 ? Math.round((completedTasks / allTasks.length) * 100) : 0;
         
         // Upcoming timeline events
-        const upcomingEvents = this.state.timeline
+        const upcomingEvents = (this.state.timeline || [])
             .filter(e => new Date(e.date) >= new Date())
             .sort((a, b) => new Date(a.date) - new Date(b.date))
             .slice(0, 3);
 
         const nextStep = this.getNextIncompleteTask(this.state.currentPhaseId);
+        const docsCount = this.state.documents ? this.state.documents.length : 0;
 
         container.innerHTML = `
             <!-- Radial Progress Chart -->
@@ -77,7 +84,7 @@ class LegacyApp {
                 </div>
                 <div class="dashboard-stat-card">
                     <span class="stat-title">Docs Vaulted</span>
-                    <span class="stat-value">${this.state.documents.length}</span>
+                    <span class="stat-value">${docsCount}</span>
                 </div>
             </div>
 
@@ -248,7 +255,10 @@ class LegacyApp {
             'documents': 'Documents',
             'settings': 'Settings'
         };
-        document.getElementById('header-title').textContent = titles[viewId] || 'Legacy';
+        const headerTitleEl = document.getElementById('header-title-inline');
+        if (headerTitleEl) {
+            headerTitleEl.textContent = titles[viewId] || 'Legacy';
+        }
     }
 
     // --- Guided Path Engine (The Shepherd) ---
@@ -327,9 +337,9 @@ class LegacyApp {
         ];
 
         let i = 0;
-        const interval = setInterval(() => {
+        
+        const runStep = () => {
             if (i >= logs.length) {
-                clearInterval(interval);
                 status.innerText = "Process Complete.";
                 status.style.color = "var(--status-success)";
                 closeBtn.style.display = 'inline-block';
@@ -348,7 +358,13 @@ class LegacyApp {
             bar.style.width = pct + '%';
             
             i++;
-        }, 600); // Speed of simulation
+            
+            // Random delay for realism (300ms to 1200ms)
+            const delay = Math.floor(Math.random() * 900) + 300;
+            setTimeout(runStep, delay);
+        };
+
+        runStep();
     }
 
     // --- Modal & Form Handling ---
@@ -462,7 +478,9 @@ class LegacyApp {
 
     renderTimeline() {
         const container = document.getElementById('timeline-list');
-        const events = this.state.timeline.sort((a, b) => new Date(a.date) - new Date(b.date));
+        if (!container) return;
+        
+        const events = (this.state.timeline || []).sort((a, b) => new Date(a.date) - new Date(b.date));
         
         if (!events.length) {
             container.innerHTML = '<div class="empty-state">No timeline events yet.</div>';
@@ -494,7 +512,9 @@ class LegacyApp {
 
     renderContacts() {
         const container = document.getElementById('contacts-grid');
-        const contacts = this.state.contacts;
+        if (!container) return;
+        
+        const contacts = this.state.contacts || [];
 
         if (!contacts.length) {
             container.innerHTML = '<div class="empty-state">No contacts added.</div>';
@@ -521,7 +541,9 @@ class LegacyApp {
 
     renderDocuments() {
         const container = document.getElementById('documents-list');
-        const docs = this.state.documents;
+        if (!container) return;
+        
+        const docs = this.state.documents || [];
 
         if (!docs.length) {
             container.innerHTML = '<div class="empty-state">No documents stored.</div>';
@@ -657,20 +679,17 @@ class LegacyApp {
     }
 
     renderDomains() {
-        const container = document.getElementById('domains-grid');
-        container.innerHTML = this.state.domains.map(d => `
-            <div class="domain-card">
-                <span class="domain-icon">${d.icon}</span>
-                <div class="domain-name">${d.name}</div>
-            </div>
-        `).join('');
+        // Domain grid removed from current design, keeping function stub for future use
+        return;
     }
 
     renderTaskList() {
         const container = document.getElementById('tasks-list');
+        if (!container) return;
+        
         let content = '';
         
-        this.state.phases.forEach(phase => {
+        (this.state.phases || []).forEach(phase => {
             const phaseTasks = this.getPhaseTasks(phase.id);
             if (phaseTasks.length > 0) {
                 content += `<div style="padding: 24px 16px 8px 16px; font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: -0.01em;">${phase.title}</div>`;
@@ -722,4 +741,22 @@ class LegacyApp {
 }
 
 // Initialize App
-const app = new LegacyApp();
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof MOCK_DATA === 'undefined') {
+        console.error('CRITICAL: MOCK_DATA not found. Check script loading order.');
+        return;
+    }
+    
+    try {
+        window.app = new LegacyApp();
+        console.log('LegacyApp initialized successfully.');
+    } catch (err) {
+        console.error('CRITICAL: App initialization failed:', err);
+        // Emergency Reset if init fails (likely corrupt state)
+        if (localStorage.getItem('legacy_state')) {
+            console.warn('Attempting emergency state reset...');
+            localStorage.removeItem('legacy_state');
+            window.location.reload();
+        }
+    }
+});

@@ -1,10 +1,13 @@
-const CACHE_NAME = 'legacy-poc-v1';
+const CACHE_NAME = 'legacy-poc-v2';
 const ASSETS = [
   '/',
   '/index.html',
+  '/app.html',
+  '/about.html',
+  '/pricing.html',
   '/assets/css/legacy.css',
-  '/assets/css/sirsimaster-ui.css',
   '/assets/js/legacy.js',
+  '/assets/js/landing.js',
   '/assets/js/mock-data.js',
   '/manifest.json'
 ];

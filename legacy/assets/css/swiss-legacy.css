@@ -89,13 +89,17 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg-base);
+  background: transparent; /* ALLOW ORBS TO SHOW */
   color: var(--text-primary);
   line-height: 1.5;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   position: relative;
   min-height: 100vh;
+}
+
+html {
+  background: #FFFFFF; /* Fallback base */
 }
 
 /* Orbs must be behind content but visible */

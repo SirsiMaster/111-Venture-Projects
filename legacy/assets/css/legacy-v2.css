@@ -1,0 +1,594 @@
+/* ================================================================================
+   LEGACY v3 - Monumental Digital Record
+   Theme: Art Deco / Monumental / Permanent
+   Palette: Cream, Gold, Deep Blue, Bronze
+   ================================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Palette - Monumental Art Deco */
+    --gold-primary: #D4AF37;
+    --gold-light: #F4E4C1;
+    --gold-dark: #997B28;
+    --gold-metallic: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+    --gold-text-gradient: linear-gradient(to right, #D4AF37, #F4E4C1, #997B28);
+    
+    --blue-deep: #0A1A2F; /* Darker, richer navy */
+    --blue-royal: #1B365D;
+    --blue-midnight: #050A14; /* Almost black blue */
+    
+    --cream: #F9F6F0;
+    --ivory: #FFFFF8;
+    --marble: #F5F5F0;
+    --stone: #E8E8E0;
+    
+    --bronze: #CD7F32;
+    --charcoal: #1A1A1A;
+    
+    /* Effects */
+    --shadow-gold: rgba(212, 175, 55, 0.2);
+    --shadow-blue: rgba(27, 54, 93, 0.1);
+    --shadow-deep: rgba(0, 0, 0, 0.2);
+    
+    --shadow-soft: 0 10px 30px -5px var(--shadow-blue);
+    --shadow-monument: 0 20px 60px -10px var(--shadow-deep);
+    --glow-gold: 0 0 20px var(--shadow-gold);
+    
+    /* Typography */
+    --font-display: 'Cinzel', serif;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Lora', serif;
+    --font-sans: 'Montserrat', sans-serif;
+    
+    /* Spacing */
+    --section-padding: 10rem 4rem; /* More breathing room for grandeur */
+    --container-width: 1400px;
+}
+
+/* ================================================================================
+   RESET & BASE
+   ================================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    line-height: 1.9; /* Looser leading for elegance */
+    overflow-x: hidden;
+    /* Grain Texture Overlay */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* Art Deco Border Pattern - Refined */
+body::before {
+    content: '';
+    position: fixed;
+    top: 1rem; left: 1rem; right: 1rem; bottom: 1rem;
+    border: 1px solid var(--gold-primary);
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--blue-deep);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--blue-deep);
+    /* Subtle text shadow for depth */
+    text-shadow: 2px 2px 0px rgba(212, 175, 55, 0.1);
+}
+
+h2 {
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    border-bottom: none;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gold-metallic);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-family: var(--font-display);
+    color: var(--blue-royal);
+    letter-spacing: 0.05em;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    max-width: 65ch;
+    color: var(--charcoal);
+    font-weight: 400;
+}
+
+.text-gold { 
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+
+/* ================================================================================
+   COMPONENTS
+   ================================================================================ */
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 2.5rem;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--blue-deep);
+    color: var(--ivory);
+    border: 1px solid var(--blue-deep);
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background: var(--blue-midnight);
+    box-shadow: 0 10px 20px var(--shadow-blue);
+}
+
+.btn-primary:hover::after {
+    left: 100%;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--blue-deep);
+    border: 1px solid var(--gold-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--gold-light);
+    color: var(--blue-midnight);
+}
+
+/* Container */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Sections */
+.section {
+    padding: var(--section-padding);
+    position: relative;
+}
+
+/* Cards - Photo Integration */
+.monument-card {
+    background: var(--ivory);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0; /* Removed padding to allow image to bleed */
+    box-shadow: var(--shadow-soft);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.monument-card::before {
+    /* Gold accent line top */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold-metallic);
+    z-index: 10;
+}
+
+.card-image {
+    height: 240px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.card-content {
+    padding: 2.5rem;
+    flex-grow: 1;
+    background: var(--ivory);
+    position: relative;
+    z-index: 2;
+}
+
+.monument-card:hover {
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-monument);
+}
+
+.monument-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+/* Image Frame Utility (for standalone images) */
+.frame-gold {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid var(--gold-primary);
+}
+
+.frame-gold img {
+    display: block;
+    width: 100%;
+    box-shadow: var(--shadow-monument);
+}
+
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+
+@media (max-width: 992px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ================================================================================
+   HEADER & NAVIGATION
+   ================================================================================ */
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(249, 246, 240, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gold-primary);
+    padding: 1.5rem 0;
+    transition: all 0.4s ease;
+}
+
+.nav-scrolled {
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo span { color: var(--gold-primary); }
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ================================================================================
+   HERO SECTION
+   ================================================================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 6rem;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, var(--ivory) 0%, var(--cream) 100%);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(212, 175, 55, 0.05) 50px, rgba(212, 175, 55, 0.05) 51px);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 700px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-subtitle {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold-dark);
+    margin-bottom: 1.5rem;
+    display: block;
+    font-weight: 600;
+}
+
+.hero-visual {
+    position: relative;
+    z-index: 5;
+}
+
+.hero-frame {
+    border: 2px solid var(--gold-primary);
+    padding: 15px;
+    position: relative;
+}
+
+.hero-frame::before, .hero-frame::after {
+    content: '';
+    position: absolute;
+    width: 100px; height: 100px;
+    border: 4px solid var(--blue-deep);
+    transition: all 0.5s ease;
+}
+
+.hero-frame::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.hero-frame::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+.hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: sepia(20%) contrast(110%);
+}
+
+/* ================================================================================
+   METRIC STRIP - Art Deco
+   ================================================================================ */
+.metric-strip {
+    background: var(--blue-deep);
+    color: var(--ivory);
+    padding: 4rem 0;
+    border-top: 4px solid var(--gold-primary);
+    border-bottom: 4px solid var(--gold-primary);
+}
+
+.metric-item {
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.metric-item:last-child { border-right: none; }
+
+.metric-val {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--gold-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.metric-lbl {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* ================================================================================
+   COMPARISON SECTION
+   ================================================================================ */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 3rem;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+}
+
+.comparison-table th {
+    text-align: left;
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--gold-primary);
+    color: var(--blue-deep);
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+}
+
+.comparison-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--stone);
+}
+
+.comparison-table tr:last-child td { border-bottom: none; }
+
+.comparison-table .check { color: var(--gold-dark); font-size: 1.5rem; }
+.comparison-table .cross { color: #ccc; font-size: 1.5rem; }
+
+/* ================================================================================
+   FOOTER - Monumental
+   ================================================================================ */
+.footer {
+    background: var(--blue-midnight);
+    color: var(--ivory);
+    padding: 6rem 0 2rem;
+    border-top: 8px solid var(--gold-primary);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-brand h3 {
+    color: var(--gold-primary);
+    margin-bottom: 1rem;
+}
+
+.footer-brand p {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+}
+
+.footer-col h4 {
+    color: var(--ivory);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gold-primary);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.footer-col ul { list-style: none; }
+
+.footer-col li { margin-bottom: 0.8rem; }
+
+.footer-col a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover { color: var(--gold-primary); }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.4);
+}
+
+/* ================================================================================
+   ANIMATIONS
+   ================================================================================ */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+
+/* Ornamental Divider */
+.divider-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+}
+
+.divider-ornament::before, .divider-ornament::after {
+    content: '';
+    height: 1px;
+    background: var(--gold-primary);
+    width: 100px;
+    margin: 0 20px;
+}
+
+.divider-icon {
+    color: var(--gold-primary);
+    font-size: 1.5rem;
+}

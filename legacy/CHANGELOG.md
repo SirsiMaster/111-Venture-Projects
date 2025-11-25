@@ -2,7 +2,20 @@
 
 All notable changes to the "Legacy" project will be documented in this file.
 
-## [v1.6.0] - 2025-11-22
+## [v3.1.0] - 2025-11-24
+### Major Redesign: Monumental Art Deco
+- **Theme:** Complete visual overhaul to "Monumental Art Deco" aesthetic using Royal Blue (`#003cff`), Deep Night Blue, and Metallic Gold (`#D4AF37`) palette.
+- **Architecture:** Created new version set (`legacy-v2.html`, `legacy-v3.css`, `legacy-v2.js`) to isolate changes.
+- **Layout:** 
+  - Tightened desktop section spacing (reduced padding to `3rem`).
+  - Switched Metric Strip to Flexbox to fix alignment and borders.
+  - Stabilized Navigation Bar (removed scroll animation for instant visibility).
+- **Content:** Restored "500-Hour Problem", "From Chaos to Closure", and "Bank-Grade Security" sections with full copy.
+- **Typography:** Introduced classical serif stack (Cinzel, Cormorant Garamond, Lora) for high-editorial feel.
+- **Fixes:**
+  - Repaired HTML attribute syntax errors.
+  - Implemented cache busting (`v=3.1`).
+  - Enhanced readability on hero images with gradient overlays.
 ### Polished
 - **Automation Console:** Updated `legacy.js` to simulate variable network latency (300ms-1200ms) for a realistic "concierge" experience.
 - **Mobile UI:** Added `.guided-hero` and responsive progress ring styles to `legacy.css` to prevent overflow on small screens.

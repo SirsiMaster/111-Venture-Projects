@@ -170,36 +170,7 @@ body {
     flex: 1;
     padding: var(--space-xl);
     overflow-y: auto;
-    background: #FFFFFF;
-}
-
-/* Ensure main content has light background */
-.main-content {
-    background: #F8FAFC;
-}
-
-/* High contrast text for readability */
-.page-content,
-.page-content h1,
-.page-content h2,
-.page-content h3,
-.page-content h4,
-.page-content p,
-.page-content span,
-.page-content label,
-.page-content td,
-.page-content th {
-    color: #1F2937 !important;
-}
-
-.page-content .text-muted,
-.page-content .stat-label,
-.page-content .stat-change {
-    color: #6B7280 !important;
-}
-
-.page-content .stat-value {
-    color: #111827 !important;
+    background: var(--color-gray-50);
 }
 
 /* ============================================================================

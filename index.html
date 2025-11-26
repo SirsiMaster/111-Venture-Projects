@@ -10,45 +10,201 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        /* ================================================
+           LEGACY v2.0 - BIG & BOLD CINEMATIC DESIGN
+           Inspired by: Rogo.ai, Sirsi.ai, RhythmStyle
+           ================================================ */
+        
         /* --- CORE TOKENS --- */
         :root {
             --color-gold: #D4AF37;
             --color-gold-bright: #FCD34D;
             --color-gold-dark: #B8960C;
-            --color-blue-light: #4A90D9;
-            --color-blue-royal: #3B82F6;
+            --color-emerald: #10B981;
+            --color-emerald-dark: #064E3B;
+            --color-navy: #0f172a;
+            --color-navy-light: #1e293b;
             
-            /* Glass & Surface - Light Royal Blue tinted */
-            --glass-surface: rgba(59, 130, 246, 0.15);
+            /* Glass & Surface */
+            --glass-surface: rgba(15, 23, 42, 0.85);
             --glass-border: rgba(212, 175, 55, 0.3);
         }
 
         /* --- BASE & TYPOGRAPHY --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #4A90D9;
+            background-color: var(--color-navy);
             color: #ffffff;
             overflow-x: hidden;
-            /* LIGHT ROYAL BLUE - Luminous Sky */
-            background-image: linear-gradient(180deg, #5BA3EC 0%, #4A90D9 50%, #3B82F6 100%);
-            background-attachment: fixed;
-            background-size: cover;
-        }
-
-        /* Film Grain Overlay */
-        .bg-grain {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
         }
 
         h1, h2, h3, h4, h5 {
             font-family: 'Cinzel', serif;
             letter-spacing: 0.02em;
             color: white;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- FULL-BLEED PHOTOGRAPHY SYSTEM (Rogo-style) --- */
+        .photo-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .photo-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(15, 23, 42, 0.3) 0%,
+                rgba(15, 23, 42, 0.5) 50%,
+                rgba(15, 23, 42, 0.9) 100%
+            );
+            z-index: 1;
+        }
+
+        .photo-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Split-screen layout */
+        .split-screen {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+        @media (max-width: 768px) {
+            .split-screen {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .split-photo {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .split-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        /* --- ANIMATED OVERLAY SYSTEM (Rogo-style orbs/elements) --- */
+        .floating-orbs {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+        }
+
+        .orb-gold {
+            background: radial-gradient(circle, var(--color-gold) 0%, transparent 70%);
+        }
+
+        .orb-emerald {
+            background: radial-gradient(circle, var(--color-emerald) 0%, transparent 70%);
+        }
+
+        @keyframes float-up {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(10px); }
+            50% { transform: translateY(-15px) translateX(-10px); }
+            75% { transform: translateY(-40px) translateX(5px); }
+        }
+
+        @keyframes float-diagonal {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .animate-float-1 { animation: float-up 8s ease-in-out infinite; }
+        .animate-float-2 { animation: float-diagonal 12s ease-in-out infinite; }
+        .animate-float-3 { animation: float-up 10s ease-in-out infinite reverse; }
+        .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+        /* --- SIRSI-STYLE GEOMETRIC PATTERNS --- */
+        
+        /* Hexagonal Grid Pattern */
+        .pattern-hex {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.15'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%2310B981' stroke-width='0.3' opacity='0.1'/%3E%3C/svg%3E");
+            background-size: 56px 100px;
+        }
+
+        /* Flowing Lines Pattern */
+        .pattern-flow {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M0 50 Q50 0 100 50 T200 50' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.2'/%3E%3Cpath d='M0 100 Q50 50 100 100 T200 100' fill='none' stroke='%2310B981' stroke-width='0.3' opacity='0.15'/%3E%3Cpath d='M0 150 Q50 100 100 150 T200 150' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        /* Radial Burst Pattern */
+        .pattern-radial {
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 0%, transparent 40%, rgba(212, 175, 55, 0.05) 40.5%, transparent 41%),
+                radial-gradient(circle at 50% 50%, transparent 0%, transparent 60%, rgba(16, 185, 129, 0.03) 60.5%, transparent 61%),
+                radial-gradient(circle at 50% 50%, transparent 0%, transparent 80%, rgba(212, 175, 55, 0.02) 80.5%, transparent 81%);
+        }
+
+        /* Diamond Grid */
+        .pattern-diamond {
+            background-image: 
+                linear-gradient(45deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Section Divider with Pattern */
+        .section-divider {
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(212, 175, 55, 0.3) 20%, 
+                rgba(16, 185, 129, 0.2) 50%, 
+                rgba(212, 175, 55, 0.3) 80%, 
+                transparent 100%);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 120'%3E%3Cpath d='M0 60 Q200 0 400 60 T800 60' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
+            mask-size: 100% 100%;
+            mask-repeat: no-repeat;
         }
 
         /* --- GOLD SYSTEM --- */
@@ -56,66 +212,161 @@
         .border-gold { border-color: var(--color-gold); }
         .bg-gold { background-color: var(--color-gold); }
 
-        /* Standardized Gold Button */
+        /* BIG & BOLD Button */
         .btn-legacy {
             background-color: var(--color-gold);
             color: #000000;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            padding: 1rem 2.5rem;
+            padding: 1.25rem 3rem;
             border: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 30px rgba(212, 175, 55, 0.5);
             position: relative;
             overflow: hidden;
+            font-size: 0.875rem;
         }
         .btn-legacy:hover {
             background-color: var(--color-gold-bright);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
-            transform: translateY(-2px);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.9);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .btn-outline {
+            padding: 1.25rem 3rem;
+            border: 2px solid rgba(255,255,255,0.4);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            background: transparent;
+            font-size: 0.875rem;
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
         }
 
         /* --- GLASS SYSTEM --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px);
+            background: var(--glass-surface);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* "Alive" Card System */
-        .active-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            position: relative;
-            transition: all 0.3s ease;
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
         }
-        .active-card:hover {
+        .glass-card:hover {
             border-color: var(--color-gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
         }
-        /* Tech Line Decorator */
-        .active-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .active-card:hover::before { opacity: 1; }
 
-        /* --- ANIMATIONS --- */
-        @keyframes pulse-status {
-            0%, 100% { opacity: 1; box-shadow: 0 0 8px #22c55e; }
-            50% { opacity: 0.5; box-shadow: 0 0 0 #22c55e; }
+        /* --- SCROLL-TRIGGERED ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .status-dot {
-            animation: pulse-status 2s infinite;
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* --- ANIMATED STATS COUNTER --- */
+        .stat-counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* --- CONNECTOR LINES (Protocol Steps) --- */
+        .connector-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-gold), var(--color-emerald), var(--color-gold));
+            top: 50%;
+            left: 100%;
+            width: 100%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        @keyframes line-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        .connector-line { animation: line-pulse 3s ease-in-out infinite; }
+
+        /* --- PORTRAIT TESTIMONIALS --- */
+        .portrait-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portrait-card img {
+            transition: transform 0.6s ease;
+        }
+
+        .portrait-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- SHIELD ANIMATION (Security) --- */
+        @keyframes shield-pulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+            }
+            50% { 
+                filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6));
+            }
+        }
+        .shield-animate {
+            animation: shield-pulse 3s ease-in-out infinite;
+        }
+
+        /* Slow spin for security ring */
         @keyframes spin-slow {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -124,103 +375,43 @@
             animation: spin-slow 20s linear infinite;
         }
 
-        /* === ART DECO TEXTURE SYSTEM === */
-        
-        /* Sunburst Pattern - radiating lines from center */
-        .texture-sunburst {
-            background-image: 
-                repeating-conic-gradient(
-                    from 0deg,
-                    transparent 0deg 8deg,
-                    rgba(212, 175, 55, 0.03) 8deg 10deg
-                );
+        /* --- STATUS INDICATOR --- */
+        @keyframes pulse-status {
+            0%, 100% { opacity: 1; box-shadow: 0 0 12px var(--color-emerald); }
+            50% { opacity: 0.5; box-shadow: 0 0 0 var(--color-emerald); }
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-emerald);
+            border-radius: 50%;
+            animation: pulse-status 2s infinite;
         }
 
-        /* Fan/Shell Pattern - Art Deco classic */
-        .texture-fan {
-            background-image: 
-                radial-gradient(circle at 50% 100%, transparent 0%, transparent 30%, rgba(212, 175, 55, 0.04) 31%, transparent 32%),
-                radial-gradient(circle at 50% 100%, transparent 0%, transparent 50%, rgba(212, 175, 55, 0.03) 51%, transparent 52%),
-                radial-gradient(circle at 50% 100%, transparent 0%, transparent 70%, rgba(212, 175, 55, 0.02) 71%, transparent 72%);
-            background-size: 200px 200px;
-            background-position: center bottom;
+        /* --- TYPOGRAPHY UTILITIES --- */
+        .text-massive {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1;
+            font-weight: 800;
         }
 
-        /* Chevron/Zigzag Pattern */
-        .texture-chevron {
-            background-image: 
-                linear-gradient(135deg, rgba(212, 175, 55, 0.03) 25%, transparent 25%),
-                linear-gradient(225deg, rgba(212, 175, 55, 0.03) 25%, transparent 25%),
-                linear-gradient(45deg, rgba(212, 175, 55, 0.03) 25%, transparent 25%),
-                linear-gradient(315deg, rgba(212, 175, 55, 0.03) 25%, transparent 25%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 0, 30px -30px, 0px 30px;
+        .text-hero-sub {
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            line-height: 1.4;
         }
 
-        /* Geometric Grid - stepped diamonds */
-        .texture-deco-grid {
-            background-image: 
-                linear-gradient(45deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
-                linear-gradient(-45deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
-            background-size: 40px 40px;
+        /* --- RESPONSIVE HELPERS --- */
+        @media (max-width: 768px) {
+            .mobile-full { width: 100%; }
+            .mobile-stack { flex-direction: column; }
+            .mobile-center { text-align: center; }
         }
-
-        /* Vertical Lines - columnar feel */
-        .texture-columns {
-            background-image: 
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 80px,
-                    rgba(212, 175, 55, 0.05) 80px,
-                    rgba(212, 175, 55, 0.05) 82px
-                );
-        }
-
-        /* Stepped Pyramid Pattern */
-        .texture-pyramid {
-            background-image: 
-                linear-gradient(135deg, transparent 50%, rgba(212, 175, 55, 0.02) 50%),
-                linear-gradient(225deg, transparent 50%, rgba(212, 175, 55, 0.02) 50%);
-            background-size: 100px 50px;
-        }
-
-        /* Art Deco Border Ornaments */
-        .deco-divider {
-            height: 40px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40'%3E%3Cpath d='M0 20 L180 20 L190 10 L200 20 L210 10 L220 20 L400 20' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3Ccircle cx='200' cy='20' r='5' fill='%23D4AF37' opacity='0.5'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-        }
-
-        /* Corner Ornaments */
-        .deco-corner {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M0 0 L60 0 L60 10 L10 10 L10 60 L0 60 Z' fill='none' stroke='%23D4AF37' stroke-width='2' opacity='0.6'/%3E%3Cpath d='M20 0 L20 20 L0 20' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.4'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-        }
-        .deco-corner.top-left { top: 0; left: 0; }
-        .deco-corner.top-right { top: 0; right: 0; transform: scaleX(-1); }
-        .deco-corner.bottom-left { bottom: 0; left: 0; transform: scaleY(-1); }
-        .deco-corner.bottom-right { bottom: 0; right: 0; transform: scale(-1); }
     </style>
 </head>
-<body class="antialiased selection:bg-yellow-500 selection:text-black relative">
+<body class="antialiased selection:bg-yellow-500 selection:text-black">
 
-    <!-- GRAIN OVERLAY -->
-    <div class="bg-grain"></div>
-
-    <!-- ART DECO BACKGROUND PATTERN -->
-    <div class="fixed inset-0 z-0 pointer-events-none">
-        <div class="absolute inset-0 texture-sunburst"></div>
-        <div class="absolute inset-0 texture-columns"></div>
-    </div>
-
-    <!-- NAV -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-gold/20 backdrop-blur-xl">
+    <!-- NAV - Floating transparent -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-black/20 border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <!-- Angel Logo SVG -->
@@ -229,399 +420,616 @@
                         <path d="M50 20 C55 20 58 25 58 30 C58 35 55 38 50 38 C45 38 42 35 42 30 C42 25 45 20 50 20 M50 40 C60 40 70 30 80 15 C85 25 85 45 70 55 L60 60 L65 90 L50 85 L35 90 L40 60 L30 55 C15 45 15 25 20 15 C30 30 40 40 50 40 Z" />
                     </svg>
                 </div>
-                <div class="flex flex-col">
-                    <span class="text-lg font-bold tracking-[0.2em] text-white leading-none font-cinzel">LEGACY</span>
-                </div>
+                <span class="text-lg font-bold tracking-[0.2em] text-white leading-none" style="font-family: 'Cinzel', serif;">LEGACY</span>
             </div>
             
-        <div class="hidden md:flex items-center gap-8">
-                <a href="#mission" class="text-xs font-semibold tracking-[0.15em] text-white/80 hover:text-gold transition-colors uppercase">Mission</a>
-                <a href="#technology" class="text-xs font-semibold tracking-[0.15em] text-white/80 hover:text-gold transition-colors uppercase">System</a>
-                <a href="#security" class="text-xs font-semibold tracking-[0.15em] text-white/80 hover:text-gold transition-colors uppercase">Security</a>
-                <a href="#membership" class="text-xs font-semibold tracking-[0.15em] text-white/80 hover:text-gold transition-colors uppercase">Membership</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#problem" class="text-xs font-semibold tracking-[0.15em] text-white/70 hover:text-gold transition-colors uppercase">Problem</a>
+                <a href="#protocol" class="text-xs font-semibold tracking-[0.15em] text-white/70 hover:text-gold transition-colors uppercase">Protocol</a>
+                <a href="#security" class="text-xs font-semibold tracking-[0.15em] text-white/70 hover:text-gold transition-colors uppercase">Security</a>
+                <a href="#stories" class="text-xs font-semibold tracking-[0.15em] text-white/70 hover:text-gold transition-colors uppercase">Stories</a>
             </div>
 
-            <a href="#" class="px-6 py-2 border border-gold/50 text-gold hover:bg-gold hover:text-black transition-all uppercase tracking-widest text-[0.65rem] font-bold">
-                Login
+            <a href="#" class="px-6 py-2.5 bg-gold text-black hover:bg-[#FCD34D] transition-all uppercase tracking-widest text-[0.65rem] font-bold">
+                Get Started
             </a>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <header class="relative pt-40 pb-32 px-6 flex flex-col items-center text-center z-10 min-h-screen justify-center texture-fan">
-        <!-- Art Deco Corner Ornaments -->
-        <div class="deco-corner top-left"></div>
-        <div class="deco-corner top-right"></div>
+    <!-- =====================================================
+         HERO - FULL-BLEED CINEMATIC (Rogo-style)
+         ===================================================== -->
+    <header class="photo-section">
+        <!-- Full-bleed Background Photo -->
+        <div class="photo-bg">
+            <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Generations together - grandmother and grandchild" 
+                 class="brightness-75">
+        </div>
         
-        <div class="mb-10 relative">
-            <h1 class="text-7xl md:text-9xl lg:text-[10rem] font-bold text-white tracking-tight drop-shadow-2xl font-cinzel relative z-10 leading-none">
-                LEGACY
+        <!-- Dark Gradient Overlay -->
+        <div class="photo-overlay"></div>
+        
+        <!-- Animated Orbs floating ON TOP of photography -->
+        <div class="floating-orbs">
+            <div class="orb orb-gold w-96 h-96 -top-20 -right-20 animate-float-1 animate-pulse-glow"></div>
+            <div class="orb orb-emerald w-64 h-64 bottom-40 -left-20 animate-float-2"></div>
+            <div class="orb orb-gold w-48 h-48 top-1/3 right-1/4 animate-float-3"></div>
+            <div class="orb orb-emerald w-32 h-32 bottom-1/4 right-1/3 animate-float-1" style="animation-delay: -2s;"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="photo-content text-center px-6 max-w-5xl mx-auto">
+            <!-- Subtle top label -->
+            <div class="flex items-center justify-center gap-3 mb-8 reveal">
+                <div class="status-dot"></div>
+                <span class="text-sm tracking-[0.3em] text-white/70 uppercase">The Estate Operating System</span>
+            </div>
+            
+            <!-- MASSIVE Headline -->
+            <h1 class="text-massive text-white mb-8 reveal delay-1" style="font-family: 'Cinzel', serif;">
+                Your Legacy<br>
+                <span class="text-gold">Deserves a Guardian</span>
             </h1>
-            <div class="mt-8">
-                <span class="text-xl md:text-2xl text-gold tracking-[0.3em] font-medium uppercase px-8 py-3 border-y-2 border-gold inline-block glass-panel">
-                    The Estate Operating System
-                </span>
+            
+            <!-- Subheadline -->
+            <p class="text-hero-sub text-white/80 max-w-3xl mx-auto mb-12 reveal delay-2">
+                We automate the chaotic administration of loss—so your family can grieve in peace, not paperwork.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center reveal delay-3">
+                <button class="btn-legacy">
+                    Initialize Protocol
+                </button>
+                <button class="btn-outline">
+                    See How It Works
+                </button>
+            </div>
+            
+            <!-- Trust indicator -->
+            <div class="mt-16 flex items-center justify-center gap-8 text-white/50 text-xs tracking-widest uppercase reveal delay-4">
+                <span>AES-256 Encrypted</span>
+                <span class="w-1 h-1 bg-white/30 rounded-full"></span>
+                <span>SOC 2 Compliant</span>
+                <span class="w-1 h-1 bg-white/30 rounded-full"></span>
+                <span>Zero-Knowledge</span>
             </div>
         </div>
-
-        <p class="max-w-3xl text-2xl text-white leading-relaxed font-normal mb-12 mt-4 drop-shadow-lg">
-            A guardian for your life's work. We automate the chaotic administration of loss so your family can grieve in peace.
-        </p>
-
-        <div class="flex flex-col md:flex-row gap-6 mb-24">
-            <button class="btn-legacy rounded-sm text-sm py-4 px-10">
-                Initialize Protocol
-            </button>
-            <button class="px-10 py-4 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white transition-colors tracking-[0.2em] text-sm uppercase font-bold rounded-sm">
-                See How It Works
-            </button>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-white/40 text-xs uppercase tracking-widest">Scroll</span>
+            <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
         </div>
     </header>
 
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
+    <!-- Sirsi-style Section Divider -->
+    <div class="section-divider pattern-hex"></div>
 
-    <!-- MISSION (Guardian Tone) -->
-    <section id="mission" class="py-32 px-6 relative z-10 texture-chevron">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-            <div>
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-1 h-8 bg-gold"></div>
-                    <span class="text-gold text-sm font-bold tracking-[0.25em] uppercase">The 500-Hour Problem</span>
-                </div>
-                <h2 class="text-6xl md:text-7xl text-white mb-10 leading-tight font-cinzel">
-                    A SECOND FULL-TIME JOB <br> <span class="text-white/50">YOU DIDN'T ASK FOR.</span>
-                </h2>
-                <p class="text-2xl text-white leading-relaxed mb-8 font-normal">
-                    The average estate takes 18 months to settle. Navigating probate courts, finding lost keys, and fighting bureaucracy while trying to grieve.
-                </p>
-                <p class="text-xl text-white/80 leading-relaxed mb-8 font-normal">
-                    We step in as the <strong class="text-white border-b-2 border-gold">Digital Executor</strong>. We automate the notifications, secure the assets, and shepherd your wealth to the next generation.
-                </p>
-            </div>
+    <!-- =====================================================
+         PROBLEM SECTION - Split-Screen with Stats
+         ===================================================== -->
+    <section id="problem" class="split-screen relative">
+        <!-- Left: Emotional Photography -->
+        <div class="split-photo min-h-[600px] md:min-h-screen">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Person overwhelmed with paperwork" 
+                 class="brightness-50">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0f172a]"></div>
             
-            <!-- Family Photo Visual - Glass Frame -->
-            <div class="relative h-[600px] glass-panel p-3 rounded-sm">
-                <div class="absolute -inset-1 bg-gradient-to-br from-gold/20 to-transparent rounded-sm -z-10"></div>
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop" alt="Father and Son walking" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700 ease-in-out opacity-90 rounded-sm">
-                <div class="absolute bottom-8 right-8 text-right glass-panel px-6 py-4 rounded-sm">
-                    <div class="flex items-center gap-2 justify-end mb-1">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-4xl font-bold text-white font-cinzel">PROTECTED</div>
+            <!-- Floating stat on photo -->
+            <div class="absolute bottom-10 left-10 glass-panel p-6 reveal-left">
+                <div class="text-6xl font-bold text-gold stat-counter" style="font-family: 'Cinzel', serif;" data-target="570">570+</div>
+                <div class="text-sm text-white/70 uppercase tracking-widest mt-2">Hours of Administration</div>
+                <div class="text-xs text-white/50 mt-1">Average time to settle an estate</div>
+            </div>
+        </div>
+        
+        <!-- Right: Content & Stats -->
+        <div class="flex flex-col justify-center px-8 md:px-16 py-20 bg-[#0f172a] pattern-flow relative">
+            <!-- Animated orb -->
+            <div class="absolute top-20 right-10 w-48 h-48 orb orb-gold animate-float-2 opacity-20"></div>
+            
+            <div class="max-w-xl reveal">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="status-dot"></div>
+                    <span class="text-emerald-400 text-sm font-bold tracking-[0.25em] uppercase">The 500-Hour Problem</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight" style="font-family: 'Cinzel', serif;">
+                    A Second Job<br>
+                    <span class="text-white/40">You Didn't Ask For</span>
+                </h2>
+                
+                <p class="text-xl text-white/80 leading-relaxed mb-8">
+                    The average estate takes <strong class="text-gold">18 months</strong> to settle. That's 18 months of probate courts, lost keys, and fighting bureaucracy—while you're supposed to be grieving.
+                </p>
+                
+                <p class="text-lg text-white/60 leading-relaxed mb-10">
+                    We step in as your <strong class="text-emerald-400">Digital Executor</strong>. We automate the notifications, secure the assets, and shepherd your wealth to the next generation.
+                </p>
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass-card p-6 reveal delay-1">
+                        <div class="text-4xl font-bold text-white stat-counter" style="font-family: 'Cinzel', serif;" data-target="18">18</div>
+                        <div class="text-xs text-gold uppercase tracking-widest mt-1">Months Average</div>
+                        <div class="text-xs text-white/40 mt-1">To settle an estate</div>
                     </div>
-                    <div class="text-xs text-gold uppercase tracking-widest">Since 2024</div>
+                    <div class="glass-card p-6 reveal delay-2">
+                        <div class="text-4xl font-bold text-white stat-counter" style="font-family: 'Cinzel', serif;" data-target="147">147</div>
+                        <div class="text-xs text-gold uppercase tracking-widest mt-1">Tasks Required</div>
+                        <div class="text-xs text-white/40 mt-1">Legal, financial, personal</div>
+                    </div>
+                    <div class="glass-card p-6 reveal delay-3">
+                        <div class="text-4xl font-bold text-emerald-400 stat-counter" style="font-family: 'Cinzel', serif;" data-target="89">89%</div>
+                        <div class="text-xs text-gold uppercase tracking-widest mt-1">Feel Overwhelmed</div>
+                        <div class="text-xs text-white/40 mt-1">During estate settlement</div>
+                    </div>
+                    <div class="glass-card p-6 reveal delay-4">
+                        <div class="text-4xl font-bold text-white" style="font-family: 'Cinzel', serif;">$1.2M</div>
+                        <div class="text-xs text-gold uppercase tracking-widest mt-1">Lost Assets</div>
+                        <div class="text-xs text-white/40 mt-1">Annually to poor planning</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
+    <!-- Sirsi-style Section Divider -->
+    <div class="section-divider pattern-diamond"></div>
 
-    <!-- TECHNOLOGY (Pipeline Style) -->
-    <section id="technology" class="py-32 relative texture-deco-grid">
+    <!-- =====================================================
+         PROTOCOL SECTION - Photography Per Step
+         ===================================================== -->
+    <section id="protocol" class="py-24 bg-[#0f172a] relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 pattern-hex opacity-30"></div>
+        
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-             <div class="text-center mb-24">
-                <h2 class="text-5xl text-white mb-6 font-cinzel">THE LEGACY PROTOCOL</h2>
-                <p class="text-white/60 tracking-[0.3em] uppercase text-sm">From Intake to Distribution</p>
+            <!-- Section Header -->
+            <div class="text-center mb-20 reveal">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="status-dot"></div>
+                    <span class="text-emerald-400 text-sm font-bold tracking-[0.25em] uppercase">The Legacy Protocol</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl text-white mb-6" style="font-family: 'Cinzel', serif;">
+                    From Grief to <span class="text-gold">Greatness</span>
+                </h2>
+                <p class="text-xl text-white/60 max-w-2xl mx-auto">
+                    Four steps to transform chaos into clarity. Each powered by AI, verified by humans.
+                </p>
             </div>
 
-            <!-- DASHBOARD PREVIEW MOVED HERE -->
-            <div class="mb-24 relative w-full max-w-5xl mx-auto group">
-                <div class="absolute inset-0 bg-blue-500/10 blur-[80px] rounded-full opacity-30"></div>
-                <!-- Tech Corners -->
-                <div class="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-gold"></div>
-                <div class="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-gold"></div>
-                <div class="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-gold"></div>
-                <div class="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-gold"></div>
-                <div class="relative glass-panel aspect-[21/9] rounded-sm overflow-hidden border border-white/20 shadow-2xl">
-                    <!-- Window Header -->
-                    <div class="h-10 border-b border-gold/20 glass-panel flex items-center justify-between px-4">
-                        <div class="flex gap-2 items-center">
-                            <div class="w-2 h-2 rounded-full bg-green-500 status-dot"></div>
-                            <div class="w-2 h-2 rounded-full bg-white/50"></div>
-                            <div class="w-2 h-2 rounded-full bg-white/50"></div>
-                        </div>
-                        <div class="text-[0.6rem] tracking-widest text-white/70 uppercase">Legacy Vault // Live Monitor</div>
-                    </div>
-                    <!-- UI Content -->
-                    <div class="p-10 flex items-center justify-center h-full">
-                        <div class="text-center">
-                            <div class="text-gold text-6xl font-cinzel mb-4">$1.2M</div>
-                            <div class="text-sm text-white/70 tracking-[0.3em] uppercase">Assets Secured</div>
+            <!-- Protocol Steps with Photography -->
+            <div class="space-y-0">
+                
+                <!-- Step 1: INTAKE -->
+                <div class="grid md:grid-cols-2 gap-0 reveal">
+                    <div class="relative h-[400px] md:h-[500px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Document scanning and organization" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0f172a]"></div>
+                        <div class="absolute top-6 left-6 flex items-center gap-3">
+                            <div class="status-dot"></div>
+                            <span class="text-8xl font-bold text-white/20" style="font-family: 'Cinzel', serif;">01</span>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-4 gap-0">
-                <!-- Tech Step 1 -->
-                <div class="p-10 border-l border-t border-b border-gold/20 relative glass-panel hover:bg-white/10 transition-colors">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-6xl text-white/10 font-cinzel">01</div>
+                    <div class="flex flex-col justify-center p-10 md:p-16 bg-[#0f172a] border-l border-gold/20">
+                        <h3 class="text-3xl md:text-4xl text-white mb-6" style="font-family: 'Cinzel', serif;">INTAKE</h3>
+                        <p class="text-lg text-white/70 leading-relaxed mb-6">
+                            AI-driven scanning of physical documents and digital footprints. We construct a unified asset map in hours, not months.
+                        </p>
+                        <ul class="space-y-3 text-white/60">
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Automatic bank account discovery</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Property & vehicle title search</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Digital asset mapping (crypto, NFTs)</li>
+                        </ul>
+                        <!-- Connector line -->
+                        <div class="hidden md:block absolute right-0 top-1/2 w-8 h-0.5 bg-gradient-to-r from-gold to-emerald-400 connector-line"></div>
                     </div>
-                    <h3 class="text-xl text-white font-bold mb-4">INTAKE</h3>
-                    <p class="text-base text-white/80 leading-relaxed">
-                        AI-driven scanning of physical documents and digital footprints. We construct a unified asset map.
-                    </p>
-                    <div class="absolute top-0 right-0 w-px h-full bg-gold/20"></div>
                 </div>
 
-                <!-- Tech Step 2 -->
-                <div class="p-10 border-t border-b border-gold/20 relative glass-panel hover:bg-white/10 transition-colors">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-6xl text-white/10 font-cinzel">02</div>
+                <!-- Step 2: VERIFY -->
+                <div class="grid md:grid-cols-2 gap-0 reveal">
+                    <div class="flex flex-col justify-center p-10 md:p-16 bg-[#0f172a] border-r border-gold/20 order-2 md:order-1">
+                        <h3 class="text-3xl md:text-4xl text-white mb-6" style="font-family: 'Cinzel', serif;">VERIFY</h3>
+                        <p class="text-lg text-white/70 leading-relaxed mb-6">
+                            Biometric identity checks and death certificate validation against government databases. Fraud-proof and legally binding.
+                        </p>
+                        <ul class="space-y-3 text-white/60">
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Multi-factor authentication</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Government database verification</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Notarized digital signatures</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl text-white font-bold mb-4">VERIFY</h3>
-                    <p class="text-base text-white/80 leading-relaxed">
-                        Biometric identity checks and death certificate validation against government databases.
-                    </p>
-                    <div class="absolute top-0 right-0 w-px h-full bg-gold/20"></div>
+                    <div class="relative h-[400px] md:h-[500px] overflow-hidden order-1 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Identity verification and legal documents" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#0f172a]"></div>
+                        <div class="absolute top-6 right-6 flex items-center gap-3">
+                            <span class="text-8xl font-bold text-white/20" style="font-family: 'Cinzel', serif;">02</span>
+                            <div class="status-dot"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Tech Step 3 -->
-                <div class="p-10 border-t border-b border-gold/20 relative glass-panel hover:bg-white/10 transition-colors">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-6xl text-white/10 font-cinzel">03</div>
+                <!-- Step 3: NOTIFY -->
+                <div class="grid md:grid-cols-2 gap-0 reveal">
+                    <div class="relative h-[400px] md:h-[500px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Automated notifications to institutions" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0f172a]"></div>
+                        <div class="absolute top-6 left-6 flex items-center gap-3">
+                            <div class="status-dot"></div>
+                            <span class="text-8xl font-bold text-white/20" style="font-family: 'Cinzel', serif;">03</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl text-white font-bold mb-4">NOTIFY</h3>
-                    <p class="text-base text-white/80 leading-relaxed">
-                        Automated legal letters sent to IRS, credit bureaus, and institutions. Accounts frozen instantly.
-                    </p>
-                    <div class="absolute top-0 right-0 w-px h-full bg-gold/20"></div>
+                    <div class="flex flex-col justify-center p-10 md:p-16 bg-[#0f172a] border-l border-gold/20">
+                        <h3 class="text-3xl md:text-4xl text-white mb-6" style="font-family: 'Cinzel', serif;">NOTIFY</h3>
+                        <p class="text-lg text-white/70 leading-relaxed mb-6">
+                            Automated legal letters sent to IRS, credit bureaus, and financial institutions. Accounts frozen instantly to prevent fraud.
+                        </p>
+                        <ul class="space-y-3 text-white/60">
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> 500+ institution templates</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Certified mail tracking</li>
+                            <li class="flex items-center gap-3"><span class="text-emerald-400">✓</span> Credit freeze automation</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Tech Step 4 -->
-                <div class="p-10 border-t border-b border-r border-gold/20 relative glass-panel bg-gold/10 hover:bg-gold/15 transition-colors">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-6xl text-gold/20 font-cinzel">04</div>
+                <!-- Step 4: DISTRIBUTE -->
+                <div class="grid md:grid-cols-2 gap-0 reveal">
+                    <div class="flex flex-col justify-center p-10 md:p-16 bg-[#0f172a] bg-gradient-to-r from-gold/5 to-transparent border-r border-gold/30 order-2 md:order-1">
+                        <h3 class="text-3xl md:text-4xl text-gold mb-6" style="font-family: 'Cinzel', serif;">DISTRIBUTE</h3>
+                        <p class="text-lg text-white/70 leading-relaxed mb-6">
+                            Cryptographic release of assets to verified heirs. Final accounting report generated. Your legacy, delivered.
+                        </p>
+                        <ul class="space-y-3 text-white/60">
+                            <li class="flex items-center gap-3"><span class="text-gold">✓</span> Multi-sig release mechanism</li>
+                            <li class="flex items-center gap-3"><span class="text-gold">✓</span> Tax document preparation</li>
+                            <li class="flex items-center gap-3"><span class="text-gold">✓</span> Heir notification & support</li>
+                        </ul>
+                        <button class="btn-legacy mt-8 w-fit">
+                            Start Your Protocol
+                        </button>
                     </div>
-                    <h3 class="text-xl text-gold font-bold mb-4">DISTRIBUTE</h3>
-                    <p class="text-base text-white/80 leading-relaxed">
-                        Cryptographic release of assets to verified heirs. Final accounting report generated.
-                    </p>
+                    <div class="relative h-[400px] md:h-[500px] overflow-hidden order-1 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Family receiving their inheritance with peace" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#0f172a]"></div>
+                        <div class="absolute top-6 right-6 flex items-center gap-3">
+                            <span class="text-8xl font-bold text-gold/30" style="font-family: 'Cinzel', serif;">04</span>
+                            <div class="status-dot"></div>
+                        </div>
+                        <!-- Success overlay -->
+                        <div class="absolute bottom-6 right-6 glass-panel p-4">
+                            <div class="flex items-center gap-2">
+                                <div class="status-dot"></div>
+                                <span class="text-white font-bold">Protocol Complete</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </section>
 
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
+    <!-- Sirsi-style Section Divider -->
+    <div class="section-divider pattern-flow"></div>
 
-    <!-- SECURITY (New Section) -->
-    <section id="security" class="py-32 px-6 relative z-10 texture-pyramid">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
-            <div class="order-2 md:order-1">
-                <div class="relative h-[500px] glass-panel p-8">
-                    <!-- Tech Corners -->
-                    <div class="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-gold"></div>
-                    <div class="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-gold"></div>
-                    <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-gold"></div>
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-gold"></div>
-                    <!-- Abstract Lock Visual -->
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-64 h-64 border-4 border-gold/20 rounded-full flex items-center justify-center relative">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 glass-panel px-3 py-1 text-gold text-xs font-bold tracking-widest flex items-center gap-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                                AES-256
-                            </div>
-                            <div class="w-48 h-48 border-2 border-dashed border-white/20 rounded-full animate-spin-slow"></div>
-                            <div class="w-32 h-32 border border-white/10 rounded-full flex items-center justify-center">
-                                <svg viewBox="0 0 24 24" class="w-12 h-12 text-white fill-current"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-blue-500/20 to-transparent"></div>
-                    
-                    <!-- Floating Security Badges -->
-                    <div class="absolute top-8 left-8 glass-panel px-4 py-2 text-[10px] text-white uppercase tracking-widest flex items-center gap-2">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        SOC 2 Type II
-                    </div>
-                    <div class="absolute bottom-8 right-8 glass-panel px-4 py-2 text-[10px] text-white uppercase tracking-widest flex items-center gap-2">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        Zero-Knowledge
-                    </div>
+    <!-- =====================================================
+         SECURITY SECTION - Full-Bleed Vault with Shield Overlay
+         ===================================================== -->
+    <section id="security" class="photo-section min-h-[80vh]">
+        <!-- Full-bleed Background Photo -->
+        <div class="photo-bg">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Secure data center vault" 
+                 class="brightness-50">
+        </div>
+        
+        <!-- Dark overlay with pattern -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0f172a]/95 via-[#0f172a]/70 to-transparent z-1"></div>
+        <div class="absolute inset-0 pattern-hex opacity-40 z-2"></div>
+        
+        <!-- Animated Shield Overlay -->
+        <div class="absolute right-10 md:right-1/4 top-1/2 -translate-y-1/2 z-3 hidden md:block">
+            <div class="relative">
+                <!-- Outer rotating ring -->
+                <div class="w-64 h-64 border-2 border-gold/30 rounded-full absolute -inset-8 animate-spin-slow"></div>
+                <!-- Shield SVG -->
+                <svg viewBox="0 0 24 24" class="w-48 h-48 text-gold shield-animate fill-current opacity-30">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                </svg>
+                <!-- Floating badges -->
+                <div class="absolute -top-4 -right-4 glass-panel px-3 py-1.5 text-xs text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                    <div class="status-dot"></div>
+                    AES-256
+                </div>
+                <div class="absolute -bottom-4 -left-4 glass-panel px-3 py-1.5 text-xs text-gold uppercase tracking-widest flex items-center gap-2">
+                    <div class="status-dot"></div>
+                    SOC 2
                 </div>
             </div>
-            
-            <div class="order-1 md:order-2">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-1 h-8 bg-gold"></div>
-                    <span class="text-gold text-sm font-bold tracking-[0.25em] uppercase">Ironclad Protection</span>
+        </div>
+        
+        <!-- Content -->
+        <div class="photo-content max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center w-full">
+            <div class="reveal-left">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="status-dot"></div>
+                    <span class="text-emerald-400 text-sm font-bold tracking-[0.25em] uppercase">Ironclad Protection</span>
                 </div>
-                <h2 class="text-5xl text-white mb-8 font-cinzel leading-tight">
-                    BUILT LIKE A <br> <span class="text-white/50">SWISS VAULT.</span>
+                
+                <h2 class="text-4xl md:text-6xl text-white mb-8 leading-tight" style="font-family: 'Cinzel', serif;">
+                    Built Like a<br>
+                    <span class="text-gold">Swiss Vault</span>
                 </h2>
-                <p class="text-lg text-white/90 leading-relaxed mb-6 font-normal">
+                
+                <p class="text-lg text-white/80 leading-relaxed mb-10">
                     Your family's data is more valuable than gold. We treat it that way. 
-                    Legacy uses military-grade encryption to ensure that your asset map is visible to <strong>no one</strong>—not even us—until the moment of verification.
+                    Legacy uses military-grade encryption to ensure your asset map is visible to <strong class="text-gold">no one</strong>—not even us—until verification.
                 </p>
-                <ul class="space-y-6 mt-8">
-                    <li class="flex gap-4 items-start">
-                        <div class="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center text-gold mt-1">✓</div>
+                
+                <!-- Security Features -->
+                <div class="space-y-6">
+                    <div class="glass-card p-6 flex gap-4 items-start reveal delay-1">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-1">Zero-Knowledge Architecture</h4>
-                            <p class="text-sm text-white/70">Your data is encrypted on your device before it ever touches our servers.</p>
+                            <p class="text-sm text-white/60">Your data is encrypted on your device before it ever touches our servers.</p>
                         </div>
-                    </li>
-                    <li class="flex gap-4 items-start">
-                        <div class="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center text-gold mt-1">✓</div>
+                    </div>
+                    
+                    <div class="glass-card p-6 flex gap-4 items-start reveal delay-2">
+                        <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-1">Multi-Sig Release</h4>
-                            <p class="text-sm text-white/70">Requires cryptographic proof of death and identity verification from two separate executors.</p>
+                            <p class="text-sm text-white/60">Requires cryptographic proof of death and identity verification from two separate executors.</p>
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
-
-    <!-- TESTIMONIALS (New Section) -->
-    <section id="stories" class="py-32 px-6 relative z-10 texture-fan">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl text-white mb-6 font-cinzel">STORIES OF CLOSURE</h2>
-                <div class="w-24 h-px bg-gold mx-auto"></div>
+                    </div>
+                    
+                    <div class="glass-card p-6 flex gap-4 items-start reveal delay-3">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-1">Audit Trail</h4>
+                            <p class="text-sm text-white/60">Every access attempt is logged, timestamped, and immutably recorded on-chain.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
+            <!-- Empty right column for visual balance (shield overlay goes here on desktop) -->
+            <div class="hidden md:block"></div>
+        </div>
+    </section>
+
+    <!-- Sirsi-style Section Divider -->
+    <div class="section-divider pattern-radial"></div>
+
+    <!-- =====================================================
+         TESTIMONIALS - Large Portrait Faces (RhythmStyle)
+         ===================================================== -->
+    <section id="stories" class="py-24 bg-[#0f172a] relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 pattern-flow opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="status-dot"></div>
+                    <span class="text-emerald-400 text-sm font-bold tracking-[0.25em] uppercase">Real Stories</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl text-white mb-6" style="font-family: 'Cinzel', serif;">
+                    From Grief to <span class="text-gold">Gratitude</span>
+                </h2>
+                <p class="text-xl text-white/60 max-w-2xl mx-auto">
+                    Real families who found peace through our protocol.
+                </p>
+            </div>
+            
+            <!-- Large Portrait Cards -->
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="glass-panel p-8 relative group hover:border-gold/50 transition-colors active-card">
-                    <div class="text-gold text-4xl font-serif absolute top-6 left-6">"</div>
-                    <p class="text-gray-100 text-sm leading-relaxed mt-8 mb-8 relative z-10">
-                        When my father passed, I was handed a box of paperwork and told to 'figure it out.' 
-                        Legacy stepped in and handled the IRS, the DMV, and the bank. They gave me the space to actually mourn him.
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 glass-panel p-0.5 rounded-full overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" class="w-full h-full object-cover rounded-full">
+                
+                <!-- Testimonial 1 - Large Portrait -->
+                <div class="portrait-card glass-card overflow-hidden reveal delay-1">
+                    <!-- Large Face Photo -->
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" 
+                             alt="David M." 
+                             class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+                        
+                        <!-- Status badge -->
+                        <div class="absolute top-4 right-4 glass-panel px-3 py-1.5 flex items-center gap-2">
+                            <div class="status-dot"></div>
+                            <span class="text-xs text-white uppercase tracking-widest">Verified</span>
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                                <div class="text-white text-xs font-bold uppercase tracking-widest">David M.</div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-8 -mt-8 relative">
+                        <div class="text-gold text-6xl font-serif leading-none mb-4">“</div>
+                        <p class="text-white/80 text-lg leading-relaxed mb-6">
+                            When my father passed, I was handed a box of paperwork and told to 'figure it out.' Legacy gave me the space to actually mourn him.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white font-bold text-lg" style="font-family: 'Cinzel', serif;">David M.</div>
+                                <div class="text-gold text-sm uppercase tracking-widest">Estate Settled in 3 Weeks</div>
                             </div>
-                            <div class="text-white/60 text-[10px] uppercase">Estate Settled in 3 Weeks</div>
+                            <div class="text-4xl font-bold text-emerald-400/30" style="font-family: 'Cinzel', serif;">$1.2M</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Review 2 -->
-                <div class="glass-panel p-8 relative group hover:border-gold/50 transition-colors active-card">
-                    <div class="text-gold text-4xl font-serif absolute top-6 left-6">"</div>
-                    <p class="text-gray-100 text-sm leading-relaxed mt-8 mb-8 relative z-10">
-                        I didn't even know my mother had a crypto wallet until Legacy's discovery scan found it. 
-                        That asset alone paid for the entire funeral and her grandkids' college funds.
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 glass-panel p-0.5 rounded-full overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop" class="w-full h-full object-cover rounded-full">
+                
+                <!-- Testimonial 2 - Large Portrait -->
+                <div class="portrait-card glass-card overflow-hidden reveal delay-2">
+                    <!-- Large Face Photo -->
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop" 
+                             alt="Sarah J." 
+                             class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+                        
+                        <!-- Status badge -->
+                        <div class="absolute top-4 right-4 glass-panel px-3 py-1.5 flex items-center gap-2">
+                            <div class="status-dot"></div>
+                            <span class="text-xs text-white uppercase tracking-widest">Verified</span>
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                                <div class="text-white text-xs font-bold uppercase tracking-widest">Sarah J.</div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-8 -mt-8 relative">
+                        <div class="text-gold text-6xl font-serif leading-none mb-4">“</div>
+                        <p class="text-white/80 text-lg leading-relaxed mb-6">
+                            I didn't know my mother had a crypto wallet until Legacy's discovery scan found it. It paid for the funeral and grandkids' college.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white font-bold text-lg" style="font-family: 'Cinzel', serif;">Sarah J.</div>
+                                <div class="text-gold text-sm uppercase tracking-widest">Hidden Assets Found</div>
                             </div>
-                            <div class="text-white/60 text-[10px] uppercase">$47k Assets Recovered</div>
+                            <div class="text-4xl font-bold text-emerald-400/30" style="font-family: 'Cinzel', serif;">$47K</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Review 3 -->
-                <div class="glass-panel p-8 relative group hover:border-gold/50 transition-colors active-card">
-                    <div class="text-gold text-4xl font-serif absolute top-6 left-6">"</div>
-                    <p class="text-gray-100 text-sm leading-relaxed mt-8 mb-8 relative z-10">
-                        The 'Peace of Mind' isn't just a slogan. Knowing that my wife won't have to fight with 
-                        bureaucrats when I'm gone is the best gift I could ever give her.
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 glass-panel p-0.5 rounded-full overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop" class="w-full h-full object-cover rounded-full">
+                
+                <!-- Testimonial 3 - Large Portrait -->
+                <div class="portrait-card glass-card overflow-hidden reveal delay-3">
+                    <!-- Large Face Photo -->
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" 
+                             alt="Robert T." 
+                             class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+                        
+                        <!-- Status badge -->
+                        <div class="absolute top-4 right-4 glass-panel px-3 py-1.5 flex items-center gap-2">
+                            <div class="status-dot"></div>
+                            <span class="text-xs text-white uppercase tracking-widest">Active</span>
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                                <div class="text-white text-xs font-bold uppercase tracking-widest">Robert T.</div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-8 -mt-8 relative">
+                        <div class="text-gold text-6xl font-serif leading-none mb-4">“</div>
+                        <p class="text-white/80 text-lg leading-relaxed mb-6">
+                            'Peace of Mind' isn't just a slogan. Knowing my wife won't fight bureaucrats when I'm gone is the best gift I could give her.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white font-bold text-lg" style="font-family: 'Cinzel', serif;">Robert T.</div>
+                                <div class="text-gold text-sm uppercase tracking-widest">Member Since 2023</div>
                             </div>
-                            <div class="text-white/60 text-[10px] uppercase">Member Since 2023</div>
+                            <div class="text-4xl font-bold text-gold/30" style="font-family: 'Cinzel', serif;">∞</div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
 
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
+    <!-- Sirsi-style Section Divider -->
+    <div class="section-divider pattern-hex"></div>
 
-    <!-- MEMBERSHIP -->
-    <section id="membership" class="py-24 px-6 relative z-10 texture-chevron">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex justify-between items-end mb-16 border-b border-gold/20 pb-6">
-                <h2 class="text-3xl text-white font-cinzel">MEMBERSHIP PROTOCOLS</h2>
-                <div class="text-sm text-white/70">Secure your legacy today</div>
+    <!-- =====================================================
+         PRICING SECTION - Clean & Bold
+         ===================================================== -->
+    <section id="pricing" class="py-24 bg-[#0f172a] relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 pattern-diamond opacity-20"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="status-dot"></div>
+                    <span class="text-emerald-400 text-sm font-bold tracking-[0.25em] uppercase">Pricing</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl text-white mb-6" style="font-family: 'Cinzel', serif;">
+                    Choose Your <span class="text-gold">Protocol</span>
+                </h2>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 items-start">
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
                 <!-- Basic -->
-                <div class="active-card p-8 flex flex-col">
+                <div class="glass-card p-8 flex flex-col reveal delay-1">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-[0.65rem] tracking-[0.2em] text-white/70 uppercase">Self-Guided</div>
+                        <div class="status-dot"></div>
+                        <div class="text-xs tracking-[0.2em] text-white/70 uppercase">Self-Guided</div>
                     </div>
-                    <div class="text-4xl font-cinzel text-white mb-6">FREE</div>
-                    <p class="text-white/80 text-sm mb-8 h-12">
+                    <div class="text-5xl text-white mb-2" style="font-family: 'Cinzel', serif;">FREE</div>
+                    <div class="text-xs text-white/50 uppercase mb-6">Forever</div>
+                    <p class="text-white/70 text-sm mb-8 flex-grow">
                         For families who need a roadmap but can handle the execution.
                     </p>
-                    <button class="w-full py-3 border border-white/20 text-white hover:bg-white hover:text-black transition-all text-xs font-bold uppercase tracking-widest">
+                    <button class="w-full py-4 border border-white/20 text-white hover:bg-white hover:text-black transition-all text-xs font-bold uppercase tracking-widest">
                         Start Free
                     </button>
                 </div>
 
-                <!-- Concierge (Gold) -->
-                <div class="active-card p-8 flex flex-col border-gold bg-gold/5 transform md:-translate-y-4">
+                <!-- Concierge (Gold) - Featured -->
+                <div class="glass-card p-8 flex flex-col border-gold/50 bg-gradient-to-b from-gold/10 to-transparent relative reveal delay-2 md:-mt-4 md:mb-4">
                     <div class="absolute top-0 left-0 w-full h-1 bg-gold"></div>
                     <div class="flex justify-between items-center mb-4">
                         <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                            <div class="text-[0.65rem] tracking-[0.2em] text-gold uppercase font-bold">Concierge</div>
+                            <div class="status-dot"></div>
+                            <div class="text-xs tracking-[0.2em] text-gold uppercase font-bold">Concierge</div>
                         </div>
-                        <div class="px-2 py-0.5 bg-gold text-black text-[0.6rem] font-bold uppercase">Recommended</div>
+                        <div class="px-3 py-1 bg-gold text-black text-[0.6rem] font-bold uppercase">Popular</div>
                     </div>
-                    <div class="text-5xl font-cinzel text-white mb-2">$2,997</div>
-                    <div class="text-[0.65rem] text-white/70 uppercase mb-6">One-Time Payment</div>
-                    <p class="text-white/80 text-sm mb-8 h-12">
-                        We do the heavy lifting. Includes automated filing and fraud protection.
+                    <div class="text-5xl text-white mb-2" style="font-family: 'Cinzel', serif;">$2,997</div>
+                    <div class="text-xs text-white/50 uppercase mb-6">One-Time Payment</div>
+                    <p class="text-white/70 text-sm mb-6 flex-grow">
+                        We do the heavy lifting. Automated filing and fraud protection included.
                     </p>
-                    <ul class="space-y-3 text-sm text-white mb-8">
-                        <li class="flex gap-2 items-center"><span class="text-gold">✓</span> 10 Certified Death Certificates</li>
-                        <li class="flex gap-2 items-center"><span class="text-gold">✓</span> Auto-Filing Service</li>
-                        <li class="flex gap-2 items-center"><span class="text-gold">✓</span> Priority Support</li>
+                    <ul class="space-y-3 text-sm text-white/80 mb-8">
+                        <li class="flex gap-3 items-center"><span class="text-gold">✓</span> 10 Certified Death Certificates</li>
+                        <li class="flex gap-3 items-center"><span class="text-gold">✓</span> Auto-Filing Service</li>
+                        <li class="flex gap-3 items-center"><span class="text-gold">✓</span> Priority Support</li>
+                        <li class="flex gap-3 items-center"><span class="text-gold">✓</span> Asset Discovery Scan</li>
                     </ul>
-                    <button class="w-full py-4 btn-legacy text-xs">
+                    <button class="btn-legacy w-full">
                         Secure Membership
                     </button>
                 </div>
 
                 <!-- White Glove -->
-                <div class="active-card p-8 flex flex-col">
+                <div class="glass-card p-8 flex flex-col reveal delay-3">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2 h-2 bg-green-500 rounded-full status-dot"></div>
-                        <div class="text-[0.65rem] tracking-[0.2em] text-white/70 uppercase">White Glove</div>
+                        <div class="status-dot"></div>
+                        <div class="text-xs tracking-[0.2em] text-white/70 uppercase">White Glove</div>
                     </div>
-                    <div class="text-4xl font-cinzel text-white mb-6">$9,997</div>
-                    <p class="text-white/80 text-sm mb-8 h-12">
+                    <div class="text-5xl text-white mb-2" style="font-family: 'Cinzel', serif;">$9,997</div>
+                    <div class="text-xs text-white/50 uppercase mb-6">One-Time Payment</div>
+                    <p class="text-white/70 text-sm mb-8 flex-grow">
                         Dedicated human estate agent for complex asset administration.
                     </p>
-                    <button class="w-full py-3 border border-white/20 text-white hover:bg-white hover:text-black transition-all text-xs font-bold uppercase tracking-widest">
+                    <button class="w-full py-4 border border-white/20 text-white hover:bg-white hover:text-black transition-all text-xs font-bold uppercase tracking-widest">
                         Contact Sales
                     </button>
                 </div>
@@ -629,59 +1037,194 @@
         </div>
     </section>
 
-    <!-- Art Deco Divider -->
-    <div class="deco-divider relative z-10"></div>
-
-    <!-- FAQ (New Section) -->
-    <section class="py-24 px-6 relative z-10 texture-deco-grid">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl text-white mb-4 font-cinzel">FREQUENTLY ASKED QUESTIONS</h2>
-            </div>
-            <div class="space-y-6">
-                <div class="glass-panel p-6 rounded-sm">
-                    <h3 class="text-white font-bold text-sm mb-2">Is my data safe?</h3>
-                    <p class="text-white/80 text-sm">Yes. We use AES-256 encryption and a Zero-Knowledge architecture. We cannot see your data until you unlock it.</p>
+    <!-- =====================================================
+         FINAL CTA - Soaring Full-Bleed Sunrise
+         ===================================================== -->
+    <section class="photo-section min-h-[70vh]">
+        <!-- Full-bleed Background Photo -->
+        <div class="photo-bg">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Sunrise over mountains - new beginnings" 
+                 class="brightness-75">
+        </div>
+        
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/50 to-transparent z-1"></div>
+        
+        <!-- Animated Orbs -->
+        <div class="floating-orbs">
+            <div class="orb orb-gold w-72 h-72 top-20 -right-20 animate-float-1 animate-pulse-glow"></div>
+            <div class="orb orb-emerald w-48 h-48 bottom-40 left-10 animate-float-2"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="photo-content text-center px-6 max-w-4xl mx-auto">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-6xl lg:text-7xl text-white mb-8 leading-tight" style="font-family: 'Cinzel', serif;">
+                    Rise Forward.<br>
+                    <span class="text-gold">Begin Your Legacy.</span>
+                </h2>
+                
+                <p class="text-xl md:text-2xl text-white/70 mb-12 max-w-2xl mx-auto">
+                    Don't let paperwork steal your moments of remembrance. Let us handle the chaos—so you can honor what matters.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="btn-legacy text-lg px-12 py-5">
+                        Initialize Protocol
+                    </button>
+                    <button class="btn-outline text-lg px-12 py-5">
+                        Schedule a Call
+                    </button>
                 </div>
-                <div class="glass-panel p-6 rounded-sm">
-                    <h3 class="text-white font-bold text-sm mb-2">What happens if I stop paying?</h3>
-                    <p class="text-white/80 text-sm">Our Concierge plan is a one-time payment. Your data remains secure forever.</p>
-                </div>
-                <div class="glass-panel p-6 rounded-sm">
-                    <h3 class="text-white font-bold text-sm mb-2">How does the transfer work?</h3>
-                    <p class="text-white/80 text-sm">We use a multi-signature verification process involving your designated executors and our legal team.</p>
+                
+                <!-- Trust badges -->
+                <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-white/40 text-xs tracking-widest uppercase">
+                    <div class="flex items-center gap-2">
+                        <div class="status-dot"></div>
+                        <span>Setup in 15 Minutes</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="status-dot"></div>
+                        <span>No Credit Card Required</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="status-dot"></div>
+                        <span>Cancel Anytime</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- COMPACT FOOTER -->
-    <footer class="border-t border-gold/30 glass-panel py-8 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            
-            <div class="flex items-center gap-4">
-                <div class="w-6 h-6 text-gold">
-                    <svg viewBox="0 0 100 100" class="w-full h-full fill-current" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 20 C55 20 58 25 58 30 C58 35 55 38 50 38 C45 38 42 35 42 30 C42 25 45 20 50 20 M50 40 C60 40 70 30 80 15 C85 25 85 45 70 55 L60 60 L65 90 L50 85 L35 90 L40 60 L30 55 C15 45 15 25 20 15 C30 30 40 40 50 40 Z" />
-                    </svg>
+    <footer class="bg-[#0a0f1a] border-t border-white/5 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 text-gold">
+                        <svg viewBox="0 0 100 100" class="w-full h-full fill-current" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 20 C55 20 58 25 58 30 C58 35 55 38 50 38 C45 38 42 35 42 30 C42 25 45 20 50 20 M50 40 C60 40 70 30 80 15 C85 25 85 45 70 55 L60 60 L65 90 L50 85 L35 90 L40 60 L30 55 C15 45 15 25 20 15 C30 30 40 40 50 40 Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold text-white tracking-widest" style="font-family: 'Cinzel', serif;">LEGACY</span>
+                        <span class="text-white/30 mx-2">|</span>
+                        <span class="text-sm text-white/50">The Estate Operating System</span>
+                    </div>
                 </div>
-                <span class="text-sm font-bold text-white font-cinzel tracking-widest">LEGACY</span>
-                <span class="hidden md:inline text-white/30 text-xs mx-2">|</span>
-                <span class="text-xs text-white/60">The Estate Operating System</span>
-            </div>
 
-            <div class="flex gap-8 text-[0.65rem] font-bold tracking-widest text-white/70 uppercase">
-                <a href="#" class="hover:text-gold transition-colors">Security</a>
-                <a href="#" class="hover:text-gold transition-colors">Pricing</a>
-                <a href="#" class="hover:text-gold transition-colors">Privacy</a>
-                <a href="#" class="hover:text-gold transition-colors">Contact</a>
-            </div>
+                <div class="flex flex-wrap justify-center gap-8 text-xs font-bold tracking-widest text-white/50 uppercase">
+                    <a href="#security" class="hover:text-gold transition-colors">Security</a>
+                    <a href="#pricing" class="hover:text-gold transition-colors">Pricing</a>
+                    <a href="#" class="hover:text-gold transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-gold transition-colors">Terms</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact</a>
+                </div>
 
-            <div class="text-[0.65rem] text-white/50 uppercase tracking-widest">
-                &copy; 2024 Legacy OS Inc.
+                <div class="text-xs text-white/30 uppercase tracking-widest">
+                    &copy; 2024 Legacy OS Inc.
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- =====================================================
+         SCROLL ANIMATIONS & INTERACTIONS
+         ===================================================== -->
+    <script>
+        // Intersection Observer for reveal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all reveal elements
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animated counter for stats
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        if (target && !counter.classList.contains('counted')) {
+                            counter.classList.add('counted');
+                            animateCounter(counter, target);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.stat-counter[data-target]').forEach(el => {
+                counterObserver.observe(el);
+            });
+
+            function animateCounter(element, target) {
+                const duration = 2000;
+                const start = 0;
+                const startTime = performance.now();
+                const suffix = element.textContent.includes('%') ? '%' : 
+                              element.textContent.includes('+') ? '+' : '';
+
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Easing function for smooth animation
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(start + (target - start) * easeOut);
+                    element.textContent = current + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        element.textContent = target + suffix;
+                    }
+                }
+
+                requestAnimationFrame(update);
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Navbar background on scroll
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.classList.add('bg-black/80');
+                    nav.classList.remove('bg-black/20');
+                } else {
+                    nav.classList.remove('bg-black/80');
+                    nav.classList.add('bg-black/20');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

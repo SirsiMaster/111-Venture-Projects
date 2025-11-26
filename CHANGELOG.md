@@ -1,5 +1,145 @@
 # Changelog
 
+## [3.3.0] - 2025-11-26
+
+### Domain-Specific Multi-Agent Architecture
+
+#### Agent System Implementation
+Created 6 specialized domain agents with pre-flight checklists and dependency management:
+
+| Agent | Path | Domain |
+|-------|------|--------|
+| Auth | `agents/auth/AGENT.md` | Authentication, users, sessions, MFA |
+| Estate | `agents/estate/AGENT.md` | Estates, assets, heirs, 4-phase protocol |
+| Vault | `agents/vault/AGENT.md` | Documents, OCR, encryption, versioning |
+| Compliance | `agents/compliance/AGENT.md` | 6-state probate rules (IL, MI, MN, DC, VA, MD) |
+| Notify | `agents/notify/AGENT.md` | Email, push, SMS, letter generation |
+| LLM | `agents/llm/AGENT.md` | Vertex AI, RAG, recommendations |
+
+#### Agent Governance Protocol
+Every agent now includes:
+- Pre-flight checklist (MUST complete before coding)
+- Cross-agent impact analysis
+- Dependency verification
+- State verification commands
+- Changelog tracking
+
+#### Updated Documents
+- `WARP.md` - Added agentic development model and agent invocation instructions
+- `proposals/COST_PROPOSAL.md` - Added state-of-the-art agentic architecture section (3.1-3.5)
+
+#### Architecture Philosophy
+- Modular context (each agent fits context window)
+- State awareness (pre-flight verifies system state)
+- Coordinated changes (dependency graph prevents conflicts)
+- Domain expertise (specialized knowledge per agent)
+
+---
+
+## [3.2.0] - 2025-11-26
+
+### Scope Refinement: 6-State MVP Launch
+
+#### Geographic Scope
+- **MVP States:** Illinois, Michigan, Minnesota, DC, Virginia, Maryland
+- Midwest coverage (IL, MI, MN) + DC Metro coverage (DC, VA, MD)
+- State-specific probate rules and institution templates per state
+- Remaining 44 states targeted for v1.1+
+
+#### Timeline Update
+- Revised from 90 days to 4 months (16 weeks)
+- Cost proposal updated: $80K-$100K
+
+#### Updated Documents
+- `docs/PROJECT_SCOPE.md` v1.1.0 - 6-state scope, 4-month timeline
+- `docs/REQUIREMENTS_SPECIFICATION.md` v1.1.0 - State-specific requirements
+- `proposals/COST_PROPOSAL.md` v3.0.0 - Realistic $80K MVP estimate
+
+---
+
+## [3.1.0] - 2025-11-26
+
+### Architecture Revision: AI-Agentic + GCP/Firebase
+
+#### Major Changes
+- **Stack:** Switched from AWS to GCP/Firebase
+- **Development Model:** AI-agentic (Claude + AI tools, no human dev team)
+- **Budget:** Revised from $425K-$485K to $20K-$35K
+- **Mobile Strategy:** PWA instead of native iOS/Android
+
+#### Updated Documents
+- `WARP.md` - Added governance rules from Assiduous
+- `docs/ARCHITECTURE_DESIGN.md` - GCP/Firebase stack
+- `proposals/COST_PROPOSAL.md` - AI-agentic pricing (<$100K)
+
+#### Technology Stack (Revised)
+- **Backend:** Firebase Functions
+- **Database:** Firestore (NoSQL)
+- **Auth:** Firebase Authentication
+- **Storage:** Cloud Storage for Firebase
+- **Hosting:** Firebase Hosting (PWA)
+- **AI/LLM:** Vertex AI / Claude API
+- **Integrations:** MCP (Model Context Protocol)
+
+#### Governance Rules Added
+- Rule 0: Challenge bad ideas
+- Rule 1: Check Sirsi first, then Legacy
+- Rule 2: Implement, don't instruct
+- Rule 3: Test in browser before claiming complete
+- Rule 4: Follow the pipeline (LOCAL → GITHUB → FIREBASE)
+- Rule 5: Match existing design
+- Rule 6: Measure by specs, not file counts
+- Rule 7: Enhance, don't duplicate
+
+---
+
+## [3.0.0] - 2025-11-26
+
+### Full Platform Architecture & Documentation
+
+#### Platform Planning Complete
+- Defined full-stack architecture: Go + Next.js + Flutter + AWS
+- Created 18 comprehensive documentation files in `docs/`
+- Created SOW and Cost Proposal in `proposals/`
+- Established 90-day MVP timeline with 4 development phases
+
+#### Technology Decisions
+- **Backend:** Go 1.21+ with Gin framework
+- **Database:** PostgreSQL 15+ with Redis caching
+- **Web:** Next.js 14 with TypeScript
+- **Mobile:** Flutter for iOS and Android
+- **Infrastructure:** AWS (ECS Fargate, RDS, S3, CloudFront, Cognito)
+
+#### Documentation Added
+- `docs/REQUIREMENTS_SPECIFICATION.md` - Functional/non-functional requirements
+- `docs/PROJECT_SCOPE.md` - MVP scope and deliverables
+- `docs/USER_STORIES.md` - 4 personas, 30+ user stories
+- `docs/PROJECT_MANAGEMENT.md` - Sprint structure and milestones
+- `docs/RISK_MANAGEMENT.md` - 10 identified risks with mitigations
+- `docs/ARCHITECTURE_DESIGN.md` - System architecture
+- `docs/TECHNICAL_DESIGN.md` - Implementation patterns
+- `docs/DATA_MODEL.md` - PostgreSQL schema
+- `docs/API_SPECIFICATION.md` - REST API endpoints
+- `docs/SECURITY_COMPLIANCE.md` - SOC2, encryption, compliance
+- `docs/TEST_PLAN.md` - Testing strategy
+- `docs/QA_PLAN.md` - Quality assurance
+- `docs/DEPLOYMENT_GUIDE.md` - AWS deployment procedures
+- `docs/MAINTENANCE_SUPPORT.md` - SLA and support tiers
+- `docs/CHANGE_MANAGEMENT.md` - Release management
+- `docs/COMMUNICATION_PLAN.md` - Stakeholder communication
+- `docs/TRAINING_DOCUMENTATION.md` - User and developer guides
+- `docs/POST_IMPLEMENTATION_REVIEW.md` - Review template
+
+#### Proposals Added
+- `proposals/SOW.md` - Statement of Work
+- `proposals/COST_PROPOSAL.md` - $425,000-$485,000 estimate
+
+#### AI Context Files
+- Updated `WARP.md` for full platform context
+- Added `claude.md` for Claude AI assistance
+
+---
+
 ## [2.5.0] - 2025-11-26
 
 ### Visual Overhaul - Compact & Polished

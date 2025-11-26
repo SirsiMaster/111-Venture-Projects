@@ -1,0 +1,175 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // =============================================
+    // AUTH AGENT - User Collections
+    // =============================================
+    
+    // Users collection - each user can only access their own document
+    match /users/{userId} {
+      // Users can read their own document
+      allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // Users can create their own document (on registration)
+      allow create: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasAll(['email', 'role', 'createdAt'])
+        && request.resource.data.role in ['principal', 'executor', 'heir'];
+      
+      // Users can update their own document (limited fields)
+      allow update: if request.auth != null && request.auth.uid == userId
+        && (!request.resource.data.diff(resource.data).affectedKeys()
+            .hasAny(['role', 'createdAt']))  // Cannot change role or createdAt
+        || isAdmin();
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+    
+    // Sessions collection - users can only access their own sessions
+    match /sessions/{sessionId} {
+      allow read, write: if request.auth != null 
+        && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // =============================================
+    // ESTATE AGENT - Estate Collections
+    // =============================================
+    
+    match /estates/{estateId} {
+      // Principals can read/write their own estates
+      allow read: if request.auth != null && (
+        resource.data.principalId == request.auth.uid ||
+        isExecutorOf(estateId) ||
+        isHeirOf(estateId) ||
+        isAdmin()
+      );
+      
+      allow create: if request.auth != null
+        && request.resource.data.principalId == request.auth.uid;
+      
+      allow update: if request.auth != null && (
+        resource.data.principalId == request.auth.uid ||
+        isExecutorOf(estateId) ||
+        isAdmin()
+      );
+      
+      allow delete: if isAdmin();
+      
+      // Subcollections under estates
+      match /assets/{assetId} {
+        allow read, write: if canAccessEstate(estateId);
+      }
+      
+      match /heirs/{heirId} {
+        allow read, write: if canAccessEstate(estateId);
+      }
+      
+      match /documents/{documentId} {
+        allow read, write: if canAccessEstate(estateId);
+      }
+      
+      match /timeline/{eventId} {
+        allow read: if canAccessEstate(estateId);
+        allow create: if canAccessEstate(estateId);
+        allow update, delete: if false; // Timeline is append-only
+      }
+      
+      match /letters/{letterId} {
+        allow read, write: if canAccessEstate(estateId);
+      }
+    }
+    
+    // =============================================
+    // COMPLIANCE AGENT - State Rules (Read-only)
+    // =============================================
+    
+    match /states/{stateCode} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+      
+      match /checklists/{checklistId} {
+        allow read: if request.auth != null;
+        allow write: if isAdmin();
+      }
+      
+      match /templates/{templateId} {
+        allow read: if request.auth != null;
+        allow write: if isAdmin();
+      }
+    }
+    
+    match /institutions/{institutionId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // =============================================
+    // NOTIFY AGENT - Notifications
+    // =============================================
+    
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null 
+        && resource.data.userId == request.auth.uid;
+      allow create: if false; // Only created by functions
+      allow update: if request.auth != null 
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['readAt', 'status']);
+      allow delete: if false;
+    }
+    
+    match /user-preferences/{userId} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == userId;
+    }
+    
+    // =============================================
+    // LLM AGENT - Conversations
+    // =============================================
+    
+    match /conversations/{conversationId} {
+      allow read, write: if request.auth != null 
+        && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid;
+    }
+    
+    match /knowledge-base/{articleId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // =============================================
+    // Helper Functions
+    // =============================================
+    
+    function isAdmin() {
+      return request.auth != null 
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isExecutorOf(estateId) {
+      let estate = get(/databases/$(database)/documents/estates/$(estateId));
+      return estate.data.executors != null 
+        && request.auth.uid in estate.data.executorUserIds;
+    }
+    
+    function isHeirOf(estateId) {
+      return exists(/databases/$(database)/documents/estates/$(estateId)/heirs/$(request.auth.uid));
+    }
+    
+    function canAccessEstate(estateId) {
+      let estate = get(/databases/$(database)/documents/estates/$(estateId));
+      return request.auth != null && (
+        estate.data.principalId == request.auth.uid ||
+        isExecutorOf(estateId) ||
+        isHeirOf(estateId) ||
+        isAdmin()
+      );
+    }
+  }
+}

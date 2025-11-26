@@ -68,13 +68,12 @@ import {
  * @type {Object}
  */
 const firebaseConfig = {
-    apiKey: "AIzaSyExample_REPLACE_WITH_REAL_KEY",
+    apiKey: "AIzaSyANMDZXcdn2eI8JN8FxXlAkCt-f4BONuiU",
     authDomain: "legacy-estate-os.firebaseapp.com",
     projectId: "legacy-estate-os",
     storageBucket: "legacy-estate-os.firebasestorage.app",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456",
-    measurementId: "G-XXXXXXXXXX"
+    messagingSenderId: "1002875213628",
+    appId: "1:1002875213628:web:59d3f4b04345f3f7abb039"
 };
 
 // Environment detection

@@ -3,59 +3,76 @@
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
 ## Project Overview
-"Legacy" is a Progressive Web App (PWA) for 111 Venture Studio, built with vanilla HTML/CSS/JS. The project implements a "Sirsi" design system with a skeuomorphic/glassmorphism aesthetic.
+**Legacy v1** is a single-page marketing site for "The Estate Operating System" - an end-of-life estate management platform. The site is deployed via GitHub Pages.
 
-All project files are located in the `legacy/` subdirectory.
+**Design Aesthetic: "Opulent, Permanent, Guardian-Like"**
+- Deep Royal Blue Gradient background (NOT black)
+- Solid Metallic Gold (`#D4AF37`) buttons with hover brightening (NO gradients on buttons)
+- High-contrast text (`text-gray-100` or white)
+- Compact footer (`py-8`)
+- "Alive UI" with green pulse dots on cards
+- Tech borders/glowing frames
+- `bg-grain` film overlay for texture
+
+## File Structure
+```
+Legacy/
+├── index.html      # The single-page site (GitHub Pages entry point)
+├── README.md       # Project readme
+├── WARP.md         # This file
+├── .nojekyll       # Disables Jekyll processing
+└── .gitignore
+```
 
 ## Development Workflow
 
-### Running the Application
-Because the project relies on static files, no build step is required. You can serve the application locally using Python.
+### Local Preview
+```bash
+cd "/Users/thekryptodragon/Development/111 Venture Studio/Legacy"
+python3 -m http.server 8000
+```
+Then visit: http://localhost:8000
 
-1.  **Start Server:**
-    ```bash
-    python3 -m http.server -d legacy 8000
-    ```
-2.  **Access App:**
-    - Marketing Site: [http://localhost:8000/index.html](http://localhost:8000/index.html)
-    - App Console: [http://localhost:8000/app.html](http://localhost:8000/app.html)
+### Deployment
+The site is deployed automatically via GitHub Pages from the `main` branch.
 
-### Testing
-- Testing is currently manual. Verify responsiveness on mobile and desktop views.
-- Check PWA functionality (manifest, service worker) using browser DevTools (Application tab).
+## Design Tokens (CSS Variables)
+```css
+--color-gold: #D4AF37;
+--color-gold-bright: #FCD34D;
+--color-blue-deep: #0f172a;
+--color-blue-royal: #1e3a8a;
+--glass-surface: rgba(15, 23, 42, 0.85);
+--glass-border: rgba(255, 255, 255, 0.15);
+```
 
-## Architecture & Code Structure
+## Typography
+- **Headings**: `Cinzel` (serif, uppercase tracking)
+- **Body**: `Inter` (sans-serif)
 
-### Directory Structure
-The root project logic resides in `legacy/`:
-- **HTML**: `index.html` (Landing), `app.html` (Main App), `pricing.html`, `about.html`.
-- **Assets**: `legacy/assets/` contains all styles, scripts, and images.
-
-### Key Components
-#### CSS (`legacy/assets/css/`)
-- `legacy.css`: The single source of truth for the design system.
-  - Uses CSS variables for colors/fonts.
-  - Implements BEM-like naming.
-  - Contains media queries for responsiveness.
-
-#### JavaScript (`legacy/assets/js/`)
-- `legacy.js`: Core application logic.
-  - Handles routing, authentication simulation, and state management.
-  - Contains the "Shepherd" engine for task automation simulation.
-- `landing.js`: Interactions for the marketing/landing pages (scroll effects, mobile menu).
-- `mock-data.js`: Seed data for the application state.
-
-#### PWA
-- `manifest.json`: Configuration for app installability.
-- `service-worker.js`: Handles offline capabilities and caching.
+## Key Components
+- `.btn-legacy` - Gold solid button with hover glow
+- `.glass-panel` - Frosted glass surface
+- `.active-card` - Card with gold hover border and tech line decorator
+- `.status-dot` - Green pulsing "alive" indicator
+- `.bg-grain` - Film grain texture overlay
 
 ## Rules & Guidelines
 
-### Coding Standards
-- **Vanilla Stack**: Do not introduce build tools (Webpack, Vite) or frameworks (React, Vue) unless explicitly requested. Keep it simple HTML/CSS/JS.
-- **Design Consistency**: Always reuse classes from `legacy.css`. Do not use inline styles unless necessary for dynamic values (e.g., progress bars).
-- **Cache Busting**: When making significant CSS changes, update the version query string in HTML files (e.g., `<link href="assets/css/legacy.css?v=6">` to `?v=7`).
+### DO
+- Keep everything in a single `index.html` file (Tailwind CDN)
+- Use the approved Royal Blue gradient background
+- Use solid gold buttons that brighten on hover
+- Maintain high text contrast (white/gray-100)
+- Include the grain overlay for texture
+
+### DO NOT
+- Revert to dark/black backgrounds
+- Use gradients on buttons
+- Make the footer huge (keep `py-8`)
+- Use low-contrast gray text
+- Introduce build tools or frameworks without explicit request
 
 ### Interaction Rules
-- **Links**: Always provide a localhost link to the relevant page after completing a task.
-- **Code Formatting**: Ensure all code blocks in responses include the file path and start line.
+- Always provide a link to the live page after completing a task
+- Format code blocks with file path and start line

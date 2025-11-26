@@ -760,18 +760,30 @@ tr:hover {
 /* ============================================================================
    MODALS
    ============================================================================ */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+}
+
+.modal.show {
+    display: block;
+}
+
 .modal-backdrop {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     z-index: var(--z-modal-backdrop);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.modal {
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: var(--color-white);
     border-radius: var(--radius-lg);
     width: min(600px, 90vw);

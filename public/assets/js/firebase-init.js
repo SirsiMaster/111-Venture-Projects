@@ -141,6 +141,11 @@ async function initializeFirebase(maxRetries = 3) {
             isInitialized = true;
             connectionState = 'online';
             
+            // Make db available globally for services
+            window.firebaseDb = db;
+            window.firebaseAuth = auth;
+            window.firebaseStorage = storage;
+            
             // Dispatch ready event
             window.dispatchEvent(new CustomEvent('firebase-ready', {
                 detail: { app, auth, db, storage, analytics }
